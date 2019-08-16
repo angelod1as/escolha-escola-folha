@@ -1,5 +1,5 @@
 {
-	"name": "boilerplate-react",
+	"name": "escolha-a-escola",
 	"version": "1.1.0",
 	"description": "Boilerplate com webpack e react para o interativo da Folha de S.Paulo",
 	"main": "install.js",
@@ -63,11 +63,16 @@
 		"deploy/production": "./bin/production.sh"
 	},
 	"dependencies": {
-		"folhastyle": "http://gitlab.corp.folha.com.br/statics-arte/folhastyle.git#3.0",
 		"jsonp": "^0.2.1",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.3",
-		"react-dom": "npm:@hot-loader/react-dom",
-		"utils": "http://gitlab.corp.folha.com.br/statics-arte/utils.git#v1.0.0"
+		"react-dom": "npm:@hot-loader/react-dom"
+	},
+	"config": {
+		"section": "Especiais",
+		"sectionSlug": "especiais",
+		"name": "Escolha a Escola",
+		"date": "01/09/2019",
+		"baseURL": "especiais/2019/09/01/escolha-a-escola/"
 	}
 }
