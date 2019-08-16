@@ -1,13 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-export default class App extends Component {
-	render() {
-		const { data } = this.props;
-		return data.map(item => (<p key={item.data}>{item.data}</p>));
-	}
-}
+import Layout from './components/layout';
+import Home from './routes/home';
 
-App.propTypes = {
-	data: PropTypes.array.isRequired,
-};
+/* ROUTING:
+- main (search form) = /
+- cities = /&cities=[cidade],[cidade],[cidade],[cidade]
+- schools = /escola/[nome da escola]
+*/
+
+const App = () => (
+	<Layout>
+		<Router>
+			<Switch>
+				<Route exact path="/" component={Home} />
+				{/* <Route path="/about" component={About} /> */}
+				{/* <Route path="/contact" component={Contact} /> */}
+			</Switch>
+		</Router>
+	</Layout>
+);
+
+export default App;

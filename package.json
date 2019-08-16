@@ -63,10 +63,15 @@
 		"deploy/production": "./bin/production.sh"
 	},
 	"dependencies": {
+		"axios": "^0.19.0",
 		"jsonp": "^0.2.1",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.3",
-		"react-dom": "npm:@hot-loader/react-dom"
+		"react-autosuggest": "^9.4.3",
+		"react-dom": "npm:@hot-loader/react-dom",
+		"react-router-dom": "^5.0.1",
+		"styled-components": "^4.3.2",
+		"uuid": "^3.3.2"
 	},
 	"config": {
 		"section": "Especiais",
