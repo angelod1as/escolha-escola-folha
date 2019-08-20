@@ -8,13 +8,38 @@ import PropTypes from 'prop-types';
 import ufList from '../../utils/states';
 
 import Loading from '../../components/loading';
-import Autosugest from './autosugest';
+import Autosuggest from './autosuggest';
 
 const Selected = styled.div`
-	span {
-		padding: 3px 5px;
-		background-color: lightgray;
+	p {
+		display: inline-block;
+		padding: 5px 10px;
 		margin: 0 5px;
+		border-radius: 5px;
+		border: 1px solid ${p => p.theme.color.color};
+
+		button {
+			cursor: pointer;
+			color: ${p => p.theme.color.gray};
+			margin: 0 5px 0 10px;
+			appearance: none;
+			border: none;
+			&:hover {
+				color: ${p => p.theme.color.color};
+			}
+		}
+	}
+`;
+
+const Form = styled.form`
+	label, select {
+		display: block;
+	}
+	label {
+		margin: 20px 0;
+	}
+	select, .autosuggest {
+		margin: 10px 0;
 	}
 `;
 
@@ -38,6 +63,7 @@ export default class Home extends Component {
 
 		this.handleUfChange = this.handleUfChange.bind(this);
 		this.changeChosen = this.changeChosen.bind(this);
+		this.deleteTag = this.deleteTag.bind(this);
 	}
 
 	handleUfChange(event) {
@@ -58,6 +84,8 @@ export default class Home extends Component {
 
 					this.setState({ loading: 2, lists });
 				});
+		} else {
+			this.setState({ loading: 0 });
 		}
 	}
 
@@ -69,6 +97,12 @@ export default class Home extends Component {
 		}
 	}
 
+	deleteTag(code) {
+		const { chosen } = this.state;
+		const newChosen = chosen.filter(each => each !== code);
+		this.setState({ chosen: newChosen });
+	}
+
 	render() {
 		const {
 			lists, selected, loading, chosen,
@@ -76,14 +110,16 @@ export default class Home extends Component {
 		const { ufs, cities } = lists;
 		const { uf } = selected;
 
-		// for Autosugest
+		// for autosuggest
 		const autoList = Object.keys(cities).map(each => ({
 			name: cities[each].city_name,
 			code: each,
 		}));
 
 		return (
-			<form onSubmit={(e) => { e.preventDefault(); }}>
+			<Form onSubmit={(e) => { e.preventDefault(); }}>
+
+				{/* STATE */}
 				<label htmlFor="uf">
 						Selecione o Estado:
 					<select name="uf" id="uf" value={uf} onChange={this.handleUfChange}>
@@ -92,19 +128,34 @@ export default class Home extends Component {
 						))}
 					</select>
 				</label>
+
+				{/* LOADING JSON */}
 				<Loading loading={loading}>
+
+					{/* CITY */}
 					<label htmlFor="city">
 						Selecione a cidade:
-						<Autosugest list={autoList} changeChosen={this.changeChosen} />
+						<div className="autosuggest">
+							<Autosuggest list={autoList} changeChosen={this.changeChosen} />
+						</div>
 					</label>
+
+					{/* SELECTED CITIES */}
+					<Selected>
+						{chosen.map(each => (
+							<p key={uuid()}>
+								{cities[each].city_name}
+								<button type="button" data-code={each} onClick={e => this.deleteTag(e.target.dataset.code)}>×</button>
+							</p>
+						))}
+					</Selected>
+
+					{/* BUTTON */}
+					{chosen.length > 0
+						? <Link to={`lista/${chosen}`}>Continuar</Link>
+						: ''}
 				</Loading>
-				<Selected>
-					{chosen.map(each => <span key={uuid()}>{cities[each].city_name}</span>)}
-				</Selected>
-				{chosen.length > 0
-					? <Link to={`lista/${chosen}`}>Continuar</Link>
-					: ''}
-			</form>
+			</Form>
 		);
 	}
 }

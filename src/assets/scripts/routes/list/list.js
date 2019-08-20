@@ -3,10 +3,17 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-// import { Container } from './styles';
 
 import Loading from '../../components/loading';
+
+const ListWrapper = styled.div`
+	a {
+		display: block;
+	}
+`;
+
 
 export default class List extends Component {
 	constructor(props) {
@@ -55,8 +62,9 @@ export default class List extends Component {
 				<Loading loading={loading}>
 					<form>FILTROS</form>
 					<hr />
-					<div>LISTA</div>
-					{list}
+					<ListWrapper>
+						{list}
+					</ListWrapper>
 				</Loading>
 			</>
 		);

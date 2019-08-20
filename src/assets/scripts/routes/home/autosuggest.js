@@ -34,7 +34,7 @@ const renderSuggestion = suggestion => (
 	</div>
 );
 
-export default class Autosugest extends Component {
+export default class autosuggest extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -113,7 +113,7 @@ export default class Autosugest extends Component {
 	}
 }
 
-Autosugest.propTypes = {
+autosuggest.propTypes = {
 	changeChosen: PropTypes.func.isRequired,
 	list: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };

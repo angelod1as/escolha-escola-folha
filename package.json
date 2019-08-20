@@ -71,6 +71,8 @@
 		"react-dom": "npm:@hot-loader/react-dom",
 		"react-router-dom": "^5.0.1",
 		"styled-components": "^4.3.2",
+		"styled-normalize": "^8.0.6",
+		"styled-reset": "^3.0.2",
 		"uuid": "^3.3.2"
 	},
 	"config": {
