@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auto from 'react-autosuggest';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const AutoWrapper = styled.div`
 	.react-autosuggest__container,
@@ -20,9 +21,6 @@ const AutoWrapper = styled.div`
 		display: block;
 	}
 `;
-
-
-// import { Container } from './styles';
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -114,3 +112,8 @@ export default class Autosugest extends Component {
 		);
 	}
 }
+
+Autosugest.propTypes = {
+	changeChosen: PropTypes.func.isRequired,
+	list: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};

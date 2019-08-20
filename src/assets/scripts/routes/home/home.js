@@ -3,7 +3,7 @@ import uuid from 'uuid/v1';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 
 import ufList from '../../utils/states';
 
@@ -108,3 +108,7 @@ export default class Home extends Component {
 		);
 	}
 }
+
+Home.propTypes = {
+	output: PropTypes.string.isRequired,
+};

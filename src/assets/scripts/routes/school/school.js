@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import Loading from '../../components/loading';
 
@@ -34,13 +35,18 @@ export default class School extends Component {
 			});
 	}
 
-
 	render() {
 		const { loading, school } = this.state;
+		const { name } = school;
 		return (
 			<Loading loading={loading}>
-				<div>oi</div>
+				{name}
 			</Loading>
 		);
 	}
 }
+
+School.propTypes = {
+	code: PropTypes.string.isRequired,
+	output: PropTypes.string.isRequired,
+};

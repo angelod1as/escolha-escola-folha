@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import uuid from 'uuid/v1';
+import PropTypes from 'prop-types';
 
 // import { Container } from './styles';
 
@@ -41,6 +43,7 @@ export default class List extends Component {
 								to={`/escola/${schoolCode}`}
 								data-city={cityCode}
 								data-code={schoolCode}
+								key={uuid()}
 							>
 								{data.school_name}
 							</Link>
@@ -59,3 +62,8 @@ export default class List extends Component {
 		);
 	}
 }
+
+List.propTypes = {
+	codes: PropTypes.arrayOf(PropTypes.string).isRequired,
+	output: PropTypes.string.isRequired,
+};
