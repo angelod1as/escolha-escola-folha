@@ -10,6 +10,9 @@ import ufList from '../../utils/states';
 import Loading from '../../components/loading';
 import Autosuggest from './autosuggest';
 
+const spCode = '3550308';
+// const rjCode = '3304557';
+
 const Selected = styled.div`
 	p {
 		display: inline-block;
@@ -30,6 +33,8 @@ const Selected = styled.div`
 		}
 	}
 `;
+
+const Zones = styled.div``;
 
 const Form = styled.form`
 	label, select {
@@ -54,21 +59,56 @@ export default class Home extends Component {
 			},
 			selected: {
 				uf: 'Selecione',
+				zone: 'Selecione',
 			},
 			auto: {
 				list: {},
 			},
 			chosen: [],
+			chosenZones: [],
+			hasZones: false,
 		};
 
 		this.handleUfChange = this.handleUfChange.bind(this);
+		this.handleZoneChange = this.handleZoneChange.bind(this);
 		this.changeChosen = this.changeChosen.bind(this);
 		this.deleteTag = this.deleteTag.bind(this);
+		this.getZones = this.getZones.bind(this);
+	}
+
+	getZones() {
+		const { chosen } = this.state;
+		const zones = [];
+		if (chosen.includes(spCode)) {
+			zones.push('Selecione', 'Centro', 'Norte', 'Leste', 'Sul', 'Oeste');
+		}
+		return zones;
+	}
+
+	continueBtn() {
+		const { chosen, hasZones, chosenZones } = this.state;
+		let finalList = [...chosen];
+		if (finalList.length > 0) {
+			if (!hasZones) {
+				return <Link to={`lista/${finalList}`}>Continuar</Link>;
+			}
+			if (chosenZones.length > 0) {
+				if (finalList.includes(spCode)) {
+					const newZones = chosenZones.map(each => `${spCode}-${each.toLowerCase()}`);
+					finalList.push(...newZones);
+					finalList = finalList.filter(each => each !== spCode);
+				}
+				return <Link to={`lista/${finalList}`}>Continuar</Link>;
+			}
+		}
+		return null;
 	}
 
 	handleUfChange(event) {
 		const uf = event.target.value;
-		this.setState({ selected: { uf }, loading: 1, chosen: [] });
+		const { selected } = this.state;
+		selected.uf = uf;
+		this.setState({ selected, loading: 1, chosen: [] });
 		const { output } = this.props;
 
 		if (uf !== 'Selecione') {
@@ -89,26 +129,56 @@ export default class Home extends Component {
 		}
 	}
 
+	handleZoneChange(event) {
+		const zone = event.target.value;
+		const { selected, chosenZones } = this.state;
+		selected.zone = zone;
+
+		if (zone !== 'Selecione' && !chosenZones.includes(zone)) {
+			chosenZones.push(zone);
+		}
+		this.setState({ selected, chosenZones });
+	}
+
 	changeChosen(code) {
-		const { chosen } = this.state;
+		const { chosen, hasZones } = this.state;
+
+		let newZone = hasZones;
+
+		if (code === spCode) {
+			newZone = true;
+		}
+
 		if (!chosen.includes(code)) {
 			chosen.push(code);
 			this.setState({ chosen });
 		}
+
+		this.setState({ chosen, hasZones: newZone });
 	}
 
-	deleteTag(code) {
-		const { chosen } = this.state;
-		const newChosen = chosen.filter(each => each !== code);
-		this.setState({ chosen: newChosen });
+	deleteTag(origin, data) {
+		if (origin === 'chosen') {
+			const { chosen } = this.state;
+			const newChosen = chosen.filter(each => each !== data);
+			if (data === spCode) {
+				this.setState({ chosen: newChosen, hasZones: false, chosenZones: [] });
+			} else {
+				this.setState({ chosen: newChosen });
+			}
+		} else if (origin === 'zones') {
+			const { chosenZones } = this.state;
+			const newChosen = chosenZones.filter(each => each !== data);
+			this.setState({ chosenZones: newChosen });
+		}
 	}
 
 	render() {
 		const {
-			lists, selected, loading, chosen,
+			lists, selected, loading, chosen, hasZones, chosenZones,
 		} = this.state;
 		const { ufs, cities } = lists;
-		const { uf } = selected;
+		const { uf, zone } = selected;
 
 		// for autosuggest
 		const autoList = Object.keys(cities).map(each => ({
@@ -145,15 +215,35 @@ export default class Home extends Component {
 						{chosen.map(each => (
 							<p key={uuid()}>
 								{cities[each].city_name}
-								<button type="button" data-code={each} onClick={e => this.deleteTag(e.target.dataset.code)}>×</button>
+								<button type="button" data-code={each} onClick={e => this.deleteTag('chosen', e.target.dataset.code)}>×</button>
 							</p>
 						))}
 					</Selected>
 
+					{/* SELECTED ZONES */}
+					{hasZones
+						? (
+							<Zones>
+								<label htmlFor="zones">
+									Escolha a zona
+									<select name="zones" id="zones" value={zone} onChange={this.handleZoneChange}>
+										{this.getZones().map(each => <option value={each} key={uuid()}>{each}</option>)}
+									</select>
+								</label>
+								<Selected>
+									{chosenZones.map(each => (
+										<p key={uuid()}>
+											{each}
+											<button type="button" data-zone={each} onClick={e => this.deleteTag('zones', e.target.dataset.zone)}>×</button>
+										</p>
+									))}
+								</Selected>
+							</Zones>
+						)
+						: '' }
+
 					{/* BUTTON */}
-					{chosen.length > 0
-						? <Link to={`lista/${chosen}`}>Continuar</Link>
-						: ''}
+					{this.continueBtn()}
 				</Loading>
 			</Form>
 		);
