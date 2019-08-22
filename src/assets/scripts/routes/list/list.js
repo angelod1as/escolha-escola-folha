@@ -9,7 +9,6 @@ import Loading from '../../components/loading';
 import Schools from './schools';
 import Filters from './filters';
 
-
 export default class List extends Component {
 	constructor(props) {
 		super(props);
@@ -22,6 +21,8 @@ export default class List extends Component {
 				name: '',
 			},
 		};
+
+		this.nameFilter = this.nameFilter.bind(this);
 
 		axios.all(codes.map(each => axios.get(`${output}city/city-${each}.json`)))
 			.then(axios.spread((...args) => {
@@ -39,17 +40,26 @@ export default class List extends Component {
 			}));
 	}
 
+	nameFilter(value) {
+		this.setState({ filters: { name: value } });
+	}
+
 	render() {
 		const { loading, schools, filters } = this.state;
 
+		const filter = (data) => {
+			const { name } = filters;
+			const final = data
+				.filter(each => each.name.toLowerCase().includes(name.toLowerCase()));
+			return final;
+		};
+
 		return (
-			<>
-				<Loading loading={loading}>
-					<Filters filters={filters} />
-					<hr />
-					<Schools schools={schools} />
-				</Loading>
-			</>
+			<Loading loading={loading}>
+				<Filters filters={filters} nameFilter={this.nameFilter} />
+				<hr />
+				<Schools schools={filter(schools)} />
+			</Loading>
 		);
 	}
 }

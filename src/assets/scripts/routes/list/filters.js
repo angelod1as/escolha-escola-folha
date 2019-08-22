@@ -37,23 +37,13 @@ const FilterTypes = ({
 export default class Filters extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			filters: {
-				name: '',
-			},
-		};
-		this.nameFilter = this.nameFilter.bind(this);
 		this.goToArray = this.goToArray.bind(this);
 	}
 
-	nameFilter(value) {
-		const { filters } = this.state;
-		filters.name = value;
-		this.setState({ filters });
-	}
-
 	goToArray(obj, category) {
-		const { filters } = this.state;
+		const { filters } = this.props;
+		const { nameFilter } = this.props;
+
 		if (Array.isArray(obj)) {
 			if (obj[1] === 'text') {
 				return (
@@ -61,7 +51,7 @@ export default class Filters extends Component {
 						key="name"
 						id="name"
 						type="text"
-						onChange={e => this.nameFilter(e.target.value)}
+						onChange={e => nameFilter(e.target.value)}
 						value={filters.name}
 					/>
 				);
@@ -72,7 +62,7 @@ export default class Filters extends Component {
 					data={obj}
 					category={category}
 					filters={filters}
-					nameFilter={this.nameFilter}
+					nameFilter={nameFilter}
 					goToArray={this.goToArray}
 				/>
 			);
