@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import Loading from '../../components/loading';
 import Schools from './schools';
+import Filters from './filters';
 
 
 export default class List extends Component {
@@ -17,6 +18,9 @@ export default class List extends Component {
 		this.state = {
 			loading: 1,
 			schools: [],
+			filters: {
+				name: '',
+			},
 		};
 
 		axios.all(codes.map(each => axios.get(`${output}city/city-${each}.json`)))
@@ -38,11 +42,19 @@ export default class List extends Component {
 	}
 
 	nameFilter(value) {
-		const { originalSchools } = this.state;
+		const { filters } = this.state;
+		filters.name = value.toLowerCase();
+		this.setState({ filters }, () => {
+			this.applyFilters();
+		});
+	}
+
+	applyFilters() {
+		const { originalSchools, filters } = this.state;
+		const { name } = filters;
 		const newSchools = originalSchools.filter((each) => {
 			const lowerName = each.name.toLowerCase();
-			const lowerValue = value.toLowerCase();
-			return lowerName.includes(lowerValue);
+			return (lowerName.includes(name));
 		});
 		this.setState({ schools: newSchools });
 	}
@@ -53,13 +65,7 @@ export default class List extends Component {
 		return (
 			<>
 				<Loading loading={loading}>
-					<form onSubmit={(e) => { e.preventDefault(); }}>
-						<h2>Filtros</h2>
-						<label htmlFor="name">
-							Nome da escola
-							<input id="name" type="text" onChange={e => this.nameFilter(e.target.value)} />
-						</label>
-					</form>
+					<Filters nameFilter={this.nameFilter} />
 					<hr />
 					<Schools schools={schools} />
 				</Loading>
