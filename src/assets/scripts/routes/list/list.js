@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Loading from '../../components/loading';
 import Schools from './schools';
 import Filters from './filters/filters';
+import filter from './filters/filter';
 
 export default class List extends Component {
 	constructor(props) {
@@ -19,7 +20,6 @@ export default class List extends Component {
 			schools: [],
 			filters: {
 				name: '',
-				public_private: '',
 			},
 		};
 
@@ -46,20 +46,15 @@ export default class List extends Component {
 		this.setState({ filters: { name: value } });
 	}
 
-	selectFilter(value) {
-		const { state } = this;
-		console.log('selectFilter');
+	selectFilter(e) {
+		const { filters } = this.state;
+		const { value, id } = e.target;
+		filters[id] = value;
+		this.setState({ filters });
 	}
 
 	render() {
 		const { loading, schools, filters } = this.state;
-
-		const filter = (data) => {
-			const { name } = filters;
-			const final = data
-				.filter(each => each.name.toLowerCase().includes(name.toLowerCase()));
-			return final;
-		};
 
 		return (
 			<Loading loading={loading}>
@@ -69,7 +64,7 @@ export default class List extends Component {
 					selectFilter={this.selectFilter}
 				/>
 				<hr />
-				<Schools schools={filter(schools)} />
+				<Schools schools={filter(schools, filters)} />
 			</Loading>
 		);
 	}

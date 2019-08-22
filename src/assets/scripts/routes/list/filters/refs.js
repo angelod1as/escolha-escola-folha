@@ -1,7 +1,7 @@
 export const ref = {
 	// code: ['Código da entidade'],
 	name: ['Nome da escola', 'text'],
-	public: ['Pública ou privada', ['Todas', 'Pública', 'Privada']],
+	public_private: ['Pública ou privada', ['Todas', 'Pública', 'Privada']],
 	type: ['Tipo', ['Todas', 'Privada', 'Federal', 'Estadual', 'Municipal']],
 	address: {
 		// city_code: ['Código do município'],

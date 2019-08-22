@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { ref, categs } from './refs';
 import FilterTypes from './filter-types';
+
+const StyledFilters = styled.div``;
 
 export default class Filters extends Component {
 	constructor(props) {
@@ -11,20 +14,22 @@ export default class Filters extends Component {
 		this.goToArray = this.goToArray.bind(this);
 	}
 
-	goToArray(obj, category) {
+	goToArray(obj, category, reference) {
 		const { filters } = this.props;
-		const { nameFilter } = this.props;
-
+		const { nameFilter, selectFilter } = this.props;
 		if (Array.isArray(obj)) {
 			if (obj[1] === 'text') {
 				return (
-					<input
-						key="name"
-						id="name"
-						type="text"
-						onChange={e => nameFilter(e.target.value)}
-						value={filters.name}
-					/>
+					<fieldset>
+						<legend>Nome da escola</legend>
+						<input
+							key="name"
+							id="name"
+							type="text"
+							onChange={e => nameFilter(e.target.value)}
+							value={filters.name}
+						/>
+					</fieldset>
 				);
 			}
 			return (
@@ -33,15 +38,16 @@ export default class Filters extends Component {
 					data={obj}
 					category={category}
 					filters={filters}
-					goToArray={this.goToArray}
+					selectFilter={selectFilter}
+					reference={reference[category]}
 				/>
 			);
 		}
 		return (
-			<div key={uuid()}>
-				<h3>{categs[category]}</h3>
-				{Object.keys(obj).map(each => this.goToArray(obj[each], each))}
-			</div>
+			<fieldset key={uuid()}>
+				<legend>{categs[category]}</legend>
+				{Object.keys(obj).map(each => this.goToArray(obj[each], each, reference[category]))}
+			</fieldset>
 		);
 	}
 
@@ -49,7 +55,9 @@ export default class Filters extends Component {
 		return (
 			<form onSubmit={(e) => { e.preventDefault(); }}>
 				<h2>Filtros</h2>
-				{Object.keys(ref).map(category => this.goToArray(ref[category], category))}
+				<StyledFilters>
+					{Object.keys(ref).map(category => this.goToArray(ref[category], category, ref))}
+				</StyledFilters>
 			</form>
 		);
 	}
@@ -58,4 +66,5 @@ export default class Filters extends Component {
 Filters.propTypes = {
 	filters: PropTypes.shape().isRequired,
 	nameFilter: PropTypes.func.isRequired,
+	selectFilter: PropTypes.func.isRequired,
 };
