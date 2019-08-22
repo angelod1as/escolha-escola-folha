@@ -37,35 +37,33 @@ export default class List extends Component {
 				const schools = [].concat(...array);
 				this.setState({ originalSchools: schools, schools, loading: 2 });
 			}));
-
-		this.nameFilter = this.nameFilter.bind(this);
 	}
 
-	nameFilter(value) {
-		const { filters } = this.state;
-		filters.name = value.toLowerCase();
-		this.setState({ filters }, () => {
-			this.applyFilters();
-		});
-	}
+	// nameFilter(value) {
+	// 	const { filters } = this.state;
+	// 	filters.name = value.toLowerCase();
+	// 	this.setState({ filters }, () => {
+	// 		this.applyFilters();
+	// 	});
+	// }
 
-	applyFilters() {
-		const { originalSchools, filters } = this.state;
-		const { name } = filters;
-		const newSchools = originalSchools.filter((each) => {
-			const lowerName = each.name.toLowerCase();
-			return (lowerName.includes(name));
-		});
-		this.setState({ schools: newSchools });
-	}
+	// applyFilters() {
+	// 	const { originalSchools, filters } = this.state;
+	// 	const { name } = filters;
+	// 	const newSchools = originalSchools.filter((each) => {
+	// 		const lowerName = each.name.toLowerCase();
+	// 		return (lowerName.includes(name));
+	// 	});
+	// 	this.setState({ schools: newSchools });
+	// }
 
 	render() {
-		const { loading, schools } = this.state;
+		const { loading, schools, filters } = this.state;
 
 		return (
 			<>
 				<Loading loading={loading}>
-					<Filters nameFilter={this.nameFilter} />
+					<Filters filters={filters} />
 					<hr />
 					<Schools schools={schools} />
 				</Loading>
