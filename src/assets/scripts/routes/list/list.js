@@ -39,24 +39,6 @@ export default class List extends Component {
 			}));
 	}
 
-	// nameFilter(value) {
-	// 	const { filters } = this.state;
-	// 	filters.name = value.toLowerCase();
-	// 	this.setState({ filters }, () => {
-	// 		this.applyFilters();
-	// 	});
-	// }
-
-	// applyFilters() {
-	// 	const { originalSchools, filters } = this.state;
-	// 	const { name } = filters;
-	// 	const newSchools = originalSchools.filter((each) => {
-	// 		const lowerName = each.name.toLowerCase();
-	// 		return (lowerName.includes(name));
-	// 	});
-	// 	this.setState({ schools: newSchools });
-	// }
-
 	render() {
 		const { loading, schools, filters } = this.state;
 
