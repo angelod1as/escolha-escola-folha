@@ -1,38 +1,9 @@
 import React, { Component } from 'react';
 import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
+
 import { ref, categs } from './refs';
-
-const FilterTypes = ({
-	data, category, filters: { name }, nameFilter,
-}) => {
-	const [title, type] = data;
-
-	if (type === 'yn') {
-		return (
-			<div key={uuid()}>
-				<h4>{title}</h4>
-				<select name={category} id={category}>
-					<option value="0">Selecione</option>
-					<option value="1">Não</option>
-					<option value="2">Sim</option>
-				</select>
-			</div>
-		);
-	}
-	if (Array.isArray(type)) {
-		const final = type.map(each => <option key={uuid()} value={each}>{each}</option>);
-		return (
-			<div key={uuid()}>
-				<h4>{title}</h4>
-				<select name={category} id={category}>
-					{final}
-				</select>
-			</div>
-		);
-	}
-	return null;
-};
+import FilterTypes from './filter-types';
 
 export default class Filters extends Component {
 	constructor(props) {
@@ -62,7 +33,6 @@ export default class Filters extends Component {
 					data={obj}
 					category={category}
 					filters={filters}
-					nameFilter={nameFilter}
 					goToArray={this.goToArray}
 				/>
 			);
@@ -84,3 +54,8 @@ export default class Filters extends Component {
 		);
 	}
 }
+
+Filters.propTypes = {
+	filters: PropTypes.shape().isRequired,
+	nameFilter: PropTypes.func.isRequired,
+};

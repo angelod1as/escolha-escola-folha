@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import Loading from '../../components/loading';
 import Schools from './schools';
-import Filters from './filters';
+import Filters from './filters/filters';
 
 export default class List extends Component {
 	constructor(props) {
@@ -19,10 +19,12 @@ export default class List extends Component {
 			schools: [],
 			filters: {
 				name: '',
+				public_private: '',
 			},
 		};
 
 		this.nameFilter = this.nameFilter.bind(this);
+		this.selectFilter = this.selectFilter.bind(this);
 
 		axios.all(codes.map(each => axios.get(`${output}city/city-${each}.json`)))
 			.then(axios.spread((...args) => {
@@ -44,6 +46,11 @@ export default class List extends Component {
 		this.setState({ filters: { name: value } });
 	}
 
+	selectFilter(value) {
+		const { state } = this;
+		console.log('selectFilter');
+	}
+
 	render() {
 		const { loading, schools, filters } = this.state;
 
@@ -56,7 +63,11 @@ export default class List extends Component {
 
 		return (
 			<Loading loading={loading}>
-				<Filters filters={filters} nameFilter={this.nameFilter} />
+				<Filters
+					filters={filters}
+					nameFilter={this.nameFilter}
+					selectFilter={this.selectFilter}
+				/>
 				<hr />
 				<Schools schools={filter(schools)} />
 			</Loading>
