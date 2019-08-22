@@ -17,8 +17,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: ${p => p.theme.font.text};
-    -webkit-font-smoothing: antialiased
-    /* font-family: Folha Grafico,Helvetica,Arial,sans-serif */
+    -webkit-font-smoothing: antialiased;
+		font-size: 20px;
   }
 
   * {
@@ -26,17 +26,9 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased
   }
 
-	h1, h2 {
-		font-family: ${p => p.theme.font.title};
-		font-weight: 800;
-	}
-
-	p, a, li, h3, h4, figcaption {
+  p, a, li, h1, h2, h3, h4, figcaption {
 		font-family: ${p => p.theme.font.text};
     font-weight: 300;
-	}
-
-  p, a, li, h1, h2, h3, h4, figcaption {
     font-size: 20px;
     line-height: 1.5em;
     padding: 10px 0;
@@ -44,18 +36,37 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased
   }
 
-  img, figure {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+	h1 {
+		font-family: ${p => p.theme.font.title};
+		font-weight: 800;
+	}
+
+	h2, h3, h4 {
+		font-family: ${p => p.theme.font.display};
+    font-weight: 700;
+	}
 
   h1 {
-    font-size: 4em;
+    font-size: 3em;
   }
 
   h2 {
     font-size: 2em;
+  }
+
+	h3 {
+    font-size: 1.2em;
+  }
+
+	h4 {
+		font-size: 1em;
+		font-weight: 300;
+	}
+
+  img, figure {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   a {
