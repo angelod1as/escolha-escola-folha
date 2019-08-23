@@ -48,8 +48,14 @@ export default class List extends Component {
 
 	selectFilter(e) {
 		const { filters } = this.state;
-		const { value, id } = e.target;
-		filters[id] = value;
+		const {
+			value, id, type,
+		} = e.target;
+		if (type === 'checkbox') {
+			filters[id] = filters[id] === 2 ? 0 : 2;
+		} else {
+			filters[id] = value;
+		}
 		if (id === 'public_private') {
 			delete filters.type;
 		}

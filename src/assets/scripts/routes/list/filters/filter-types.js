@@ -8,15 +8,12 @@ const FilterTypes = ({
 	const [title, type] = data;
 
 	if (type === 'yn') {
+		const checked = filters[category] === 2;
 		return (
 			<div key={uuid()}>
 				<h4>{title}</h4>
 				<div>
-					<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
-						<option value="0">Selecione</option>
-						<option value="1">Não</option>
-						<option value="2">Sim</option>
-					</select>
+					<input type="checkbox" onChange={selectFilter} name={category} checked={checked} id={category} />
 				</div>
 			</div>
 		);
@@ -46,6 +43,8 @@ FilterTypes.propTypes = {
 		]),
 	).isRequired,
 	selectFilter: PropTypes.func.isRequired,
+	filters: PropTypes.shape().isRequired,
+	reference: PropTypes.shape().isRequired,
 };
 
 export default FilterTypes;
