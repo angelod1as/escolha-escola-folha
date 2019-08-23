@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Back from '../../../components/back';
 
 import { ref, categs } from './refs';
 import FilterTypes from './filter-types';
@@ -97,6 +98,7 @@ export default class Filters extends Component {
 
 		return (
 			<form onSubmit={(e) => { e.preventDefault(); }}>
+				<Back />
 				<h2>Filtros</h2>
 				<StyledFilters>
 					<Upper>
@@ -108,7 +110,6 @@ export default class Filters extends Component {
 						}
 					</Upper>
 					<Lower>
-						{/* ITERATE ALL THAT ARE NOT UP */}
 						{jsx.school_type}
 						{jsx.utilities}
 						{jsx.address}

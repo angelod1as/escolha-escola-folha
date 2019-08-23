@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
-// import uuid from 'uuid/v1';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
 import Loading from '../../components/loading';
 import Schools from './schools';
 import Filters from './filters/filters';
 import filter from './filters/filter';
 
-export default class List extends Component {
+class List extends Component {
 	constructor(props) {
 		super(props);
 		const { codes, output } = props;
@@ -76,7 +74,7 @@ export default class List extends Component {
 					hasZone={hasZone}
 				/>
 				<hr />
-				<Schools schools={filter(schools, filters)} />
+				<Schools from={codes} schools={filter(schools, filters)} />
 			</Loading>
 		);
 	}
@@ -86,3 +84,5 @@ List.propTypes = {
 	codes: PropTypes.arrayOf(PropTypes.string).isRequired,
 	output: PropTypes.string.isRequired,
 };
+
+export default withRouter(List);
