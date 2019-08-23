@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import Loading from '../../components/loading';
+import { ref } from '../list/filters/refs';
 
 export default class School extends Component {
 	constructor(props) {
@@ -14,8 +15,6 @@ export default class School extends Component {
 		let avg = {};
 
 		this.state = {
-			school,
-			avg,
 			loading: 1,
 		};
 
@@ -37,12 +36,26 @@ export default class School extends Component {
 
 	render() {
 		const { loading, school } = this.state;
-		const { name } = school;
-		return (
-			<Loading loading={loading}>
-				{name}
-			</Loading>
-		);
+
+		if (loading === 2) {
+			console.log(school);
+			const { address } = school;
+			return (
+				<Loading loading={loading}>
+					<h2>{school.name}</h2>
+					<div>
+						<h3>Endereço</h3>
+						<div>
+							<p>{`${address.address}, ${address.compl}`}</p>
+							<p>{`CEP ${address.cep} - ${address.district}`}</p>
+							<p>{`${address.city} - ${address.uf}`}</p>
+							<p>{`Escola ${ref.address.location[1][address.location]} - ${address.zone ? `Zona ${ref.address.zone[1][address.zone]}` : ''}`}</p>
+						</div>
+					</div>
+				</Loading>
+			);
+		}
+		return <Loading loading={1} />;
 	}
 }
 
