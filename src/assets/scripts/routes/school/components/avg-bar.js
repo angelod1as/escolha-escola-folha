@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // import { Container } from './styles';
 
-const AvgBar = ({ school, avg }) => {
+const AvgBar = ({ school, avg, percent }) => {
 	const limit = Math.max(school, avg);
 	const height = 20;
 	const max = 80;
@@ -49,7 +49,7 @@ const AvgBar = ({ school, avg }) => {
 		z-index: -1;
 		position: relative;
 		&:after{
-			content: '${school}';
+			content: '${school}${percent ? '%' : ''}';
 			position: absolute;
 			top: 0px;
 			left: calc(100% + 10px);
@@ -66,7 +66,7 @@ const AvgBar = ({ school, avg }) => {
 		left: 0;
 		z-index: -3;
 		&:after{
-			content: '${avg}';
+			content: '${avg}${percent ? '%' : ''}';
 			position: absolute;
 			top: ${height + 3}px;
 			${() => (isBigger ? 'left: calc(100% + 10px); top: 0;' : 'right: 0')}
