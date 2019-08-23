@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v1';
 
 import Loading from '../../components/loading';
+import Address from './components/address';
+import Avgs from './components/avgs';
+import Languages from './components/languages';
+import Type from './components/type';
+import Utilities from './components/utilities';
 import { ref } from '../list/filters/refs';
 
 export default class School extends Component {
@@ -39,19 +45,19 @@ export default class School extends Component {
 
 		if (loading === 2) {
 			console.log(school);
-			const { address } = school;
+
+			const {
+				address, avg, languages, utilities,
+			} = school;
+
 			return (
 				<Loading loading={loading}>
 					<h2>{school.name}</h2>
-					<div>
-						<h3>Endereço</h3>
-						<div>
-							<p>{`${address.address}, ${address.compl}`}</p>
-							<p>{`CEP ${address.cep} - ${address.district}`}</p>
-							<p>{`${address.city} - ${address.uf}`}</p>
-							<p>{`Escola ${ref.address.location[1][address.location]} - ${address.zone ? `Zona ${ref.address.zone[1][address.zone]}` : ''}`}</p>
-						</div>
-					</div>
+					<Type publicPrivate={school.public_private} type={school.type} schoolType={school.school_type} location={address.location} />
+					<Address data={address} />
+					<Languages data={languages} />
+					<Utilities data={utilities} />
+					<Avgs data={avg} />
 				</Loading>
 			);
 		}

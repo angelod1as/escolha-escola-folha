@@ -44,7 +44,12 @@ FilterTypes.propTypes = {
 	).isRequired,
 	selectFilter: PropTypes.func.isRequired,
 	filters: PropTypes.shape().isRequired,
-	reference: PropTypes.shape().isRequired,
+	reference: PropTypes.arrayOf(
+		PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string),
+		]),
+	).isRequired,
 };
 
 export default FilterTypes;
