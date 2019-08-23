@@ -68,3 +68,10 @@ export const categs = {
 	avg: 'Médias',
 	languages: 'Idiomas',
 };
+
+export const avgRefs = {
+	enem: 'Médias do Enem',
+	fundamental: 'Ensino fundamental',
+	medio: 'Ensino médio',
+	saeb: 'Médias do Saeb',
+};

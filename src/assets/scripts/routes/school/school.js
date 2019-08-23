@@ -42,7 +42,7 @@ class School extends Component {
 	}
 
 	render() {
-		const { loading, school } = this.state;
+		const { loading, school, avg: city } = this.state;
 		const { location } = this.props;
 
 		if (loading === 2) {
@@ -54,13 +54,18 @@ class School extends Component {
 
 			return (
 				<Loading loading={loading}>
+					<Avgs data={avg} city={city} />
 					<Back from={location} noFrom={noFrom} />
 					<h2>{school.name}</h2>
-					<Type publicPrivate={school.public_private} type={school.type} schoolType={school.school_type} location={address.location} />
+					<Type
+						publicPrivate={school.public_private}
+						type={school.type}
+						schoolType={school.school_type}
+						location={address.location}
+					/>
 					<Address data={address} />
 					<Languages data={languages} />
 					<Utilities data={utilities} />
-					<Avgs data={avg} />
 				</Loading>
 			);
 		}
@@ -71,6 +76,7 @@ class School extends Component {
 School.propTypes = {
 	code: PropTypes.string.isRequired,
 	output: PropTypes.string.isRequired,
+	location: PropTypes.shape().isRequired,
 };
 
 export default withRouter(School);
