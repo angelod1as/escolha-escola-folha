@@ -50,11 +50,16 @@ export default class List extends Component {
 		const { filters } = this.state;
 		const { value, id } = e.target;
 		filters[id] = value;
+		if (id === 'public_private') {
+			delete filters.type;
+		}
 		this.setState({ filters });
 	}
 
 	render() {
 		const { loading, schools, filters } = this.state;
+		const { codes } = this.props;
+		const hasZone = codes.filter(e => e.includes('-')).length > 0;
 
 		return (
 			<Loading loading={loading}>
@@ -62,6 +67,7 @@ export default class List extends Component {
 					filters={filters}
 					nameFilter={this.nameFilter}
 					selectFilter={this.selectFilter}
+					hasZone={hasZone}
 				/>
 				<hr />
 				<Schools schools={filter(schools, filters)} />

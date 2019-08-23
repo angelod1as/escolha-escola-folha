@@ -58,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.2em;
   }
 
-	h4 {
+	h4, legend {
 		font-size: 1em;
 		font-weight: 300;
 	}

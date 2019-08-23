@@ -9,25 +9,29 @@ const FilterTypes = ({
 
 	if (type === 'yn') {
 		return (
-			<fieldset key={uuid()}>
+			<div key={uuid()}>
 				<h4>{title}</h4>
-				<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
-					<option value="0">Selecione</option>
-					<option value="1">Não</option>
-					<option value="2">Sim</option>
-				</select>
-			</fieldset>
+				<div>
+					<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
+						<option value="0">Selecione</option>
+						<option value="1">Não</option>
+						<option value="2">Sim</option>
+					</select>
+				</div>
+			</div>
 		);
 	}
 	if (Array.isArray(type)) {
 		const final = type.map((each, i) => <option key={uuid()} value={i}>{reference[1][i]}</option>);
 		return (
-			<fieldset key={uuid()}>
+			<div key={uuid()}>
 				<h4>{title}</h4>
-				<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
-					{final}
-				</select>
-			</fieldset>
+				<div>
+					<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
+						{final}
+					</select>
+				</div>
+			</div>
 		);
 	}
 	return null;
