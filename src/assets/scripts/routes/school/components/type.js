@@ -1,5 +1,5 @@
 import React from 'react';
-import { ref } from '../../list/filters/refs';
+import { ref } from '../../../components/refs';
 
 const Type = ({
 	publicPrivate, type, schoolType, location,

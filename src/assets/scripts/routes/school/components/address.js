@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid/v1';
-import { ref } from '../../list/filters/refs';
+import { ref } from '../../../components/refs';
 import { upperAll } from '../../../components/upper';
 
 const Address = ({ data }) => {

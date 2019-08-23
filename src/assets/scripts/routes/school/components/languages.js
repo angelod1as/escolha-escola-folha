@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import { ref } from '../../list/filters/refs';
+import { ref } from '../../../components/refs';
 import { upper } from '../../../components/upper';
 
 const Languages = ({ data }) => {

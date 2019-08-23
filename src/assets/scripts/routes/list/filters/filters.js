@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Back from '../../../components/back';
 
-import { ref, categs } from './refs';
+import { ref, categs } from '../../../components/refs';
 import FilterTypes from './filter-types';
 
 const StyledFilters = styled.div`

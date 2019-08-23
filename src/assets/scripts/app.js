@@ -9,13 +9,6 @@ import Home from './routes/home/home';
 import List from './routes/list/list';
 import School from './routes/school/school';
 
-/* ROUTING:
-- main (search form) = /
-- cities = /lista/[cidade],[cidade],[cidade],[cidade]
-- schools = /escola/[nome da escola]
-*/
-
-// const output = '../../../../output/states/';
 const output = '../../../output/';
 
 const App = () => (

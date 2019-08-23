@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { ref } from '../list/filters/refs';
+import { ref } from '../../components/refs';
 
 import Back from '../../components/back';
 import Loading from '../../components/loading';
