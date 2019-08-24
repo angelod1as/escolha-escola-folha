@@ -86,8 +86,22 @@ export const categs = {
 };
 
 export const avgRefs = {
-	enem: 'Médias do Enem',
-	fundamental: 'Ensino fundamental',
-	medio: 'Ensino médio',
+	enem: 'Médias do Enem 2018',
+	quiz: 'Prova objetiva',
+	essay: 'Redação',
+	students: 'Média de alunos por turma',
+	hour_class: 'Média horas/aula diária',
+	age_distortion_rate: '%Taxa distorção idade-série',
+	teacher_percent: '%Docentes com curso superior',
+	approval_rate: '%Taxa de aprovação',
+	reproval_rate: '%Taxa de reprovação',
+	abandon_rate: '%Taxa de abandono',
 	saeb: 'Médias do Saeb',
+	ef5: '5º ano do Ensino Fundamental',
+	ef9: '9º ano do Ensino Fundamental',
+	em3: '3º ano do Ensino Médio',
+	lp: 'Língua portuguesa',
+	mt: 'Matemática',
+	fundamental: 'Fundamental',
+	medio: 'Médio',
 };

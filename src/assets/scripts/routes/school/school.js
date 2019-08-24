@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { ref } from '../../components/refs';
+import { upperAll } from '../../components/upper';
 
 import Back from '../../components/back';
 import Loading from '../../components/loading';
@@ -54,9 +55,8 @@ class School extends Component {
 
 			return (
 				<Loading loading={loading}>
-					<Avgs data={avg} city={city} />
 					<Back from={location} noFrom={noFrom} />
-					<h2>{school.name}</h2>
+					<h2>{upperAll(school.name)}</h2>
 					<Type
 						publicPrivate={school.public_private}
 						type={school.type}
@@ -66,6 +66,7 @@ class School extends Component {
 					<Address data={address} />
 					<Languages data={languages} />
 					<Utilities data={utilities} />
+					<Avgs data={avg} city={city} />
 				</Loading>
 			);
 		}

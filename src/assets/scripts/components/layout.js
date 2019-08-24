@@ -34,6 +34,7 @@ const theme = {
 const Layout = styled.div`
 	max-width: 920px;
 	margin: 30px auto;
+	padding: 0 5px;
 `;
 
 const LayoutWrapper = ({ children }) => (
