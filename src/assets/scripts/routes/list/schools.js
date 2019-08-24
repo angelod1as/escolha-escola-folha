@@ -37,25 +37,34 @@ const StyledLink = styled(Link)`
 
 const Schools = ({ schools, from }) => {
 	const list = schools.map(each => (
-		<StyledLink
-			to={{
-				pathname: `/escola/${each.code}`,
-				state: {
-					from,
-				},
-			}}
-			key={uuid()}
-			className="zones"
-		>
-			<p>{upperAll(each.name)}</p>
-		</StyledLink>
+		<Fade duration={500} key={uuid()}>
+			<StyledLink
+				to={{
+					pathname: `/escola/${each.code}`,
+					state: {
+						from,
+					},
+				}}
+				key={uuid()}
+				className="zones"
+			>
+				<p>{upperAll(each.name)}</p>
+			</StyledLink>
+		</Fade>
 	));
 
 	return (
+
 		<ListWrapper>
-			<Fade cascade>
-				{list}
-			</Fade>
+			{list.length > 0
+				? list
+				: (
+					<div>
+						<p>Nenhuma escola encontrada.</p>
+						<p>O que acha de refinar sua busca?</p>
+					</div>
+				)
+			}
 		</ListWrapper>
 	);
 };

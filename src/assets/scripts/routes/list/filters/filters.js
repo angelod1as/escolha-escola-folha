@@ -60,7 +60,8 @@ export default class Filters extends Component {
 		if (Array.isArray(obj)) {
 			if (obj[1] === 'text') {
 				return (
-					<div key={uuid()} id="filtername">
+					// DO NOT INSERT KEY PROP BELOW!
+					<div id="filtername">
 						<label className="f-forms__label" htmlFor="name">Nome da escola</label>
 						<input
 							key="name"
