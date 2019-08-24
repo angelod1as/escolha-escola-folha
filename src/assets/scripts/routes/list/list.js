@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Back from '../../components/back';
 
 import Loading from '../../components/loading';
 import Schools from './schools';
@@ -67,6 +68,8 @@ class List extends Component {
 
 		return (
 			<Loading loading={loading}>
+				<Back />
+				<h2>Escolas</h2>
 				<Filters
 					filters={filters}
 					nameFilter={this.nameFilter}

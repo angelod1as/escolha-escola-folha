@@ -1,17 +1,20 @@
 import React from 'react';
 import uuid from 'uuid';
+import Fade from 'react-reveal/Fade';
 import { ref } from '../../../components/refs';
 
 const Utilities = ({ data }) => {
 	const wrapper = content => (
-		<div>
-			<h3>Dependências</h3>
+		<Fade>
 			<div>
-				<ul>
-					{content}
-				</ul>
+				<h3>Dependências</h3>
+				<div>
+					<ul>
+						{content}
+					</ul>
+				</div>
 			</div>
-		</div>
+		</Fade>
 	);
 
 	const utilities = Object.keys(data)

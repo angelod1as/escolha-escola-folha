@@ -1,14 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
+import Fade from 'react-reveal/Fade';
 import { ref } from '../../../components/refs';
+
+export const Wrapper = styled.div`
+	span {
+		&:last-child {
+			margin-left: 30px;
+		}
+	}
+`;
 
 const Type = ({
 	publicPrivate, type, schoolType, location,
 }) => {
 	const wrapper = content => (
-		<div>
-			<p>{content[0]}</p>
-			<p>{content[1]}</p>
-		</div>
+		<Wrapper>
+			<Fade cascade>
+				<p>
+					<span>{content[0]}</span>
+					<span>{content[1]}</span>
+				</p>
+			</Fade>
+			{/* <p>{content[1]}</p> */}
+		</Wrapper>
 	);
 	let typeAndLoc = '';
 

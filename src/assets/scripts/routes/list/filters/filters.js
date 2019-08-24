@@ -3,7 +3,6 @@ import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Fade from 'react-reveal/Fade';
-import Back from '../../../components/back';
 
 import { ref, categs } from '../../../components/refs';
 import FilterTypes from './filter-types';
@@ -16,6 +15,10 @@ const Upper = styled.div`
 	display: grid;
 	grid-auto-flow: column;
 	margin-bottom: 10px;
+	grid-gap: 10px;
+	input {
+		height: 40px;
+	}
 `;
 
 const Lower = styled.div`
@@ -111,14 +114,14 @@ export default class Filters extends Component {
 		const { more } = this.state;
 		const jsx = {};
 
+		const btn = more ? 'Menos filtros' : 'Mais filtros';
+
 		Object.keys(ref).forEach((category) => {
 			jsx[category] = this.goToArray(ref[category], category, ref);
 		});
 
 		return (
 			<form onSubmit={(e) => { e.preventDefault(); }}>
-				<Back />
-				<h2>Filtros</h2>
 				<StyledFilters>
 					<Upper>
 						{jsx.name}
@@ -128,7 +131,7 @@ export default class Filters extends Component {
 							: ''
 						}
 					</Upper>
-					<button className="f-forms__button_primary" type="button" onClick={this.moreFilters}>Mais filtros</button>
+					<button className="f-forms__button f-forms__button_primary" type="button" onClick={this.moreFilters}>{btn}</button>
 					<Fade collapse duration={500} when={more}>
 						<Lower>
 							{jsx.school_type}

@@ -1,18 +1,21 @@
 import React from 'react';
 import uuid from 'uuid';
+import Fade from 'react-reveal/Fade';
 import { ref } from '../../../components/refs';
 import { upper } from '../../../components/upper';
 
 const Languages = ({ data }) => {
 	const wrapper = content => (
-		<div>
-			<h3>Idiomas</h3>
+		<Fade cascade>
 			<div>
-				<ul>
-					{content}
-				</ul>
+				<h3>Idiomas</h3>
+				<div>
+					<ul>
+						{content}
+					</ul>
+				</div>
 			</div>
-		</div>
+		</Fade>
 	);
 
 	const languages = Object.keys(data)

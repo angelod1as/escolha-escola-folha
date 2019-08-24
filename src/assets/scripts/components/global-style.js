@@ -85,6 +85,39 @@ const GlobalStyle = createGlobalStyle`
     & > * {
       pointer-events: none;
     }
+	}
+
+	/* lists */
+	ul, ol {
+    li {
+      padding-left: 25px;
+      position: relative;
+      line-height: 1.2em;
+      &:before {
+        font-weight: 700;
+        top: 11px;
+        left: 2px;
+        position: absolute;
+        color: ${p => p.theme.color.color};
+      }
+    }
+  }
+
+  ul {
+    li {
+      &:before {
+        content: '\\2714';
+      }
+    }
+  }
+
+  ol {
+    li {
+      counter-increment: step-counter;
+      &:before {
+        content: counter(step-counter) '.';
+      }
+    }
   }
 `;
 

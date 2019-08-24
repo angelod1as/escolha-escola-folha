@@ -1,7 +1,18 @@
 import React from 'react';
 import uuid from 'uuid/v1';
+import styled from 'styled-components';
+import Fade from 'react-reveal/Fade';
 import { ref } from '../../../components/refs';
 import { upperAll } from '../../../components/upper';
+
+export const Wrapper = styled.div`
+	span {
+		&:last-child {
+			margin-left: 30px;
+		}
+	}
+`;
+
 
 const Address = ({ data }) => {
 	const {
@@ -20,12 +31,14 @@ const Address = ({ data }) => {
 	const lines = [];
 
 	const wrapper = content => (
-		<div>
+		<Wrapper>
 			<h3>Endereço</h3>
-			<div>
-				{content}
-			</div>
-		</div>
+			<Fade cascade>
+				<div>
+					{content}
+				</div>
+			</Fade>
+		</Wrapper>
 	);
 
 	if (address || compl || cep || district) {
@@ -47,10 +60,10 @@ const Address = ({ data }) => {
 		const addLine = [];
 		if (city) addLine.push(upperAll(city));
 		if (uf) addLine.push(uf);
+		if (zone && zone > 1) addLine.push(`zona ${ref.address.zone[1][zone].toLowerCase()}`);
 		lines.push(<p key={uuid()}>{addLine.join(', ')}</p>);
 	}
 
-	if (zone && zone > 1) lines.push(<p key={uuid()}>{`Zona ${ref.address.zone[1][zone]}`}</p>);
 	if (email) lines.push(<p key={uuid()}>{email.toLowerCase()}</p>);
 	if (phone.phones.length > 0) {
 		const ph = phone.phones

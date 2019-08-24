@@ -17,7 +17,10 @@ const FilterTypes = ({
 		);
 	}
 	if (Array.isArray(type)) {
-		const final = type.map((each, i) => <option key={uuid()} value={i}>{reference[1][i]}</option>);
+		const final = type.map((each, i) => {
+			const val = category === 'zone' ? i + 1 : i;
+			return <option key={uuid()} value={val}>{reference[1][i]}</option>;
+		});
 		return (
 			<div key={uuid()}>
 				<label className="f-forms__label" htmlFor={category}>{title}</label>

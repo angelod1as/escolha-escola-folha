@@ -19,8 +19,8 @@ export const ref = {
 		internet: ['Internet', 'yn'],
 	},
 	school_type: {
-		fundamental: ['Ensino fundamental', 'yn'],
-		medio: ['Ensino médio', 'yn'],
+		fundamental: ['Fundamental', 'yn'],
+		medio: ['Médio', 'yn'],
 	},
 	avg: {
 		enem: {
@@ -79,7 +79,7 @@ export const ref = {
 
 export const categs = {
 	address: 'Endereço',
-	utilities: 'Adicionais',
+	utilities: 'Dependências',
 	school_type: 'Ensino',
 	avg: 'Médias',
 	languages: 'Idiomas',

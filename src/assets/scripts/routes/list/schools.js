@@ -3,9 +3,21 @@ import { withRouter, Link } from 'react-router-dom';
 import uuid from 'uuid/v1';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Fade from 'react-reveal/Fade';
 import { upperAll } from '../../components/upper';
 
-const ListWrapper = styled.div``;
+const ListWrapper = styled.div`
+	margin-top: 20px;
+	a {
+		border-bottom: 1px solid ${p => p.theme.color.gray3};
+		padding: 10px 0;
+		transition: .2 all;
+		&:hover {
+			background-color: ${p => p.theme.color.gray3};
+			color: ${p => p.theme.color.black};
+		}
+	}
+`;
 
 const StyledLink = styled(Link)`
 	display: block;
@@ -41,7 +53,9 @@ const Schools = ({ schools, from }) => {
 
 	return (
 		<ListWrapper>
-			{list}
+			<Fade cascade>
+				{list}
+			</Fade>
 		</ListWrapper>
 	);
 };

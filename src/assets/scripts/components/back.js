@@ -13,7 +13,7 @@ const Back = ({ from, noFrom }) => {
 		goBack = `/lista/${noFrom}`;
 	}
 
-	return <Link to={goBack}>Voltar</Link>;
+	return <Link className="f-forms__button f-forms__button_secondary" to={goBack.toLowerCase()}>Voltar</Link>;
 };
 
 Back.propTypes = {

@@ -21,7 +21,13 @@ const Selected = styled.div`
 		padding: 5px 10px;
 		margin: 0 5px;
 		border-radius: 5px;
+		font-family: ${p => p.theme.font.display};
 		border: 1px solid ${p => p.theme.color.color};
+		font-size: .9em;
+
+		&:first-child {
+			margin: 0;
+		}
 
 		button {
 			cursor: pointer;
@@ -36,10 +42,12 @@ const Selected = styled.div`
 	}
 `;
 
-// const StyledAuto = styled(Autosuggest)`
-// `
-
 const Zones = styled.div``;
+
+const Btn = styled.div`
+	margin-top: 20px;
+`;
+
 
 const Form = styled.form`
 	label, select {
@@ -95,7 +103,18 @@ export default class Home extends Component {
 		let finalList = [...chosen];
 		if (finalList.length > 0) {
 			if (!hasZones) {
-				return <Link className="f-forms__button_primary" to={`lista/${finalList}`}>Continuar</Link>;
+				return (
+					<Fade>
+						<Btn>
+							<Link
+								className="f-forms__button f-forms__button_primary"
+								to={`lista/${finalList}`}
+							>
+							Continuar
+							</Link>
+						</Btn>
+					</Fade>
+				);
 			}
 			if (chosenZones.length > 0) {
 				if (finalList.includes(spCode)) {
@@ -103,7 +122,18 @@ export default class Home extends Component {
 					finalList.push(...newZones);
 					finalList = finalList.filter(each => each !== spCode);
 				}
-				return <Link className="f-forms__button_primary" to={`lista/${finalList}`}>Continuar</Link>;
+				return (
+					<Fade>
+						<Btn>
+							<Link
+								className="f-forms__button f-forms__button_primary"
+								to={`lista/${finalList}`}
+							>
+							Continuar
+							</Link>
+						</Btn>
+					</Fade>
+				);
 			}
 		}
 		return null;
@@ -221,7 +251,13 @@ export default class Home extends Component {
 							{chosen.map(each => (
 								<p key={uuid()}>
 									{upperAll(cities[each].city_name)}
-									<button type="button" data-code={each} onClick={e => this.deleteTag('chosen', e.target.dataset.code)}>×</button>
+									<button
+										type="button"
+										data-code={each}
+										onClick={e => this.deleteTag('chosen', e.target.dataset.code)}
+									>
+											×
+									</button>
 								</p>
 							))}
 						</Selected>
@@ -231,7 +267,7 @@ export default class Home extends Component {
 							? (
 								<Zones>
 									<label className="f-forms__label" htmlFor="zones">
-									Escolha a zona
+									Escolha a zona de São Paulo
 										<select className="f-forms__select" name="zones" id="zones" value={zone} onChange={this.handleZoneChange}>
 											{this
 												.getZones()

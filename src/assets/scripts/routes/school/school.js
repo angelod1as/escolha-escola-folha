@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import Fade from 'react-reveal/Fade';
 import { ref } from '../../components/refs';
 import { upperAll } from '../../components/upper';
 
@@ -12,6 +14,10 @@ import Avgs from './components/avgs';
 import Languages from './components/languages';
 import Type from './components/type';
 import Utilities from './components/utilities';
+
+const Title = styled.h2`
+	color: ${p => p.theme.color.color};
+`;
 
 class School extends Component {
 	constructor(props) {
@@ -55,18 +61,20 @@ class School extends Component {
 
 			return (
 				<Loading loading={loading}>
-					<Back from={location} noFrom={noFrom} />
-					<h2>{upperAll(school.name)}</h2>
-					<Type
-						publicPrivate={school.public_private}
-						type={school.type}
-						schoolType={school.school_type}
-						location={address.location}
-					/>
-					<Address data={address} />
-					<Languages data={languages} />
-					<Utilities data={utilities} />
-					<Avgs data={avg} city={city} />
+					<Fade>
+						<Back from={location} noFrom={noFrom} />
+						<Title>{upperAll(school.name)}</Title>
+						<Type
+							publicPrivate={school.public_private}
+							type={school.type}
+							schoolType={school.school_type}
+							location={address.location}
+						/>
+						<Address data={address} />
+						<Languages data={languages} />
+						<Utilities data={utilities} />
+						<Avgs data={avg} city={city} />
+					</Fade>
 				</Loading>
 			);
 		}
