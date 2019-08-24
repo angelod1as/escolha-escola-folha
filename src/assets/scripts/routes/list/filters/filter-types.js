@@ -11,10 +11,8 @@ const FilterTypes = ({
 		const checked = filters[category] === 2;
 		return (
 			<div key={uuid()}>
-				<h4>{title}</h4>
-				<div>
-					<input type="checkbox" onChange={selectFilter} name={category} checked={checked} id={category} />
-				</div>
+				<input className="f-forms__checkbox" type="checkbox" onChange={selectFilter} name={category} checked={checked} id={category} />
+				<label className="f-forms__label" htmlFor={category}>{title}</label>
 			</div>
 		);
 	}
@@ -22,12 +20,10 @@ const FilterTypes = ({
 		const final = type.map((each, i) => <option key={uuid()} value={i}>{reference[1][i]}</option>);
 		return (
 			<div key={uuid()}>
-				<h4>{title}</h4>
-				<div>
-					<select onChange={selectFilter} value={filters[category]} name={category} id={category}>
-						{final}
-					</select>
-				</div>
+				<label className="f-forms__label" htmlFor={category}>{title}</label>
+				<select className="f-forms__select" onChange={selectFilter} value={filters[category]} name={category} id={category}>
+					{final}
+				</select>
 			</div>
 		);
 	}

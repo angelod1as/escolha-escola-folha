@@ -73,7 +73,6 @@ class List extends Component {
 					selectFilter={this.selectFilter}
 					hasZone={hasZone}
 				/>
-				<hr />
 				<Schools from={codes} schools={filter(schools, filters)} />
 			</Loading>
 		);

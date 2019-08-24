@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid/v1';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Fade from 'react-reveal/Fade';
 import Back from '../../../components/back';
 
 import { ref, categs } from '../../../components/refs';
@@ -14,22 +15,40 @@ const StyledFilters = styled.div`
 const Upper = styled.div`
 	display: grid;
 	grid-auto-flow: column;
+	margin-bottom: 10px;
 `;
 
 const Lower = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 2fr;
-	/* grid-auto-flow: column; */
-	& > div > div {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+	overflow: hidden;
+	margin-top: 10px;
+	display: block;
+	& > div {
+		margin-bottom: 10px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid ${p => p.theme.color.gray3};
+		& > div {
+			display: flex;
+			& > div {
+				width: 100%;
+			}
+		}
 	}
 `;
 
 export default class Filters extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			more: false,
+		};
+
 		this.goToArray = this.goToArray.bind(this);
+		this.moreFilters = this.moreFilters.bind(this);
+	}
+
+	moreFilters() {
+		const { more } = this.state;
+		this.setState({ more: !more });
 	}
 
 	goToArray(obj, category, reference) {
@@ -39,16 +58,15 @@ export default class Filters extends Component {
 			if (obj[1] === 'text') {
 				return (
 					<div key={uuid()} id="filtername">
-						<h4>Nome da escola</h4>
-						<div>
-							<input
-								key="name"
-								id="name"
-								type="text"
-								onChange={e => nameFilter(e.target.value)}
-								value={filters.name}
-							/>
-						</div>
+						<label className="f-forms__label" htmlFor="name">Nome da escola</label>
+						<input
+							key="name"
+							id="name"
+							type="text"
+							className="f-forms__text"
+							onChange={e => nameFilter(e.target.value)}
+							value={filters.name}
+						/>
 					</div>
 				);
 			}
@@ -90,6 +108,7 @@ export default class Filters extends Component {
 
 	render() {
 		const { filters } = this.props;
+		const { more } = this.state;
 		const jsx = {};
 
 		Object.keys(ref).forEach((category) => {
@@ -109,12 +128,15 @@ export default class Filters extends Component {
 							: ''
 						}
 					</Upper>
-					<Lower>
-						{jsx.school_type}
-						{jsx.utilities}
-						{jsx.address}
-						{jsx.languages}
-					</Lower>
+					<button className="f-forms__button_primary" type="button" onClick={this.moreFilters}>Mais filtros</button>
+					<Fade collapse duration={500} when={more}>
+						<Lower>
+							{jsx.school_type}
+							{jsx.utilities}
+							{jsx.address}
+							{jsx.languages}
+						</Lower>
+					</Fade>
 				</StyledFilters>
 			</form>
 		);

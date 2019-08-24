@@ -100,6 +100,7 @@ export default class autosuggest extends Component {
 		return (
 			<AutoWrapper>
 				<Auto
+					className="f-forms__select"
 					suggestions={suggestions}
 					onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
 					onSuggestionsClearRequested={this.onSuggestionsClearRequested}

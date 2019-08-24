@@ -4,6 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Fade from 'react-reveal/Fade';
+import { upperAll } from '../../components/upper';
 
 import ufList from '../../utils/states';
 
@@ -33,6 +35,9 @@ const Selected = styled.div`
 		}
 	}
 `;
+
+// const StyledAuto = styled(Autosuggest)`
+// `
 
 const Zones = styled.div``;
 
@@ -90,7 +95,7 @@ export default class Home extends Component {
 		let finalList = [...chosen];
 		if (finalList.length > 0) {
 			if (!hasZones) {
-				return <Link to={`lista/${finalList}`}>Continuar</Link>;
+				return <Link className="f-forms__button_primary" to={`lista/${finalList}`}>Continuar</Link>;
 			}
 			if (chosenZones.length > 0) {
 				if (finalList.includes(spCode)) {
@@ -98,7 +103,7 @@ export default class Home extends Component {
 					finalList.push(...newZones);
 					finalList = finalList.filter(each => each !== spCode);
 				}
-				return <Link to={`lista/${finalList}`}>Continuar</Link>;
+				return <Link className="f-forms__button_primary" to={`lista/${finalList}`}>Continuar</Link>;
 			}
 		}
 		return null;
@@ -182,70 +187,73 @@ export default class Home extends Component {
 
 		// for autosuggest
 		const autoList = Object.keys(cities).map(each => ({
-			name: cities[each].city_name,
+			name: upperAll(cities[each].city_name),
 			code: each,
 		}));
 
 		return (
-			<Form onSubmit={(e) => { e.preventDefault(); }}>
+			<Fade>
+				<Form className="f-forms" onSubmit={(e) => { e.preventDefault(); }}>
 
-				{/* STATE */}
-				<label htmlFor="uf">
+					{/* STATE */}
+					<label className="f-forms__label" htmlFor="uf">
 						Selecione o Estado:
-					<select name="uf" id="uf" value={uf} onChange={this.handleUfChange}>
-						{ufs.map(each => (
-							<option key={uuid()} value={each[1]}>{each[1]}</option>
-						))}
-					</select>
-				</label>
-
-				{/* LOADING JSON */}
-				<Loading loading={loading}>
-
-					{/* CITY */}
-					<label htmlFor="city">
-						Selecione a cidade:
-						<div className="autosuggest">
-							<Autosuggest list={autoList} changeChosen={this.changeChosen} />
-						</div>
+						<select className="f-forms__select" name="uf" id="uf" value={uf} onChange={this.handleUfChange}>
+							{ufs.map(each => (
+								<option key={uuid()} value={each[1]}>{each[1]}</option>
+							))}
+						</select>
 					</label>
 
-					{/* SELECTED CITIES */}
-					<Selected>
-						{chosen.map(each => (
-							<p key={uuid()}>
-								{cities[each].city_name}
-								<button type="button" data-code={each} onClick={e => this.deleteTag('chosen', e.target.dataset.code)}>×</button>
-							</p>
-						))}
-					</Selected>
+					{/* LOADING JSON */}
+					<Loading loading={loading}>
 
-					{/* SELECTED ZONES */}
-					{hasZones
-						? (
-							<Zones>
-								<label htmlFor="zones">
+						{/* CITY */}
+						<label className="f-forms__label" htmlFor="city">
+						Selecione a cidade:
+							<div className="autosuggest">
+								<Autosuggest list={autoList} changeChosen={this.changeChosen} />
+							</div>
+						</label>
+
+						{/* SELECTED CITIES */}
+						<Selected>
+							{chosen.map(each => (
+								<p key={uuid()}>
+									{upperAll(cities[each].city_name)}
+									<button type="button" data-code={each} onClick={e => this.deleteTag('chosen', e.target.dataset.code)}>×</button>
+								</p>
+							))}
+						</Selected>
+
+						{/* SELECTED ZONES */}
+						{hasZones
+							? (
+								<Zones>
+									<label className="f-forms__label" htmlFor="zones">
 									Escolha a zona
-									<select name="zones" id="zones" value={zone} onChange={this.handleZoneChange}>
-										{this.getZones().map(each => <option value={each} key={uuid()}>{each}</option>)}
-									</select>
-								</label>
-								<Selected>
-									{chosenZones.map(each => (
-										<p key={uuid()}>
-											{each}
-											<button type="button" data-zone={each} onClick={e => this.deleteTag('zones', e.target.dataset.zone)}>×</button>
-										</p>
-									))}
-								</Selected>
-							</Zones>
-						)
-						: '' }
-
-					{/* BUTTON */}
-					{this.continueBtn()}
-				</Loading>
-			</Form>
+										<select className="f-forms__select" name="zones" id="zones" value={zone} onChange={this.handleZoneChange}>
+											{this
+												.getZones()
+												.map(each => <option value={each} key={uuid()}>{each}</option>)}
+										</select>
+									</label>
+									<Selected>
+										{chosenZones.map(each => (
+											<p key={uuid()}>
+												{each}
+												<button type="button" data-zone={each} onClick={e => this.deleteTag('zones', e.target.dataset.zone)}>×</button>
+											</p>
+										))}
+									</Selected>
+								</Zones>
+							)
+							: '' }
+						{/* BUTTON */}
+						{this.continueBtn()}
+					</Loading>
+				</Form>
+			</Fade>
 		);
 	}
 }
