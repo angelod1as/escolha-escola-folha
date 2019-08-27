@@ -5,16 +5,15 @@ import { ref } from '../../../components/refs';
 
 const Utilities = ({ data }) => {
 	const wrapper = content => (
-		<Fade>
+		<div>
+			<h3>Dependências</h3>
 			<div>
-				<h3>Dependências</h3>
-				<div>
-					<ul>
-						{content}
-					</ul>
-				</div>
+				<ul>
+					{content}
+				</ul>
 			</div>
-		</Fade>
+		</div>
+
 	);
 
 	const utilities = Object.keys(data)

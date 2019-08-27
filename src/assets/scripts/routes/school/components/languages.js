@@ -6,16 +6,14 @@ import { upper } from '../../../components/upper';
 
 const Languages = ({ data }) => {
 	const wrapper = content => (
-		<Fade cascade>
+		<div>
+			<h3>Idiomas</h3>
 			<div>
-				<h3>Idiomas</h3>
-				<div>
-					<ul>
-						{content}
-					</ul>
-				</div>
+				<ul>
+					{content}
+				</ul>
 			</div>
-		</Fade>
+		</div>
 	);
 
 	const languages = Object.keys(data)

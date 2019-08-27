@@ -33,11 +33,9 @@ const Address = ({ data }) => {
 	const wrapper = content => (
 		<Wrapper>
 			<h3>Endereço</h3>
-			<Fade cascade>
-				<div>
-					{content}
-				</div>
-			</Fade>
+			<div>
+				{content}
+			</div>
 		</Wrapper>
 	);
 
@@ -45,26 +43,26 @@ const Address = ({ data }) => {
 		const addLine = [];
 		if (address) {
 			if (address.includes(addressType)) {
-				addLine.push(upperAll(address));
+				addLine.push(address);
 			} else {
-				addLine.push(`${upperAll(addressType)} ${upperAll(address)}`);
+				addLine.push(`${addressType} ${address}`);
 			}
 		}
 		if (compl) addLine.push(`${compl}`);
 		if (cep) addLine.push(`CEP ${cep}`);
-		if (district) addLine.push(`${upperAll(district)}`);
+		if (district) addLine.push(`${district}`);
 		lines.push(<p key={uuid()}>{addLine.join(', ')}</p>);
 	}
 
 	if (city || uf) {
 		const addLine = [];
-		if (city) addLine.push(upperAll(city));
+		if (city) addLine.push(city);
 		if (uf) addLine.push(uf);
-		if (zone && zone > 1) addLine.push(`zona ${ref.address.zone[1][zone].toLowerCase()}`);
+		if (zone && zone > 1) addLine.push(`zona ${ref.address.zone[1][zone]}`);
 		lines.push(<p key={uuid()}>{addLine.join(', ')}</p>);
 	}
 
-	if (email) lines.push(<p key={uuid()}>{email.toLowerCase()}</p>);
+	if (email) lines.push(<p key={uuid()}>{email}</p>);
 	if (phone.phones.length > 0) {
 		const ph = phone.phones
 			.filter(each => typeof each === 'number' || typeof each === 'string')

@@ -3,7 +3,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import Fade from 'react-reveal/Fade';
 import { ref } from '../../components/refs';
 import { upperAll } from '../../components/upper';
 
@@ -61,20 +60,18 @@ class School extends Component {
 
 			return (
 				<Loading loading={loading}>
-					<Fade>
-						<Back from={location} noFrom={noFrom} />
-						<Title>{upperAll(school.name)}</Title>
-						<Type
-							publicPrivate={school.public_private}
-							type={school.type}
-							schoolType={school.school_type}
-							location={address.location}
-						/>
-						<Address data={address} />
-						<Languages data={languages} />
-						<Utilities data={utilities} />
-						<Avgs data={avg} city={city} />
-					</Fade>
+					<Back from={location} noFrom={noFrom} />
+					<Title>{upperAll(school.name)}</Title>
+					<Type
+						publicPrivate={school.public_private}
+						type={school.type}
+						schoolType={school.school_type}
+						location={address.location}
+					/>
+					<Address data={address} />
+					<Languages data={languages} />
+					<Utilities data={utilities} />
+					<Avgs data={avg} city={city} />
 				</Loading>
 			);
 		}

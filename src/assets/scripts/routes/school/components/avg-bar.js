@@ -157,17 +157,17 @@ const AvgBar = ({ school, avg, percent }) => {
 			`;
 				return (
 					<Bar key={uuid()}>
-						<Fade cascade>
-							<p>{avgRefs[each]}</p>
-							<Limit>
-								<Holder>
-									<UpperBar />
-									<LowerBar />
-									<Lower />
-									<Upper />
-								</Holder>
-							</Limit>
-						</Fade>
+
+						<p>{avgRefs[each]}</p>
+						<Limit>
+							<Holder>
+								<UpperBar />
+								<LowerBar />
+								<Lower />
+								<Upper />
+							</Holder>
+						</Limit>
+
 					</Bar>
 				);
 			}

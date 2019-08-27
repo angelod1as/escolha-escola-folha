@@ -16,12 +16,12 @@ const Type = ({
 }) => {
 	const wrapper = content => (
 		<Wrapper>
-			<Fade cascade>
-				<p>
-					<span>{content[0]}</span>
-					<span>{content[1]}</span>
-				</p>
-			</Fade>
+
+			<p>
+				<span>{content[0]}</span>
+				<span>{content[1]}</span>
+			</p>
+
 			{/* <p>{content[1]}</p> */}
 		</Wrapper>
 	);

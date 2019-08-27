@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auto from 'react-autosuggest';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import slugfy from '../../components/slugfy';
 
 const AutoWrapper = styled.div`
 	.react-autosuggest__container,
@@ -115,10 +116,10 @@ export default class autosuggest extends Component {
 		if (inputLength === 0) {
 			return [];
 		}
-		return searchList.filter(item => item
+		return searchList.filter(item => slugfy(item
 			.name
 			.toLowerCase()
-			.slice(0, inputLength) === inputValue);
+			.slice(0, inputLength)) === slugfy(inputValue));
 	}
 
 	render() {
