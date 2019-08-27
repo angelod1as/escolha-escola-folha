@@ -64,7 +64,7 @@ class List extends Component {
 	render() {
 		const { loading, schools, filters } = this.state;
 		const { codes } = this.props;
-		const hasZone = codes.filter(e => e.includes('-')).length > 0;
+		const hasZone = codes.filter(e => e.includes('-')).length > 1;
 
 		return (
 			<Loading loading={loading}>

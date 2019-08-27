@@ -9,7 +9,7 @@ import Home from './routes/home/home';
 import List from './routes/list/list';
 import School from './routes/school/school';
 
-const output = 'http://staging.arte.folha.com.br/testes/escolha-a-escola/output/';
+const output = '../../../output/';
 
 const App = () => (
 	<Layout>

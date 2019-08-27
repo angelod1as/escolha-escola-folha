@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import GlobalStyle from './global-style';
+import Footer from './footer';
 
 const theme = {
 	color: {
@@ -31,7 +32,13 @@ const theme = {
 	},
 };
 
+const Wrapper = styled.div`
+	min-height:100%;
+	position:relative;
+`;
+
 const Layout = styled.div`
+	width: 100%;
 	max-width: 920px;
 	margin: 30px auto;
 	padding: 0 5px;
@@ -41,9 +48,12 @@ const LayoutWrapper = ({ children }) => (
 	<ThemeProvider theme={theme}>
 		<>
 			<GlobalStyle />
-			<Layout>
-				{children}
-			</Layout>
+			<Wrapper>
+				<Layout>
+					{children}
+				</Layout>
+				<Footer />
+			</Wrapper>
 		</>
 	</ThemeProvider>
 );

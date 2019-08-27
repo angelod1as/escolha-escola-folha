@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid/v1';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Fade from 'react-reveal/Fade';
+// import Fade from 'react-reveal/Fade';
 import { avgRefs } from '../../../components/refs';
 import AvgBar from './avg-bar';
 

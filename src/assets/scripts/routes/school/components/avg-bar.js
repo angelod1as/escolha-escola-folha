@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
-import Fade from 'react-reveal/Fade';
+// import Fade from 'react-reveal/Fade';
 import bp from '../../../components/breakpoints';
 import { avgRefs } from '../../../components/refs';
 
@@ -158,7 +158,7 @@ const AvgBar = ({ school, avg, percent }) => {
 				return (
 					<Bar key={uuid()}>
 
-						<p>{avgRefs[each]}</p>
+						<p>{`Ensino ${avgRefs[each]}`}</p>
 						<Limit>
 							<Holder>
 								<UpperBar />

@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import Fade from 'react-reveal/Fade';
+// import Fade from 'react-reveal/Fade';
 import { ref } from '../../../components/refs';
 
 const Utilities = ({ data }) => {

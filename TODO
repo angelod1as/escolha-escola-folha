@@ -1,0 +1,18 @@
+
+Todo:
+	☐ Busca na páginas das escolas > clica em "Buscar" e ele busca já com o filtro setado.
+	✔ Médio (nos gráficos) com "Ensino" @done(19-08-27 17:53)
+	☐ Busca na URL
+	✔ Footer com expediente @done(19-08-27 16:47)
+	☐ Ordenação
+	☐ Lista de escolas: Cidade / Rural ou Urbana / Pública ou Privada
+	✔ na busca, Zona só se tiver + de 1 SP (na real ZONA tá errado) @done(19-08-27 17:40)
+	✔ ToLowerCase na Zona Undefined (vertice, objetivo são luiz) @done(19-08-27 17:40)
+	✔ Logradouro @done(19-08-27 17:43)
+	✔ Zona: Todas não entra @done(19-08-27 17:48)
+	☐ Refazer CSS sem gerais (h1, h2, etc)
+	XLS:
+		☐ Checa o UNDEFINED no zona com todas as escolas
+	Notas não entrando:
+		☐ Enem não tá entrando
+		☐ Saeb tbm não (objeto não tá puxando)

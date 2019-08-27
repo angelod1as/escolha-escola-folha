@@ -22,6 +22,9 @@ const filter = (data, filters) => {
 				if (filters[fil] === '' || +filters[fil] === 0) {
 					return true;
 				}
+				if (fil === 'zone' && +filters[fil] === 1) {
+					return true;
+				}
 				if (fil === 'name') {
 					return shallow[fil].toLowerCase().includes(filters[fil].toLowerCase());
 				}
