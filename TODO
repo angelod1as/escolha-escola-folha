@@ -1,7 +1,7 @@
 
 Todo:
-	☐ Busca na páginas das escolas > clica em "Buscar" e ele busca já com o filtro setado.
-	☐ Busca na URL
+	✘ Busca na páginas das escolas > clica em "Buscar" e ele busca já com o filtro setado. @cancelled(19-08-28 17:02) - Passar os states pra cá significa mudar muito a estrutura do todo
+	✔ Busca na URL @done(19-08-28 17:02)
 	✔ Refazer CSS sem gerais (h1, h2, etc) @done(19-08-28 15:16)
 	✔ Sem "Ensino" no Saeb e Enem @done(19-08-28 14:45)
 	✔ Ordenação @done(19-08-28 14:01)
