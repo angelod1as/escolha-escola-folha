@@ -6,33 +6,36 @@ import PropTypes from 'prop-types';
 import { avgRefs } from '../../../components/refs';
 import AvgBar from './avg-bar';
 
-const Legend = styled.div`
-	display: flex;
-`;
+// const Legend = styled.div`
+// 	display: flex;
+// `;
 
-const LegendWithBox = styled.div`
-	position: relative;
-	display: flex;
-	align-items: center;
-	div {
-		width: 15px;
-		height: 15px;
-		margin-right: 5px;
-	}
-	&:first-child {
-		margin-right: 15px;
-	}
-`;
+// const LegendWithBox = styled.div`
+// 	position: relative;
+// 	display: flex;
+// 	align-items: center;
+// 	div {
+// 		width: 15px;
+// 		height: 15px;
+// 		margin-right: 5px;
+// 	}
+// 	&:first-child {
+// 		margin-right: 15px;
+// 	}
+// `;
 
-const Upper = styled(LegendWithBox)`
-	div {
-		background-color: ${p => p.theme.color.color};
-	}
-`;
-const Lower = styled(LegendWithBox)`
-	div {
-		background-color: ${p => p.theme.color.gray2};
-	}
+// const Upper = styled(LegendWithBox)`
+// 	div {
+// 		background-color: ${p => p.theme.color.color};
+// 	}
+// `;
+// const Lower = styled(LegendWithBox)`
+// 	div {
+// 		background-color: ${p => p.theme.color.gray2};
+// 	}
+// `;
+const Margin = styled.div`
+	margin: 10px 0;
 `;
 
 const Avgs = ({ data, city }) => {
@@ -47,10 +50,9 @@ const Avgs = ({ data, city }) => {
 
 	if (valid.length > 0) {
 		return (
-
 			<div key={uuid()}>
 				<h3>Médias</h3>
-				<Legend>
+				{/* <Legend>
 					<Upper>
 						<div />
 						<p>Escola</p>
@@ -59,7 +61,7 @@ const Avgs = ({ data, city }) => {
 						<div />
 						<p>Cidade</p>
 					</Lower>
-				</Legend>
+				</Legend> */}
 				{valid.map((category) => {
 					const title = avgRefs[category[0]];
 
@@ -67,7 +69,7 @@ const Avgs = ({ data, city }) => {
 
 					if (valid2.length > 0) {
 						return (
-							<div key={uuid()}>
+							<Margin key={uuid()}>
 								<h3>{title.replace('%', '')}</h3>
 								<AvgBar
 									key={uuid()}
@@ -76,12 +78,38 @@ const Avgs = ({ data, city }) => {
 									school={data[category[0]]}
 									avg={avg[category[0]]}
 								/>
-							</div>
+							</Margin>
 						);
+					} if (category[0] === 'saeb') {
+						const saeb = data[category[0]];
+						const saebAvg = avg[category[0]];
+						const saebValid = Object.keys(saeb)
+							.filter((each) => {
+								const saebValid2 = Object.keys(saeb[each])
+									.filter(each2 => typeof saeb[each][each2] === 'number');
+								return saebValid2.length > 0;
+							});
+						if (saebValid.length > 0) {
+							return (
+								<Margin key={uuid()}>
+									<h3>{title}</h3>
+									{saebValid.map(each => (
+										<div key={uuid()}>
+											<h4>{avgRefs[each]}</h4>
+											<AvgBar
+												title={avgRefs[each]}
+												percent={title.includes('%')}
+												school={saeb[each]}
+												avg={saebAvg[each]}
+											/>
+										</div>
+									))}
+								</Margin>
+							);
+						}
 					} return null;
 				})}
 			</div>
-
 		);
 	}
 	return null;

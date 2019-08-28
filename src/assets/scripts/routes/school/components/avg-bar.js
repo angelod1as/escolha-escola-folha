@@ -7,22 +7,23 @@ import { avgRefs } from '../../../components/refs';
 
 const Bar = styled.div`
 	display: block;
-	/* grid-template-columns: 110px 1fr; */
 	align-items: start;
-	p {
-		padding: 0;
-		margin: 0;
-		font-family: ${p => p.theme.font.display};
-		font-size: 0.9em;
-		font-weight: 500;
-		line-height: 1.2em;
-	}
+	margin: 15px 0;
 	@media ${bp.small} {
 		display: grid;
 		grid-template-columns: 110px 1fr;
-		p {
-			padding: 7px 0 0 0;
-		}
+	}
+`;
+
+const P = styled.div`
+	padding: 0;
+	margin: 0;
+	font-family: ${p => p.theme.font.display};
+	font-size: 0.9em;
+	font-weight: 500;
+	line-height: 1.2em;
+	@media ${bp.small} {
+		padding: 7px 0 0 0;
 	}
 `;
 
@@ -47,8 +48,8 @@ const AvgBar = ({ school, avg, percent }) => {
 	const limit = Math.max(...allNum.filter(each => typeof each === 'number'));
 
 	const height = 20;
-	const max = 80;
-	const upperHeight = height / 3;
+	const max = 100;
+	const upperHeight = height;
 	const upperTop = (height / 2) - (upperHeight / 2);
 
 	const createBars = (schoolNum, avgNum) => Object
@@ -71,7 +72,7 @@ const AvgBar = ({ school, avg, percent }) => {
 					lower = avgE;
 				}
 
-				const isBigger = avgE > (schE + 10);
+				const isBigger = avgE > (schE + 20);
 
 				const Limit = styled.div`
 					margin: 3px 0 10px;
@@ -84,6 +85,8 @@ const AvgBar = ({ school, avg, percent }) => {
 					font-family: ${p => p.theme.font.display};
 					font-size: 0.9em;
 					font-weight: 500;
+					background-color: ${p => p.theme.color.gray3};
+					z-index: -15;
 				`;
 
 				const Holder = styled.div`
@@ -109,45 +112,57 @@ const AvgBar = ({ school, avg, percent }) => {
 					height: ${height}px;
 					z-index: -1;
 					position: relative;
-					&:after{
+					&:after {
 						content: '${schE}${percent ? '%' : ''}';
 						position: absolute;
-						${() => (upper < 80 ? 'top: 0px;' : `top: ${-height + 7}px;`)}
-						${() => (upper < 80 ? 'left: calc(100% + 5px);' : 'right: 5px;')}
+						/* ${() => (upper < 90 ? 'top: 0px;' : `top: ${-height}px;`)} */
+						/* ${() => (upper < 90 ? 'left: calc(100% + 5px);' : 'right: 5px;')} */
+						top: ${-height}px;
+						right: 0;
 						color: ${p => p.theme.color.color};
+						z-index: 0;
 					}
 				`;
 
 				const LowerBar = styled.div`
-					border-right: 1px solid ${p => p.theme.color.gray3};
+					border-right: 2px solid ${p => p.theme.color.gray2};
 					width: ${lower}%;
-					height: ${height}px;
+					height: ${height + 10}px;
 					position: absolute;
-					top: 0;
+					top: -5px;
 					left: 0;
-					z-index: -3;
-					&:after{
-						content: '${avgE}${percent ? '%' : ''}';
+					z-index: -1;
+					&:after {
+						content: 'Cidade: ${avgE}${percent ? '%' : ''}';
+						font-size: .9em;
 						position: absolute;
-						top: ${height + 3}px;
+						top: ${height + 12}px;
+						width: 100%;
 						${() => {
 		if (isBigger) {
 			return 'left: calc(100% + 5px); top: 0;';
 		}
 		if (percent && avgE < 10) {
-			return 'left: 0;';
+			return 'left: 5px;';
 		}
 		if (noAvg) {
-			return 'left: 0; width: 200px;';
+			return 'left: 5px; width: 200px;';
 		}
-		return 'right: 0;';
+		return 'right: 5px;';
 	}}
 						color: ${p => p.theme.color.gray2};
+					}
+					&:before {
+						content: '▴';
+						position: absolute;
+						top: ${height}px;
+						right: -6px;
+						color: ${p => p.theme.color.gray2};
+						z-index: 0;
 					}
 				`;
 
 				const Lower = styled.div`
-					background-color: ${p => p.theme.color.gray3};
 					width: ${lower}%;
 					height: ${height}px;
 					position: absolute;
@@ -157,8 +172,7 @@ const AvgBar = ({ school, avg, percent }) => {
 			`;
 				return (
 					<Bar key={uuid()}>
-
-						<p>{`Ensino ${avgRefs[each]}`}</p>
+						<P>{`Ensino ${avgRefs[each]}`}</P>
 						<Limit>
 							<Holder>
 								<UpperBar />
@@ -167,7 +181,6 @@ const AvgBar = ({ school, avg, percent }) => {
 								<Upper />
 							</Holder>
 						</Limit>
-
 					</Bar>
 				);
 			}

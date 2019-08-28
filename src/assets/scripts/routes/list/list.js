@@ -37,6 +37,11 @@ class List extends Component {
 					});
 				});
 				const schools = [].concat(...array);
+				schools.sort((a, b) => {
+					if (a.name < b.name) { return -1; }
+					if (a.name > b.name) { return 1; }
+					return 0;
+				});
 				this.setState({ originalSchools: schools, schools, loading: 2 });
 			}));
 	}
