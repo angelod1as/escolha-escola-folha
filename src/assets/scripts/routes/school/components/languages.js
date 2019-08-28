@@ -1,17 +1,18 @@
 import React from 'react';
 import uuid from 'uuid';
-// import Fade from 'react-reveal/Fade';
+
+import { H3, Ul, Li } from '../../../components/styles';
 import { ref } from '../../../components/refs';
 import { upper } from '../../../components/upper';
 
 const Languages = ({ data }) => {
 	const wrapper = content => (
 		<div>
-			<h3>Idiomas</h3>
+			<H3 as="h3">Idiomas</H3>
 			<div>
-				<ul>
+				<Ul>
 					{content}
-				</ul>
+				</Ul>
 			</div>
 		</div>
 	);
@@ -22,7 +23,7 @@ const Languages = ({ data }) => {
 	if (languages.length > 0) {
 		const content = languages.map((util) => {
 			const res = ref.languages[util][0].split(' de ')[1];
-			return <li key={uuid()}>{upper(res)}</li>;
+			return <Li as="li" key={uuid()}>{upper(res)}</Li>;
 		});
 		return wrapper(content);
 	}

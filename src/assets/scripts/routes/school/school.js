@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ref } from '../../components/refs';
 import { upperAll } from '../../components/upper';
 
+import { H2 } from '../../components/styles';
 import Back from '../../components/back';
 import Loading from '../../components/loading';
 import Address from './components/address';
@@ -14,7 +15,7 @@ import Languages from './components/languages';
 import Type from './components/type';
 import Utilities from './components/utilities';
 
-const Title = styled.h2`
+const Title = styled(H2)`
 	color: ${p => p.theme.color.color};
 `;
 
@@ -61,7 +62,7 @@ class School extends Component {
 			return (
 				<Loading loading={loading}>
 					<Back from={location} noFrom={noFrom} />
-					<Title>{upperAll(school.name)}</Title>
+					<Title as="h2">{upperAll(school.name)}</Title>
 					<Type
 						publicPrivate={school.public_private}
 						type={school.type}

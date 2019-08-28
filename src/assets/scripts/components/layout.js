@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import GlobalStyle from './global-style';
 import Footer from './footer';
 
 const theme = {
@@ -35,6 +34,12 @@ const theme = {
 const Wrapper = styled.div`
 	min-height:100%;
 	position:relative;
+	* {
+		box-sizing: border-box;
+    -webkit-font-smoothing: antialiased
+	}
+	font-size: 20px;
+	font-family: ${p => p.theme.font.text};
 `;
 
 const Layout = styled.div`
@@ -47,7 +52,6 @@ const Layout = styled.div`
 const LayoutWrapper = ({ children }) => (
 	<ThemeProvider theme={theme}>
 		<>
-			<GlobalStyle />
 			<Wrapper>
 				<Layout>
 					{children}

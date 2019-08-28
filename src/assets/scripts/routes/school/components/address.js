@@ -1,18 +1,20 @@
 import React from 'react';
 import uuid from 'uuid/v1';
 import styled from 'styled-components';
-// import Fade from 'react-reveal/Fade';
+
+import { H3, P } from '../../../components/styles';
 import { ref } from '../../../components/refs';
 import { upperAll } from '../../../components/upper';
 
-export const Wrapper = styled.div`
-	span {
-		&:last-child {
-			margin-left: 30px;
-		}
+const Wrapper = styled.div``;
+
+const Span = styled.span`
+	&:last-child {
+		margin-left: 30px;
 	}
 `;
 
+const ThisP = styled(P)``;
 
 const Address = ({ data }) => {
 	const {
@@ -32,7 +34,7 @@ const Address = ({ data }) => {
 
 	const wrapper = content => (
 		<Wrapper>
-			<h3>Endereço</h3>
+			<H3 as="h3">Endereço</H3>
 			<div>
 				{content}
 			</div>
@@ -51,7 +53,7 @@ const Address = ({ data }) => {
 		if (compl) addLine.push(compl);
 		if (cep) addLine.push(`CEP ${cep}`);
 		if (district) addLine.push(upperAll(district));
-		lines.push(<p key={uuid()}>{addLine.join(', ')}</p>);
+		lines.push(<ThisP key={uuid()}>{addLine.join(', ')}</ThisP>);
 	}
 
 	if (city || uf) {
@@ -62,15 +64,15 @@ const Address = ({ data }) => {
 			const term = ref.address.zone[1][zone - 1].toLowerCase() === 'centro' ? '' : 'zona ';
 			addLine.push((`${term}${ref.address.zone[1][zone - 1]}`).toLowerCase());
 		}
-		lines.push(<p key={uuid()}>{addLine.join(', ')}</p>);
+		lines.push(<ThisP key={uuid()}>{addLine.join(', ')}</ThisP>);
 	}
 
-	if (email) lines.push(<p key={uuid()}>{email}</p>);
+	if (email) lines.push(<ThisP key={uuid()}>{email}</ThisP>);
 	if (phone.phones.length > 0) {
 		const ph = phone.phones
 			.filter(each => typeof each === 'number' || typeof each === 'string')
-			.map(each => <span key={uuid()}>{`${phone.DDD} ${each}`}</span>);
-		if (ph.length > 0) lines.push(<p key={uuid()}>{ph}</p>);
+			.map(each => <Span key={uuid()}>{`${phone.DDD} ${each}`}</Span>);
+		if (ph.length > 0) lines.push(<ThisP key={uuid()}>{ph}</ThisP>);
 	}
 
 	return wrapper(lines);

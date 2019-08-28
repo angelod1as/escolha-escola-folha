@@ -2,38 +2,11 @@ import React from 'react';
 import uuid from 'uuid/v1';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// import Fade from 'react-reveal/Fade';
+
+import { H3, H4 } from '../../../components/styles';
 import { avgRefs } from '../../../components/refs';
 import AvgBar from './avg-bar';
 
-// const Legend = styled.div`
-// 	display: flex;
-// `;
-
-// const LegendWithBox = styled.div`
-// 	position: relative;
-// 	display: flex;
-// 	align-items: center;
-// 	div {
-// 		width: 15px;
-// 		height: 15px;
-// 		margin-right: 5px;
-// 	}
-// 	&:first-child {
-// 		margin-right: 15px;
-// 	}
-// `;
-
-// const Upper = styled(LegendWithBox)`
-// 	div {
-// 		background-color: ${p => p.theme.color.color};
-// 	}
-// `;
-// const Lower = styled(LegendWithBox)`
-// 	div {
-// 		background-color: ${p => p.theme.color.gray2};
-// 	}
-// `;
 const Margin = styled.div`
 	margin: 10px 0;
 `;
@@ -51,17 +24,7 @@ const Avgs = ({ data, city }) => {
 	if (valid.length > 0) {
 		return (
 			<div key={uuid()}>
-				<h3>Médias</h3>
-				{/* <Legend>
-					<Upper>
-						<div />
-						<p>Escola</p>
-					</Upper>
-					<Lower>
-						<div />
-						<p>Cidade</p>
-					</Lower>
-				</Legend> */}
+				<H3 as="h3">Médias</H3>
 				{valid.map((category) => {
 					const title = avgRefs[category[0]];
 
@@ -70,7 +33,7 @@ const Avgs = ({ data, city }) => {
 					if (valid2.length > 0) {
 						return (
 							<Margin key={uuid()}>
-								<h3>{title.replace('%', '')}</h3>
+								<H3 as="h3">{title.replace('%', '')}</H3>
 								<AvgBar
 									key={uuid()}
 									title={title.replace('%', '')}
@@ -92,10 +55,10 @@ const Avgs = ({ data, city }) => {
 						if (saebValid.length > 0) {
 							return (
 								<Margin key={uuid()}>
-									<h3>{title}</h3>
+									<H3 as="h3">{title}</H3>
 									{saebValid.map(each => (
 										<div key={uuid()}>
-											<h4>{avgRefs[each]}</h4>
+											<H4 as="h4">{avgRefs[each]}</H4>
 											<AvgBar
 												title={avgRefs[each]}
 												percent={title.includes('%')}

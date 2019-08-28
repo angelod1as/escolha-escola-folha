@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Fade from 'react-reveal/Fade';
+
+import { P } from '../../../components/styles';
 import { ref } from '../../../components/refs';
 
 export const Wrapper = styled.div`
@@ -16,13 +17,11 @@ const Type = ({
 }) => {
 	const wrapper = content => (
 		<Wrapper>
-
-			<p>
+			<P>
 				<span>{content[0]}</span>
 				<span>{content[1]}</span>
-			</p>
-
-			{/* <p>{content[1]}</p> */}
+			</P>
+			{/* <P>{content[1]}</P> */}
 		</Wrapper>
 	);
 	let typeAndLoc = '';

@@ -4,6 +4,8 @@ import uuid from 'uuid/v1';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Fade from 'react-reveal/Fade';
+
+import { P } from '../../components/styles';
 import { upperAll } from '../../components/upper';
 import { ref } from '../../components/refs';
 
@@ -30,7 +32,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-const P = styled.p`
+const ThisP = styled(P)`
 	margin: 0;
 	padding: 0;
 `;
@@ -81,17 +83,17 @@ const Schools = ({
 					className="zones"
 				>
 					<Table>
-						<P>{upperAll(each.name)}</P>
-						<P>{upperAll(each.address.city)}</P>
+						<ThisP>{upperAll(each.name)}</ThisP>
+						<ThisP>{upperAll(each.address.city)}</ThisP>
 						{/* {
-							<P>
+							<ThisP>
 								{hasCity()
 									? upperAll(each.address.city)
 									:	 ref.address.zone[1][each.address.zone]}
-							</P>
+							</ThisP>
 						} */}
-						<P>{ref.address.location[1][each.address.location]}</P>
-						<P>{ref.public_private[1][each.public_private]}</P>
+						<ThisP>{ref.address.location[1][each.address.location]}</ThisP>
+						<ThisP>{ref.public_private[1][each.public_private]}</ThisP>
 					</Table>
 				</StyledLink>
 			</Fade>

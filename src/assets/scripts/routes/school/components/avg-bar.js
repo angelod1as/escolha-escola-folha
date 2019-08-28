@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
-// import Fade from 'react-reveal/Fade';
+
+import { P } from '../../../components/styles';
 import bp from '../../../components/breakpoints';
 import { avgRefs } from '../../../components/refs';
 
@@ -15,7 +16,7 @@ const Bar = styled.div`
 	}
 `;
 
-const P = styled.div`
+const ThisP = styled(P)`
 	padding: 0;
 	margin: 0;
 	font-family: ${p => p.theme.font.display};
@@ -49,8 +50,6 @@ const AvgBar = ({ school, avg, percent }) => {
 
 	const height = 20;
 	const max = 100;
-	const upperHeight = height;
-	const upperTop = (height / 2) - (upperHeight / 2);
 
 	const createBars = (schoolNum, avgNum) => Object
 		.keys(schoolNum)
@@ -58,14 +57,13 @@ const AvgBar = ({ school, avg, percent }) => {
 			let schE = schoolNum[each];
 			let avgE = avgNum[each];
 
-
 			if (typeof schE === 'number') {
 				let upper = (schE * max) / limit;
 				let lower = (avgE * max) / limit;
 
 				schE = Math.round(schE * 100) / 100;
 				const noAvg = avgE === undefined;
-				avgE = noAvg ? 'Média não disponível' : Math.round(avgE * 100) / 100;
+				avgE = noAvg ? 'média não disponível' : Math.round(avgE * 100) / 100;
 
 				if (percent) {
 					upper = schE;
@@ -96,18 +94,9 @@ const AvgBar = ({ school, avg, percent }) => {
 					z-index: -10;
 				`;
 
-				const Upper = styled.div`
-					background-color: ${p => p.theme.color.color};
-					width: ${upper}%;
-					height: ${upperHeight}px;
-					position: absolute;
-					top: ${upperTop}px;
-					left: 0;
-					z-index: -2;
-				`;
-
-				const UpperBar = styled.div`
+				const BarSchool = styled.div`
 					border-right: 1px solid ${p => p.theme.color.color};
+					background-color: ${p => p.theme.color.color};
 					width: ${upper}%;
 					height: ${height}px;
 					z-index: -1;
@@ -115,16 +104,15 @@ const AvgBar = ({ school, avg, percent }) => {
 					&:after {
 						content: '${schE}${percent ? '%' : ''}';
 						position: absolute;
-						/* ${() => (upper < 90 ? 'top: 0px;' : `top: ${-height}px;`)} */
-						/* ${() => (upper < 90 ? 'left: calc(100% + 5px);' : 'right: 5px;')} */
-						top: ${-height}px;
+						top: ${-height - 6}px;
+						font-size: .9em;
 						right: 0;
 						color: ${p => p.theme.color.color};
 						z-index: 0;
 					}
 				`;
 
-				const LowerBar = styled.div`
+				const BarAvg = styled.div`
 					border-right: 2px solid ${p => p.theme.color.gray2};
 					width: ${lower}%;
 					height: ${height + 10}px;
@@ -132,53 +120,34 @@ const AvgBar = ({ school, avg, percent }) => {
 					top: -5px;
 					left: 0;
 					z-index: -1;
+					&:before {
+						content: '\\25B4';
+						position: absolute;
+						top: ${height - 6}px;
+						right: -6px;
+						color: ${p => p.theme.color.gray2};
+						z-index: 0;
+					}
 					&:after {
 						content: 'Cidade: ${avgE}${percent ? '%' : ''}';
 						font-size: .9em;
 						position: absolute;
 						top: ${height + 12}px;
-						width: 100%;
-						${() => {
-		if (isBigger) {
-			return 'left: calc(100% + 5px); top: 0;';
-		}
-		if (percent && avgE < 10) {
-			return 'left: 5px;';
-		}
-		if (noAvg) {
-			return 'left: 5px; width: 200px;';
-		}
-		return 'right: 5px;';
-	}}
 						color: ${p => p.theme.color.gray2};
-					}
-					&:before {
-						content: '\\25B4';
-						position: absolute;
-						top: ${height}px;
-						right: -6px;
-						color: ${p => p.theme.color.gray2};
-						z-index: 0;
+						${() => (isBigger ? 'width: 100%;' : 'right: -5px; width: initial;')}
+						${() => (percent && avgE < 20 ? 'left: 0; width: 100vw' : '')}
+						${() => (noAvg ? 'left: 0; width: 100vw' : '')}
 					}
 				`;
 
-				const Lower = styled.div`
-					width: ${lower}%;
-					height: ${height}px;
-					position: absolute;
-					top: 0;
-					left: 0;
-					z-index: -4;
-			`;
+				const legend = each === 'medio' || each === 'fundamental' ? 'Ensino ' : '';
 				return (
 					<Bar key={uuid()}>
-						<P>{`Ensino ${avgRefs[each]}`}</P>
+						<ThisP>{`${legend}${avgRefs[each]}`}</ThisP>
 						<Limit>
 							<Holder>
-								<UpperBar />
-								<LowerBar />
-								<Lower />
-								<Upper />
+								<BarSchool />
+								<BarAvg />
 							</Holder>
 						</Limit>
 					</Bar>

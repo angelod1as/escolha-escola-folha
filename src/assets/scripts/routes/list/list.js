@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Back from '../../components/back';
 
+import { H2 } from '../../components/styles';
 import Loading from '../../components/loading';
 import Schools from './schools';
 import Filters from './filters/filters';
@@ -101,7 +102,7 @@ class List extends Component {
 		return (
 			<Loading loading={loading}>
 				<Back />
-				<h2>Escolas</h2>
+				<H2 as="h2">Escolas</H2>
 				<Filters
 					filters={filters}
 					nameFilter={this.nameFilter}

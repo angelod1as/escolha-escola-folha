@@ -26,7 +26,6 @@ const AutoWrapper = styled.div`
 	}
 
 	.react-autosuggest__suggestions-list {
-		/* background-color: blue; */
 	}
 
 	.react-autosuggest__suggestion {
@@ -43,17 +42,6 @@ const AutoWrapper = styled.div`
 		background-color: ${p => p.theme.color.gray3};
 		color: ${p => p.theme.color.black};
 	}
-
-	/* .react-autosuggest__suggestions-container, */
-	/* .react-autosuggest__suggestions-container--open, */
-	/* .react-autosuggest__suggestions-list */
-	/* .react-autosuggest__suggestion, */
-	/* .react-autosuggest__suggestion--first, */
-	/* .react-autosuggest__suggestion--highlighted */
-	/* .react-autosuggest__section-container, */
-	/* .react-autosuggest__section-container--first, */
-	/* .react-autosuggest__section-title  */
-
 `;
 
 // When suggestion is clicked, Autosuggest needs to populate the input

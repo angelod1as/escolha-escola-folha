@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Fade from 'react-reveal/Fade';
 
+import { H4 } from '../../../components/styles';
 import { ref, categs } from '../../../components/refs';
 import FilterTypes from './filter-types';
 
@@ -16,9 +17,11 @@ const Upper = styled.div`
 	grid-auto-flow: column;
 	margin-bottom: 10px;
 	grid-gap: 10px;
-	input {
-		height: 40px;
-	}
+
+`;
+
+const Input = styled.input`
+	height: 40px;
 `;
 
 const Lower = styled.div`
@@ -63,7 +66,7 @@ export default class Filters extends Component {
 					// DO NOT INSERT KEY PROP BELOW!
 					<div id="filtername">
 						<label className="f-forms__label" htmlFor="name">Nome da escola</label>
-						<input
+						<Input
 							key="name"
 							id="name"
 							type="text"
@@ -102,7 +105,7 @@ export default class Filters extends Component {
 		}
 		return (
 			<div key={uuid()}>
-				<h4>{categs[category]}</h4>
+				<H4 as="h4">{categs[category]}</H4>
 				<div>
 					{Object.keys(obj).map(each => this.goToArray(obj[each], each, reference[category]))}
 				</div>

@@ -10,35 +10,36 @@ import { upperAll } from '../../components/upper';
 import ufList from '../../utils/states';
 
 import Loading from '../../components/loading';
+import { P } from '../../components/styles';
 import Autosuggest from './autosuggest';
 
 const spCode = '3550308';
 // const rjCode = '3304557';
 
-const Selected = styled.div`
-	p {
-		display: inline-block;
-		padding: 5px 10px;
-		margin: 0 5px;
-		border-radius: 5px;
-		font-family: ${p => p.theme.font.display};
-		border: 1px solid ${p => p.theme.color.color};
-		font-size: .9em;
+const Selected = styled.div``;
 
-		&:first-child {
-			margin: 0;
-		}
+const SelectedP = styled(P)`
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0 5px;
+	border-radius: 5px;
+	font-family: ${p => p.theme.font.display};
+	border: 1px solid ${p => p.theme.color.color};
+	font-size: .9em;
 
-		button {
-			cursor: pointer;
-			color: ${p => p.theme.color.gray};
-			margin: 0 5px 0 10px;
-			appearance: none;
-			border: none;
-			&:hover {
-				color: ${p => p.theme.color.color};
-			}
-		}
+	&:first-child {
+		margin: 0;
+	}
+`;
+
+const Button = styled.button`
+	cursor: pointer;
+	color: ${p => p.theme.color.gray};
+	margin: 0 5px 0 10px;
+	appearance: none;
+	border: none;
+	&:hover {
+		color: ${p => p.theme.color.color};
 	}
 `;
 
@@ -48,18 +49,23 @@ const Btn = styled.div`
 	margin-top: 20px;
 `;
 
-
 const Form = styled.form`
-	label, select {
-		display: block;
-	}
-	label {
-		margin: 20px 0;
-	}
-	select, .autosuggest {
+	.autosuggest {
 		margin: 10px 0;
 	}
 `;
+
+const Label = styled.label`
+	display: block;
+	margin: 20px 0;
+`;
+
+const Select = styled.select`
+	display: block;
+	margin: 10px 0;
+`;
+
+const Option = styled.option``;
 
 export default class Home extends Component {
 	constructor() {
@@ -226,39 +232,39 @@ export default class Home extends Component {
 				<Form className="f-forms" onSubmit={(e) => { e.preventDefault(); }}>
 
 					{/* STATE */}
-					<label className="f-forms__label" htmlFor="uf">
+					<Label className="f-forms__label" htmlFor="uf">
 						Selecione o Estado:
-						<select className="f-forms__select" name="uf" id="uf" value={uf} onChange={this.handleUfChange}>
+						<Select className="f-forms__select" name="uf" id="uf" value={uf} onChange={this.handleUfChange}>
 							{ufs.map(each => (
-								<option key={uuid()} value={each[1]}>{each[1]}</option>
+								<Option key={uuid()} value={each[1]}>{each[1]}</Option>
 							))}
-						</select>
-					</label>
+						</Select>
+					</Label>
 
 					{/* LOADING JSON */}
 					<Loading loading={loading}>
 
 						{/* CITY */}
-						<label className="f-forms__label" htmlFor="city">
+						<Label className="f-forms__label" htmlFor="city">
 						Selecione a cidade:
 							<div className="autosuggest">
 								<Autosuggest list={autoList} changeChosen={this.changeChosen} />
 							</div>
-						</label>
+						</Label>
 
 						{/* SELECTED CITIES */}
 						<Selected>
 							{chosen.map(each => (
-								<p key={uuid()}>
+								<SelectedP key={uuid()}>
 									{upperAll(cities[each].city_name)}
-									<button
+									<Button
 										type="button"
 										data-code={each}
 										onClick={e => this.deleteTag('chosen', e.target.dataset.code)}
 									>
 											×
-									</button>
-								</p>
+									</Button>
+								</SelectedP>
 							))}
 						</Selected>
 
@@ -266,20 +272,20 @@ export default class Home extends Component {
 						{hasZones
 							? (
 								<Zones>
-									<label className="f-forms__label" htmlFor="zones">
+									<Label className="f-forms__label" htmlFor="zones">
 									Escolha a zona de São Paulo
 										<select className="f-forms__select" name="zones" id="zones" value={zone} onChange={this.handleZoneChange}>
 											{this
 												.getZones()
 												.map(each => <option value={each} key={uuid()}>{each}</option>)}
 										</select>
-									</label>
+									</Label>
 									<Selected>
 										{chosenZones.map(each => (
-											<p key={uuid()}>
+											<SelectedP key={uuid()}>
 												{each}
-												<button type="button" data-zone={each} onClick={e => this.deleteTag('zones', e.target.dataset.zone)}>×</button>
-											</p>
+												<Button type="button" data-zone={each} onClick={e => this.deleteTag('zones', e.target.dataset.zone)}>×</Button>
+											</SelectedP>
 										))}
 									</Selected>
 								</Zones>
