@@ -20,10 +20,13 @@ class List extends Component {
 			filters: {
 				name: '',
 			},
+			sortOrder: ['name', true],
 		};
 
 		this.nameFilter = this.nameFilter.bind(this);
 		this.selectFilter = this.selectFilter.bind(this);
+		this.sortList = this.sortList.bind(this);
+		this.changeSort = this.changeSort.bind(this);
 
 		axios.all(codes.map(each => axios.get(`${output}city/city-${each}.json`)))
 			.then(axios.spread((...args) => {
@@ -37,11 +40,7 @@ class List extends Component {
 					});
 				});
 				const schools = [].concat(...array);
-				schools.sort((a, b) => {
-					if (a.name < b.name) { return -1; }
-					if (a.name > b.name) { return 1; }
-					return 0;
-				});
+				this.sortList(schools);
 				this.setState({ originalSchools: schools, schools, loading: 2 });
 			}));
 	}
@@ -66,8 +65,36 @@ class List extends Component {
 		this.setState({ filters });
 	}
 
+	changeSort(term, order) {
+		const { schools } = this.state;
+		this.setState({ sortOrder: [term, order] }, () => {
+			this.sortList(schools);
+		});
+	}
+
+	sortList(schools) {
+		const { sortOrder } = this.state;
+		const [term, asc] = sortOrder;
+		if (asc) {
+			schools.sort((a, b) => {
+				if (a[term] < b[term]) { return -1; }
+				if (a[term] > b[term]) { return 1; }
+				return 0;
+			});
+		} else {
+			schools.sort((a, b) => {
+				if (a[term] > b[term]) { return -1; }
+				if (a[term] < b[term]) { return 1; }
+				return 0;
+			});
+		}
+		this.setState({ schools });
+	}
+
 	render() {
-		const { loading, schools, filters } = this.state;
+		const {
+			loading, schools, filters, sortOrder,
+		} = this.state;
 		const { codes } = this.props;
 		const hasZone = codes.filter(e => e.includes('-')).length > 1;
 
@@ -81,7 +108,12 @@ class List extends Component {
 					selectFilter={this.selectFilter}
 					hasZone={hasZone}
 				/>
-				<Schools from={codes} schools={filter(schools, filters)} />
+				<Schools
+					from={codes}
+					schools={filter(schools, filters)}
+					changeSort={this.changeSort}
+					sortOrder={sortOrder}
+				/>
 			</Loading>
 		);
 	}

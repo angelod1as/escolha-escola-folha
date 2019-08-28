@@ -2,8 +2,8 @@
 Todo:
 	☐ Busca na páginas das escolas > clica em "Buscar" e ele busca já com o filtro setado.
 	☐ Busca na URL
-	☐ Ordenação
 	☐ Refazer CSS sem gerais (h1, h2, etc)
+	✔ Ordenação @done(19-08-28 14:01)
 	✔ Médio (nos gráficos) com "Ensino" @done(19-08-27 21:33)
 	✔ Lista de escolas: Cidade / Rural ou Urbana / Pública ou Privada @done(19-08-27 21:32)
 	✔ Zona: Todas não entra @done(19-08-27 17:48)

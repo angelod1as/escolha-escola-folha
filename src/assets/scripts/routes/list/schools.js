@@ -35,7 +35,28 @@ const P = styled.p`
 	padding: 0;
 `;
 
-const Schools = ({ schools, from }) => {
+const Order = styled.div`
+	position: relative;
+	cursor: pointer;
+	&:hover {
+		opacity: .5;
+	}
+	&:after {
+		padding-left: 5px;
+		content: ${p => (p.order[1]
+		? '"\\23F7"'
+		: '"\\23F6"')};
+		font-size: .8em;
+		color: ${p => (p.order[0] === p.type
+		? `${p.theme.color.black}`
+		: `${p.theme.color.gray2}`)};
+	}
+`;
+
+const Schools = ({
+	schools, from, changeSort, sortOrder,
+}) => {
+	const asc = sortOrder[1];
 	// TODO testar hasCity - não obrigatório
 	// const hasCity = () => {
 	// 	if (from.length > 1) {
@@ -62,7 +83,13 @@ const Schools = ({ schools, from }) => {
 					<Table>
 						<P>{upperAll(each.name)}</P>
 						<P>{upperAll(each.address.city)}</P>
-						{/* <P>{hasCity() ? upperAll(each.address.city) : ref.address.zone[1][each.address.zone]}</P> */}
+						{/* {
+							<P>
+								{hasCity()
+									? upperAll(each.address.city)
+									:	 ref.address.zone[1][each.address.zone]}
+							</P>
+						} */}
 						<P>{ref.address.location[1][each.address.location]}</P>
 						<P>{ref.public_private[1][each.public_private]}</P>
 					</Table>
@@ -76,11 +103,36 @@ const Schools = ({ schools, from }) => {
 				? (
 					<div>
 						<Table>
-							<div>Escola</div>
+							<Order
+								type="name"
+								order={sortOrder}
+								onClick={() => changeSort('name', !asc)}
+							>
+								Escola
+							</Order>
 							{/* <div>{hasCity() ? 'Cidade' : 'Zona'}</div> */}
-							<div>Cidade</div>
-							<div>Localização</div>
-							<div>Tipo</div>
+							<Order
+								type="address.city"
+								order={sortOrder}
+								onClick={() => changeSort('address.city', !asc)}
+							>
+								Cidade
+								{/* <Arrow>{sortOrder} ? '\u25B4' : '\u25BE'}</Arrow> */}
+							</Order>
+							<Order
+								type="address.location"
+								order={sortOrder}
+								onClick={() => changeSort('address.location', !asc)}
+							>
+								Localização
+							</Order>
+							<Order
+								type="public_private"
+								order={sortOrder}
+								onClick={() => changeSort('public_private', !asc)}
+							>
+								Tipo
+							</Order>
 						</Table>
 						{list}
 					</div>
@@ -99,6 +151,10 @@ const Schools = ({ schools, from }) => {
 Schools.propTypes = {
 	schools: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 	from: PropTypes.arrayOf(PropTypes.string).isRequired,
+	changeSort: PropTypes.func.isRequired,
+	sortOrder: PropTypes.arrayOf(PropTypes.oneOfType([
+		PropTypes.string, PropTypes.bool,
+	])).isRequired,
 };
 
 export default withRouter(Schools);

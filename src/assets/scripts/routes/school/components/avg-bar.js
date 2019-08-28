@@ -153,7 +153,7 @@ const AvgBar = ({ school, avg, percent }) => {
 						color: ${p => p.theme.color.gray2};
 					}
 					&:before {
-						content: '▴';
+						content: '\\25B4';
 						position: absolute;
 						top: ${height}px;
 						right: -6px;
