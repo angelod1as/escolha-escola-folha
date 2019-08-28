@@ -114,7 +114,7 @@ export default class Filters extends Component {
 	}
 
 	render() {
-		const { filters } = this.props;
+		const { filters, cleanFilters } = this.props;
 		const { more } = this.state;
 		const jsx = {};
 
@@ -136,6 +136,7 @@ export default class Filters extends Component {
 						}
 					</Upper>
 					<button className="f-forms__button f-forms__button_primary" type="button" onClick={this.moreFilters}>{btn}</button>
+					<button className="f-forms__button f-forms__button_primary" type="button" onClick={() => cleanFilters()}>Limpar filtros</button>
 					<Fade collapse duration={500} when={more}>
 						<Lower>
 							{jsx.school_type}

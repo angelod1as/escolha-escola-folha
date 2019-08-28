@@ -13,6 +13,6 @@ Todo:
 	✔ ToLowerCase na Zona Undefined (vertice, objetivo são luiz) @done(19-08-27 17:40)
 	✔ Logradouro @done(19-08-27 17:43)
 	XLS:
-		☐ Checa o UNDEFINED no zona com todas as escolas
+		✘ Checa o UNDEFINED no zona com todas as escolas @cancelled(19-08-28 15:51) - Problema com arquivo fonte
 		✔ Enem não tá entrando (Não tá SOLTANDO enem) @done(19-08-28 12:19)
 		✔ Saeb tbm não (objeto não tá puxando) @done(19-08-28 12:19)

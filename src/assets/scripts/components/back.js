@@ -8,7 +8,8 @@ import React from 'react';
 const Back = ({ from, noFrom }) => {
 	let goBack = '/';
 	if (from && from.state && from.state.from) {
-		goBack = `/lista/${from.state.from.join()}`;
+		const location = from.state.from;
+		goBack = `${location.pathname}${location.search}`;
 	} else if (noFrom) {
 		goBack = `/lista/${noFrom}`;
 	}

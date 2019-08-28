@@ -59,15 +59,6 @@ const Schools = ({
 	schools, from, changeSort, sortOrder,
 }) => {
 	const asc = sortOrder[1];
-	// TODO testar hasCity - não obrigatório
-	// const hasCity = () => {
-	// 	if (from.length > 1) {
-	// 		const sameCity = [...new Set(from.map(each => each.split('-')[0]))];
-	// 		if (sameCity.length === 1) {
-	// 			return false;
-	// 		} return true;
-	// 	} return false;
-	// };
 
 	const list = schools
 		.map(each => (
@@ -85,13 +76,6 @@ const Schools = ({
 					<Table>
 						<ThisP>{upperAll(each.name)}</ThisP>
 						<ThisP>{upperAll(each.address.city)}</ThisP>
-						{/* {
-							<ThisP>
-								{hasCity()
-									? upperAll(each.address.city)
-									:	 ref.address.zone[1][each.address.zone]}
-							</ThisP>
-						} */}
 						<ThisP>{ref.address.location[1][each.address.location]}</ThisP>
 						<ThisP>{ref.public_private[1][each.public_private]}</ThisP>
 					</Table>
@@ -152,7 +136,7 @@ const Schools = ({
 
 Schools.propTypes = {
 	schools: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-	from: PropTypes.arrayOf(PropTypes.string).isRequired,
+	from: PropTypes.shape().isRequired,
 	changeSort: PropTypes.func.isRequired,
 	sortOrder: PropTypes.arrayOf(PropTypes.oneOfType([
 		PropTypes.string, PropTypes.bool,

@@ -13,7 +13,7 @@ import filter from './filters/filter';
 class List extends Component {
 	constructor(props) {
 		super(props);
-		const { codes, output } = props;
+		const { codes, output, history: { location } } = props;
 
 		this.state = {
 			loading: 1,
@@ -24,10 +24,23 @@ class List extends Component {
 			sortOrder: ['name', true],
 		};
 
+		if (location.search !== '') {
+			const newFilters = JSON.parse(
+				decodeURI(
+					location
+						.search
+						.split('filters=')[1],
+				),
+			);
+			this.state.filters = newFilters;
+		}
+
 		this.nameFilter = this.nameFilter.bind(this);
 		this.selectFilter = this.selectFilter.bind(this);
 		this.sortList = this.sortList.bind(this);
 		this.changeSort = this.changeSort.bind(this);
+		this.updateUrl = this.updateUrl.bind(this);
+		this.cleanFilters = this.cleanFilters.bind(this);
 
 		axios.all(codes.map(each => axios.get(`${output}city/city-${each}.json`)))
 			.then(axios.spread((...args) => {
@@ -47,7 +60,9 @@ class List extends Component {
 	}
 
 	nameFilter(value) {
-		this.setState({ filters: { name: value } });
+		this.setState({ filters: { name: value } }, () => {
+			this.updateUrl();
+		});
 	}
 
 	selectFilter(e) {
@@ -63,7 +78,9 @@ class List extends Component {
 		if (id === 'public_private') {
 			delete filters.type;
 		}
-		this.setState({ filters });
+		this.setState({ filters }, () => {
+			this.updateUrl();
+		});
 	}
 
 	changeSort(term, order) {
@@ -92,11 +109,29 @@ class List extends Component {
 		this.setState({ schools });
 	}
 
+	updateUrl() {
+		const { filters } = this.state;
+		const { history } = this.props;
+		const { location: { pathname } } = history;
+		const urlFilters = encodeURI(JSON.stringify(filters));
+		history.push(`${pathname}?filters=${urlFilters}`);
+	}
+
+	cleanFilters() {
+		const { history } = this.props;
+		const { location: { pathname } } = history;
+		history.push(`${pathname}`);
+		const filters = {
+			name: '',
+		};
+		this.setState({ filters });
+	}
+
 	render() {
 		const {
 			loading, schools, filters, sortOrder,
 		} = this.state;
-		const { codes } = this.props;
+		const { codes, location } = this.props;
 		const hasZone = codes.filter(e => e.includes('-')).length > 1;
 
 		return (
@@ -108,9 +143,11 @@ class List extends Component {
 					nameFilter={this.nameFilter}
 					selectFilter={this.selectFilter}
 					hasZone={hasZone}
+					cleanFilters={this.cleanFilters}
 				/>
 				<Schools
-					from={codes}
+					from={location}
+					filters={filters}
 					schools={filter(schools, filters)}
 					changeSort={this.changeSort}
 					sortOrder={sortOrder}
@@ -123,6 +160,14 @@ class List extends Component {
 List.propTypes = {
 	codes: PropTypes.arrayOf(PropTypes.string).isRequired,
 	output: PropTypes.string.isRequired,
+	location: PropTypes.shape().isRequired,
+	history: PropTypes.shape({
+		push: PropTypes.func,
+		location: PropTypes.shape({
+			pathname: PropTypes.string,
+			search: PropTypes.string,
+		}).isRequired,
+	}).isRequired,
 };
 
 export default withRouter(List);
