@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+// OLD
+
 export const P = styled.p`
 	font-family: ${p => p.theme.font.text};
 	font-weight: 300;

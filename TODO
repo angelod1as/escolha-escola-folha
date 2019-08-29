@@ -1,7 +1,7 @@
 Layout:
-	☐ 4 colunas - grid
-		☐ 1 col de filtro
-		☐ 3 col de conteúdo
+	✔ 4 colunas - grid @done(19-08-29 17:20)
+		✔ 1 col de filtro @done(19-08-29 17:20)
+		✔ 3 col de conteúdo @done(19-08-29 17:20)
 	Filtros:
 		☐ Autocomplete Estado
 		☐ Autocomplete cidade + zonas
