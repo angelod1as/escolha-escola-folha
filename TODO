@@ -1,18 +1,21 @@
-
-Todo:
-	✘ Busca na páginas das escolas > clica em "Buscar" e ele busca já com o filtro setado. @cancelled(19-08-28 17:02) - Passar os states pra cá significa mudar muito a estrutura do todo
-	✔ Busca na URL @done(19-08-28 17:02)
-	✔ Refazer CSS sem gerais (h1, h2, etc) @done(19-08-28 15:16)
-	✔ Sem "Ensino" no Saeb e Enem @done(19-08-28 14:45)
-	✔ Ordenação @done(19-08-28 14:01)
-	✔ Médio (nos gráficos) com "Ensino" @done(19-08-27 21:33)
-	✔ Lista de escolas: Cidade / Rural ou Urbana / Pública ou Privada @done(19-08-27 21:32)
-	✔ Zona: Todas não entra @done(19-08-27 17:48)
-	✔ Footer com expediente @done(19-08-27 16:47)
-	✔ na busca, Zona só se tiver + de 1 SP (na real ZONA tá errado) @done(19-08-27 17:40)
-	✔ ToLowerCase na Zona Undefined (vertice, objetivo são luiz) @done(19-08-27 17:40)
-	✔ Logradouro @done(19-08-27 17:43)
-	XLS:
-		✘ Checa o UNDEFINED no zona com todas as escolas @cancelled(19-08-28 15:51) - Problema com arquivo fonte
-		✔ Enem não tá entrando (Não tá SOLTANDO enem) @done(19-08-28 12:19)
-		✔ Saeb tbm não (objeto não tá puxando) @done(19-08-28 12:19)
+Layout:
+	☐ 4 colunas - grid
+		☐ 1 col de filtro
+		☐ 3 col de conteúdo
+	Filtros:
+		☐ Autocomplete Estado
+		☐ Autocomplete cidade + zonas
+		☐ Toggle filtros
+		☐ Botões filtros
+		☐ Nome da escola acima
+	Lista:
+		☐ Cards
+		☐ Nomes + Bairro + infos
+	Escola:
+		☐ 2 col interna
+		☐ Nome
+		☐ Infos gerais
+		☐ Infra 1 col todas + selecionadas
+		☐ Idiomas 1 col
+		☐ Gráficos separados por EF e EM (vai ter que mexer no XLS)
+		☐ Botão voltar no pé
