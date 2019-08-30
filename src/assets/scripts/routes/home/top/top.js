@@ -1,25 +1,21 @@
-import React, { Component } from 'react';
-// import styled from 'styled-components';
-//
+import React from 'react';
+import PropTypes from 'prop-types';
+import types from '../../../utils/types';
 
 import LocationFilter from './filters/location-filter';
-import ChosenFilter from './filters/chosen-filter';
-import NameFilter from './filters/name-filter';
+// import ChosenFilter from './filters/chosen-filter';
+// import NameFilter from './filters/name-filter';
 
-export default class Top extends Component {
-	constructor(props) {
-		super(props);
-		this.state = '';
-	}
+const Top = props => (
+	<>
+		<LocationFilter {...props} />
+		{/* <ChosenFilter hasZone={hasZone} state={state} /> */}
+		{/* <NameFilter /> */}
+	</>
+);
 
-	render() {
-		const { hasZone } = this.props;
-		return (
-			<>
-				<LocationFilter hasZone={hasZone} />
-				<ChosenFilter hasZone={hasZone} />
-				<NameFilter />
-			</>
-		);
-	}
-}
+Top.propTypes = {
+	state: PropTypes.shape(types).isRequired,
+};
+
+export default Top;

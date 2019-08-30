@@ -31,29 +31,34 @@ export default class ChosenFilter extends Component {
 		this.state = '';
 	}
 
+	// removeTag() {
+	// 	console.log(this);
+	// }
+
 	render() {
-		const { hasZone } = this.props;
+		const { hasZone, state } = this.props;
+		// console.log(state);
 		// TODO Passar zona para o filtro
 		return (
 			<>
 				<State hasZone={hasZone}>
 					<Tag>
-						<CloseTag>×</CloseTag>
+						<CloseTag onClick={this.removeTag}>×</CloseTag>
 						São Paulo
 					</Tag>
 					<Tag>
-						<CloseTag>×</CloseTag>
+						<CloseTag onClick={this.removeTag}>×</CloseTag>
 						Irapuã
 					</Tag>
 				</State>
 				{hasZone ? (
 					<Zone>
 						<Tag>
-							<CloseTag>×</CloseTag>
+							<CloseTag onClick={this.removeTag}>×</CloseTag>
 							Norte
 						</Tag>
 						<Tag>
-							<CloseTag>×</CloseTag>
+							<CloseTag onClick={this.removeTag}>×</CloseTag>
 							Sul
 						</Tag>
 					</Zone>

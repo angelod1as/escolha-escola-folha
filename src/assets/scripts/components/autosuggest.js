@@ -24,7 +24,6 @@ const AutoWrapper = styled.div`
 			font-family: ${p => p.theme.font.display};
 			text-transform: uppercase;
 			font-weight: 300;
-			font-size: .9em;
 			text-align: center;
 		}
 	}
@@ -34,12 +33,14 @@ const AutoWrapper = styled.div`
 		border: 1px solid ${p => p.theme.color.black};
 		border-radius: 3px;
 		padding: 5px 10px;
+		font-size: .9em;
 	}
 
-	/* .react-autosuggest__suggestions-list {
-	} */
+	.react-autosuggest__suggestions-list {
+		font-size: .9em;
+	}
 
-	/* .react-autosuggest__suggestion {
+	.react-autosuggest__suggestion {
 		padding: 10px;
 		border-bottom: 1px solid ${p => p.theme.color.gray3};
 		margin: 0;
@@ -52,18 +53,18 @@ const AutoWrapper = styled.div`
 	.react-autosuggest__suggestion--highlighted {
 		background-color: ${p => p.theme.color.gray3};
 		color: ${p => p.theme.color.black};
-	} */
+	}
 `;
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion[0];
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
 	<div>
-		{suggestion.name}
+		{suggestion[0]}
 	</div>
 );
 
@@ -100,23 +101,29 @@ export default class Autosuggest extends Component {
 	}
 
 	onSuggestionSelected(e, { suggestion }) {
-		const { changeChosen } = this.props;
-		changeChosen(suggestion.code);
-		this.setState({ value: '' });
+		const { handleChange, type } = this.props;
+		handleChange(suggestion[1], type);
+		if (type === 'uf') {
+			this.setState({ value: suggestion[0] });
+		} else {
+			this.setState({ value: '' });
+		}
 	}
 
 	// Teach Autosuggest how to calculate suggestions for any given input value.
 	getSuggestions(value) {
-		const { list } = this.props;
-		const searchList = Object.keys(list).map(each => list[each]);
+		const { data } = this.props;
+		// Array of Arrays => two indexes:
+		// 0 = Name
+		// 1 = Code (or similar)
+		const searchList = data;
 		const inputValue = value.trim().toLowerCase();
 		const inputLength = inputValue.length;
 
 		if (inputLength === 0) {
 			return [];
 		}
-		return searchList.filter(item => slugfy(item
-			.name
+		return searchList.filter(item => slugfy(item[0]
 			.toLowerCase()
 			.slice(0, inputLength)) === slugfy(inputValue));
 	}
@@ -148,6 +155,6 @@ export default class Autosuggest extends Component {
 }
 
 Autosuggest.propTypes = {
-	changeChosen: PropTypes.func.isRequired,
-	list: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+	handleChange: PropTypes.func.isRequired,
+	data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
 };

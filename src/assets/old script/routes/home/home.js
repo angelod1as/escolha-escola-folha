@@ -154,7 +154,7 @@ export default class Home extends Component {
 
 		if (uf !== 'Selecione') {
 			const filename = uf.toLowerCase();
-			const url = `${output}states/state-${filename}.json`;
+			const url = `${output}states/uf-${filename}.json`;
 
 			axios.get(url)
 				.then((response) => {

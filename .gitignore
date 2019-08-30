@@ -3,6 +3,7 @@ coverage/
 dist/
 node_modules/
 output/
+src/assets/json/output
 
 # Created by https://www.gitignore.io/api/node,grunt,sass,jetbrains,webstorm,laravel,sublimetext,osx,linux
 
