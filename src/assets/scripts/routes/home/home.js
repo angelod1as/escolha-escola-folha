@@ -56,13 +56,12 @@ export default class Home extends Component {
 				});
 		}
 		if (city.length > 0) {
-			const fetchCity = city
-				.filter((each) => {
-					const current = state.filters.city;
-					return !current.includes(each) || each === spCode;
-				});
-
-			const arr = [].concat(...fetchCity
+			// const fetchCity = city
+			// .filter((each) => {
+			// 	const current = state.filters.city;
+			// 	return !current.includes(each) || each === spCode;
+			// });
+			const arr = [].concat(...city
 				.map((each) => {
 					if (each === spCode) {
 						if (zone.length > 0) {
@@ -81,8 +80,11 @@ export default class Home extends Component {
 			axios
 				.all(arr)
 				.then(axios.spread((...args) => {
-					const array = args.map(({ data }) => data);
-					newerState.data.schools = [].concat(...array);
+					args.forEach(({ data }) => {
+						Object.keys(data).forEach((key) => {
+							newerState.data.schools.push(data[key]);
+						});
+					});
 					cb(newerState);
 				}));
 		}
@@ -104,7 +106,7 @@ export default class Home extends Component {
 			<>
 				<Top state={this.state} updateState={this.updateState} />
 				{/* <Sidebar /> */}
-				<Content />
+				<Content state={this.state} />
 			</>
 		);
 	}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 //
 
@@ -6,17 +6,12 @@ const Wrapper = styled.div`
 	grid-area: content;
 `;
 
-export default class Content extends Component {
-	constructor(props) {
-		super(props);
-		this.state = '';
-	}
+// import { Container } from './styles';
 
-	render() {
-		return (
-			<Wrapper>
-				Content
-			</Wrapper>
-		);
-	}
-}
+const Content = ({ state: { data: { schools } } }) => (
+	<Wrapper>
+		{schools.map(school => <div>ESCOLA</div>)}
+	</Wrapper>
+);
+
+export default Content;
