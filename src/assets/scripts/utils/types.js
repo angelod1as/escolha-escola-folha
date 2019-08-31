@@ -11,7 +11,7 @@ const types = {
 	}),
 	data: PropTypes.shape({
 		cities: PropTypes.shape(),
-		schools: PropTypes.shape(),
+		schools: PropTypes.arrayOf(PropTypes.shape()),
 	}),
 	hasZone: PropTypes.bool.isRequired,
 };

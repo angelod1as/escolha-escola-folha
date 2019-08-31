@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import types from '../../../../utils/types';
 import { upperAll } from '../../../../utils/upper';
 
-const spCode = '3550308';
-
 const State = styled.div`
 	grid-area: f-cities;
 	grid-column-end: 4;
@@ -31,8 +29,8 @@ const CloseTag = styled.button`
 `;
 
 const ChosenFilter = ({ state, updateState }) => {
-	const newState = state;
-	const { data: { cities }, filters: { city, zone } } = state;
+	const newState = JSON.parse(JSON.stringify(state));
+	const { config: { spCode }, data: { cities }, filters: { city, zone } } = state;
 
 	const removeTag = ({ target: { dataset: { id } } }, type) => {
 		if (type === 'city') {

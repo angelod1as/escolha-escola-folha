@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import axios from 'axios';
 import uuid from 'uuid/v1';
 import types from '../../../../utils/types';
 import { Select } from '../../../../components/styles';
@@ -29,28 +28,20 @@ const LocationFilters = ({ state, updateState }) => {
 		},
 		hasZone,
 	} = state;
-	const newState = state;
+	const newState = JSON.parse(JSON.stringify(state));
 
 	const handleChange = (suggestion, type) => {
 		if (type === 'uf') {
 			const filename = suggestion.toLowerCase();
 			newState.filters[type] = filename;
-			const url = `${output}ufs/uf-${filename}.json`;
-			axios.get(url)
-				.then(({ data }) => {
-					newState.data.cities = data;
-					updateState(newState);
-				});
-		} else {
-			if (type === 'city') {
-				if (!newState.filters.city.includes(suggestion)) {
-					newState.filters.city.push(suggestion);
-				}
-			} else if (type === 'zone') {
-				newState.filters.zone.push(suggestion);
+		} else if (type === 'city') {
+			if (!newState.filters.city.includes(suggestion)) {
+				newState.filters.city.push(suggestion);
 			}
-			updateState(newState);
+		} else if (type === 'zone') {
+			newState.filters.zone.push(suggestion);
 		}
+		updateState(newState);
 	};
 
 	const citiesList = Object
@@ -96,13 +87,6 @@ const LocationFilters = ({ state, updateState }) => {
 						<option key={uuid()} value={each}>{each}</option>
 					))}
 				</Select>
-				{/* <Autosuggest
-					placeholder="Digite a zona de SP"
-					type="zone"
-					data={zones}
-					handleChange={handleChange}
-					enabled={hasZone}
-				/> */}
 			</Zone>
 		</>
 	);
