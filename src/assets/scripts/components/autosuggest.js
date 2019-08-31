@@ -22,15 +22,21 @@ const AutoWrapper = styled.div`
 		display: block;
 		* {
 			font-family: ${p => p.theme.font.display};
-			text-transform: uppercase;
 			font-weight: 300;
 			text-align: center;
+			text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+			pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
+			font-style: italic;
 		}
 	}
 
 	.react-autosuggest__input {
+		&::placeholder {
+			color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
+			text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+		}
 		width: 100%;
-		border: 1px solid ${p => p.theme.color.black};
+		border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
 		border-radius: 3px;
 		padding: 5px 10px;
 		font-size: .9em;
@@ -130,7 +136,7 @@ export default class Autosuggest extends Component {
 
 	render() {
 		const { value, suggestions } = this.state;
-		const { placeholder } = this.props;
+		const { placeholder, enabled } = this.props;
 
 		// Autosuggest will pass through all these props to the input.
 		const inputProps = {
@@ -139,7 +145,7 @@ export default class Autosuggest extends Component {
 			onChange: this.onChange,
 		};
 		return (
-			<AutoWrapper>
+			<AutoWrapper disabled={!enabled}>
 				<Auto
 					suggestions={suggestions}
 					onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -157,4 +163,11 @@ export default class Autosuggest extends Component {
 Autosuggest.propTypes = {
 	handleChange: PropTypes.func.isRequired,
 	data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+	type: PropTypes.string.isRequired,
+	placeholder: PropTypes.string.isRequired,
+	enabled: PropTypes.bool,
+};
+
+Autosuggest.defaultProps = {
+	enabled: true,
 };

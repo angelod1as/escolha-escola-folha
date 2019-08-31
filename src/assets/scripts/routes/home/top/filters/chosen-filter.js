@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-//
+import uuid from 'uuid/v1';
+import PropTypes from 'prop-types';
+import types from '../../../../utils/types';
+import { upperAll } from '../../../../utils/upper';
+
+const spCode = '3550308';
 
 const State = styled.div`
 	grid-area: f-cities;
-	grid-column-end: ${p => (p.hasZone ? '4' : '5')};
+	grid-column-end: 4;
 `;
 const Zone = styled.div`
 	grid-area: f-zones;
@@ -25,45 +30,59 @@ const CloseTag = styled.button`
 	}
 `;
 
-export default class ChosenFilter extends Component {
-	constructor(props) {
-		super(props);
-		this.state = '';
-	}
+const ChosenFilter = ({ state, updateState }) => {
+	const newState = state;
+	const { data: { cities }, filters: { city, zone } } = state;
 
-	// removeTag() {
-	// 	console.log(this);
-	// }
+	const removeTag = ({ target: { dataset: { id } } }, type) => {
+		if (type === 'city') {
+			const filtered = city.filter(each => each !== id);
+			if (id === spCode) {
+				newState.filters.zone = [];
+			}
+			newState.filters.city = filtered;
+		} else if (type === 'zone') {
+			const filtered = zone.filter(each => each !== id);
+			newState.filters.zone = filtered;
+		}
+		updateState(newState);
+	};
 
-	render() {
-		const { hasZone, state } = this.props;
-		// console.log(state);
-		// TODO Passar zona para o filtro
-		return (
-			<>
-				<State hasZone={hasZone}>
-					<Tag>
-						<CloseTag onClick={this.removeTag}>×</CloseTag>
-						São Paulo
+	return (
+		<>
+			<State>
+				{city.map(each => (
+					<Tag key={uuid()}>
+						<CloseTag
+							onClick={e => removeTag(e, 'city')}
+							data-id={each}
+						>
+							×
+						</CloseTag>
+						{upperAll(cities[each].city_name)}
 					</Tag>
-					<Tag>
-						<CloseTag onClick={this.removeTag}>×</CloseTag>
-						Irapuã
+				))}
+			</State>
+			<Zone>
+				{zone.map(each => (
+					<Tag key={uuid()}>
+						<CloseTag
+							onClick={e => removeTag(e, 'zone')}
+							data-id={each}
+						>
+							×
+						</CloseTag>
+						{upperAll(each)}
 					</Tag>
-				</State>
-				{hasZone ? (
-					<Zone>
-						<Tag>
-							<CloseTag onClick={this.removeTag}>×</CloseTag>
-							Norte
-						</Tag>
-						<Tag>
-							<CloseTag onClick={this.removeTag}>×</CloseTag>
-							Sul
-						</Tag>
-					</Zone>
-				) : ''}
-			</>
-		);
-	}
-}
+				))}
+			</Zone>
+		</>
+	);
+};
+
+ChosenFilter.propTypes = {
+	state: PropTypes.shape(types).isRequired,
+	updateState: PropTypes.func.isRequired,
+};
+
+export default ChosenFilter;

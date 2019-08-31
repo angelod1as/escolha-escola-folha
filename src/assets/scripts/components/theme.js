@@ -9,6 +9,7 @@ const theme = {
 		gray2: '#bdbdbd',
 		gray3: '#e0e0e0',
 		gray4: '#f5f5f5',
+		gray5: '#EAEAEA',
 		yellow: '#F3BD00',
 		green: '#93c9a8',
 		darkgray: '#A9A9A9',

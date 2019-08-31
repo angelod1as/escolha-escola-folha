@@ -25,18 +25,30 @@ export default class Home extends Component {
 			},
 			filters: {
 				uf: '',
-				city: '',
-				zone: '',
+				city: [],
+				zone: [],
 			},
-			hasZone: true,
+			data: {
+				cities: {},
+				schools: {},
+			},
+			hasZone: false,
 		};
+
+		this.updateState = this.updateState.bind(this);
+	}
+
+	updateState(state) {
+		const newState = state;
+		newState.hasZone = newState.filters.city.includes('3550308');
+		this.setState(newState);
 	}
 
 	render() {
 		// TODO Passar zona para o filtro
 		return (
 			<>
-				<Top state={this.state} />
+				<Top state={this.state} updateState={this.updateState} />
 				{/* <Sidebar /> */}
 				{/* <Content /> */}
 			</>

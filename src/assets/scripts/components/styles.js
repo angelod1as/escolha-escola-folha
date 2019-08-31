@@ -1,5 +1,23 @@
 import styled from 'styled-components';
 
+export const Select = styled.select`
+	font-family: ${p => p.theme.font.display};
+	font-weight: 300;
+	text-align: center;
+	text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+	pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
+
+	color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
+	text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+	font-style: italic;
+
+	width: 100%;
+	border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
+	border-radius: 3px;
+	padding: 5px 10px;
+	font-size: .9em;
+`;
+
 // OLD
 
 export const P = styled.p`
