@@ -27,7 +27,7 @@ export const defaultTypes = {
 	},
 	data: {
 		cities: {},
-		schools: {},
+		schools: [],
 	},
 	hasZone: false,
 };

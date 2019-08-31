@@ -13,7 +13,7 @@ import axios from 'axios';
 
 import Top from './top/top';
 // import Sidebar from './sidebar/sidebar';
-// import Content from './content/content';
+import Content from './content/content';
 
 export default class Home extends Component {
 	constructor(props) {
@@ -31,7 +31,7 @@ export default class Home extends Component {
 			},
 			data: {
 				cities: {},
-				schools: {},
+				schools: [],
 			},
 			hasZone: false,
 		};
@@ -46,7 +46,6 @@ export default class Home extends Component {
 		const { filters: { uf, city, zone } } = newState;
 		const newerState = newState;
 		if (uf !== state.filters.uf) {
-			console.log('changed uf');
 			const url = `${output}ufs/uf-${uf}.json`;
 			newerState.filters.city = [];
 			newerState.filters.zone = [];
@@ -57,11 +56,21 @@ export default class Home extends Component {
 				});
 		}
 		if (city.length > 0) {
-			const arr = [].concat(...city
+			const fetchCity = city
+				.filter((each) => {
+					const current = state.filters.city;
+					return !current.includes(each) || each === spCode;
+				});
+
+			const arr = [].concat(...fetchCity
 				.map((each) => {
 					if (each === spCode) {
 						if (zone.length > 0) {
 							return zone
+								.filter((eachZone) => {
+									const current = state.filters.zone;
+									return !current.includes(eachZone);
+								})
 								.map(eachZone => axios.get(`${output}city/city-${each}-${eachZone}.json`));
 						} return null;
 					}
@@ -77,6 +86,7 @@ export default class Home extends Component {
 					cb(newerState);
 				}));
 		}
+		cb(newerState);
 	}
 
 	updateState(receivedState) {
@@ -94,7 +104,7 @@ export default class Home extends Component {
 			<>
 				<Top state={this.state} updateState={this.updateState} />
 				{/* <Sidebar /> */}
-				{/* <Content /> */}
+				<Content />
 			</>
 		);
 	}
