@@ -20,8 +20,8 @@ const Content = ({ state }) => {
 	console.log('oi');
 	return (
 		<Wrapper>
-			<List />
-			{/* <School /> */}
+			{/* <List /> */}
+			<School />
 			{/* <div>{`${number} resultado${number === 1 ? '' : 's'}`}</div>
 			{schools.map((school) => {
 				const schoolType = Object

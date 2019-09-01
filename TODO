@@ -5,12 +5,12 @@ Layout:
 	Filtros:
 		☐ Autocomplete Estado
 		☐ Autocomplete cidade + zonas
-		☐ Toggle filtros
-		☐ Botões filtros
+		✔ Toggle filtros @done(19-09-01 10:47)
+		✔ Botões filtros @done(19-09-01 10:47)
 		☐ Nome da escola acima
 	Lista:
-		☐ Cards
-		☐ Nomes + Bairro + infos
+		✔ Cards @done(19-09-01 10:47)
+		✔ Nomes + Bairro + infos @done(19-09-01 10:47)
 	Escola:
 		☐ 2 col interna
 		☐ Nome
