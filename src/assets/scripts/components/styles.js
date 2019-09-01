@@ -4,7 +4,6 @@ export const Select = styled.select`
 	font-family: ${p => p.theme.font.display};
 	font-weight: 300;
 	text-align: center;
-	text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
 	pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
 
 	color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
@@ -16,6 +15,14 @@ export const Select = styled.select`
 	border-radius: 3px;
 	padding: 5px 10px;
 	font-size: .9em;
+`;
+
+export const CleanA = styled.a`
+	color: ${p => p.theme.color.black};
+	cursor: pointer;
+	&:hover {
+		opacity: 1;
+	}
 `;
 
 // OLD

@@ -18,10 +18,9 @@ const Wrapper = styled.div`
 const Layout = styled.div`
 	width: 100%;
 	max-width: 1920px;
+	max-width: ${p => p.theme.width.max};
 	margin: 30px auto;
-	padding: 0 5px;
 	display: grid;
-	/* grid-template-columns: repeat(4, 1fr); */
 	grid-gap: 5px;
 	grid-template-areas:
 		"f-state f-city f-city f-zone"

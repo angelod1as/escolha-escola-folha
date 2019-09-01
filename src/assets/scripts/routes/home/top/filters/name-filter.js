@@ -13,6 +13,9 @@ const Name = styled.div`
 		text-transform: none;
 		text-align: left;
 		font-style: italic;
+		&::placeholder{
+			text-transform: none;
+		}
 	}
 	&:after {
 		content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNy41IiBoZWlnaHQ9IjE3LjUiIHZpZXdCb3g9IjAgMCAxNy41IDE3LjUiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjY2M7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNOS41LDNhNi41LDYuNSwwLDAsMSw0Ljk0LDEwLjczbC4yNy4yN2guNzlsNSw1TDE5LDIwLjVsLTUtNXYtLjc5bC0uMjctLjI3QTYuNSw2LjUsMCwxLDEsOS41LDNtMCwyQTQuNSw0LjUsMCwxLDAsMTQsOS41LDQuNDgxLDQuNDgxLDAsMCwwLDkuNSw1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTMgLTMpIi8+PC9zdmc+");

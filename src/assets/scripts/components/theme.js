@@ -21,8 +21,7 @@ const theme = {
 	},
 	width: {
 		full: '100%',
-		max: '1000px',
-		width: '630px',
+		max: '900px',
 	},
 };
 

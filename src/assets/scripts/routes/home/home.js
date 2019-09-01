@@ -12,7 +12,7 @@ import axios from 'axios';
 // const rjCode = '3304557';
 
 import Top from './top/top';
-// import Sidebar from './sidebar/sidebar';
+import Sidebar from './sidebar/sidebar';
 import Content from './content/content';
 
 export default class Home extends Component {
@@ -82,7 +82,17 @@ export default class Home extends Component {
 				.then(axios.spread((...args) => {
 					args.forEach(({ data }) => {
 						Object.keys(data).forEach((key) => {
-							newerState.data.schools.push(data[key]);
+							if (newerState.data.schools.length > 0) {
+								newerState.data.schools.forEach((old) => {
+									if (old.code !== +key) {
+										newerState.data.schools.push(data[key]);
+									} if (key === spCode) {
+										console.log('sp');
+									}
+								});
+							} else {
+								newerState.data.schools.push(data[key]);
+							}
 						});
 					});
 					cb(newerState);
@@ -105,7 +115,7 @@ export default class Home extends Component {
 		return (
 			<>
 				<Top state={this.state} updateState={this.updateState} />
-				{/* <Sidebar /> */}
+				<Sidebar />
 				<Content state={this.state} />
 			</>
 		);
