@@ -35,110 +35,35 @@ class Home extends Component {
 				schools: [],
 			},
 			hasZone: false,
+			needFetch: false,
 		};
 
-		const { location: { search }, history } = props;
-		const { filters } = this.state;
+		this.updateState = this.updateState.bind(this);
+		this.getFiles = this.getFiles.bind(this);
+		this.pushHistory = this.pushHistory.bind(this);
+		this.checkFetch = this.checkFetch.bind(this);
+	}
 
+	componentDidMount() {
+		// Set URL if empty
+		const { location: { search }, history } = this.props;
+		const { filters } = this.state;
 		if (search === '') {
 			const newHistory = encodeURIComponent(JSON.stringify(filters));
 			history.push(`?filters=${newHistory}`);
 		} else {
 			const query = search.split('?filters=')[1];
 			const newFilters = JSON.parse(decodeURIComponent(query));
-			this.state.filters = newFilters;
-
-			// Fetch all files:
-			const needFetch = this.checkFetch(newFilters, true);
-			console.log(needFetch);
-
-			if (needFetch.length > 0) {
-				needFetch.forEach((each) => {
-					this.getFiles(each, this.state, (newer) => {
-						this.state = newer;
-					});
-				});
-			}
+			const newState = this.state;
+			newState.filters = newFilters;
+			this.updateState(newState, true);
 		}
-
-		this.updateState = this.updateState.bind(this);
-		this.getFiles = this.getFiles.bind(this);
-		this.checkFetch = this.checkFetch.bind(this);
 	}
 
 	getFiles(type, newState, cb) {
 		const newerState = newState;
 		const { state } = this;
-		const { config: { output } } = state;
-		const { filters: { uf } } = newState;
-
-		if (type === 'uf') {
-			const url = `${output}ufs/uf-${uf}.json`;
-			newerState.filters.city = [];
-			newerState.filters.zone = [];
-			axios.get(url)
-				.then(({ data }) => {
-					newerState.data.cities = data;
-					cb(newerState);
-				});
-		}
-		// const { config: { output, spCode } } = state;
-		// const { filters: { uf, city, zone } } = newState;
-		// const newerState = newState;
-		// if (uf !== state.filters.uf) {
-		// 	const url = `${output}ufs/uf-${uf}.json`;
-		// 	newerState.filters.city = [];
-		// 	newerState.filters.zone = [];
-		// 	axios.get(url)
-		// 		.then(({ data }) => {
-		// 			newerState.data.cities = data;
-		// 			cb(newerState);
-		// 		});
-		// }
-		// if (city.length > 0) {
-		// 	// const fetchCity = city
-		// 	// .filter((each) => {
-		// 	// 	const current = state.filters.city;
-		// 	// 	return !current.includes(each) || each === spCode;
-		// 	// });
-		// 	const arr = [].concat(...city
-		// 		.map((each) => {
-		// 			if (each === spCode) {
-		// 				if (zone.length > 0) {
-		// 					return zone
-		// 						.filter((eachZone) => {
-		// 							const current = state.filters.zone;
-		// 							return !current.includes(eachZone);
-		// 						})
-		// 						.map(eachZone => axios.get(`${output}city/city-${each}-${eachZone}.json`));
-		// 				} return null;
-		// 			}
-		// 			return axios.get(`${output}city/city-${each}.json`);
-		// 		})
-		// 		.filter(each => each !== null));
-
-		// 	axios
-		// 		.all(arr)
-		// 		.then(axios.spread((...args) => {
-		// 			args.forEach(({ data }) => {
-		// 				Object.keys(data).forEach((key) => {
-		// 					if (newerState.data.schools.length > 0) {
-		// 						newerState.data.schools.forEach((old) => {
-		// 							if (old.code !== +key) {
-		// 								newerState.data.schools.push(data[key]);
-		// 							} if (key === spCode) {
-		// 								console.log('sp');
-		// 							}
-		// 						});
-		// 					} else {
-		// 						newerState.data.schools.push(data[key]);
-		// 					}
-		// 				});
-		// 			});
-		// 			cb(newerState);
-		// 		}));
-		// }
-		// cb(newerState);
+		console.log('get');
 	}
 
 	checkFetch(received, force) {
@@ -157,47 +82,34 @@ class Home extends Component {
 		});
 	}
 
-	// updateState(receivedState) {
-	// 	const { config: { spCode } } = receivedState;
-	// 	this.getFiles(receivedState, (newState) => {
-	// 		const newerState = JSON.parse(JSON.stringify(newState));
-	// 		newerState.hasZone = newerState.filters.city.includes(spCode);
-	// 		this.setState(newerState);
-	// 	});
-	// }
-
-	pushHistory(newState) {
+	pushHistory(receivedFilters) {
 		const { history } = this.props;
-		const newHistory = encodeURIComponent(JSON.stringify(newState.filters));
+		const newHistory = encodeURIComponent(JSON.stringify(receivedFilters));
 		history.push(`?filters=${newHistory}`);
 	}
 
-	updateState(receivedState) {
-		console.log(receivedState);
-		const { filters } = this.state;
+	updateState(receivedState, force) {
 		const { filters: receivedFilters } = receivedState;
-		const needFetch = this.checkFetch(receivedFilters);
+		this.pushHistory(receivedFilters);
+		const needFetch = this.checkFetch(receivedFilters, force);
 
 		if (needFetch.length > 0) {
 			needFetch.forEach((each) => {
 				this.getFiles(each, receivedState, (newState) => {
-					this.pushHistory(newState);
 					this.setState(newState);
 				});
 			});
+		} else {
+			this.setState(receivedState);
 		}
-
-		// this.getFiles(receivedState, (newState) => {
-		// 	const newerState = JSON.parse(JSON.stringify(newState));
-		// 	newerState.hasZone = newerState.filters.city.includes(spCode);
-		// 	this.setState(newerState);
-		// });
 	}
 
 	render() {
 		// TODO Passar zona para o filtro
+		console.log('rendered', this.state);
 		return (
 			<>
+				<div>oi</div>
 				<Top state={this.state} updateState={this.updateState} />
 				{/* <Sidebar /> */}
 				{/* <Content state={this.state} /> */}

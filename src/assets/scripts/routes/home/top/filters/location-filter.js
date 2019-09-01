@@ -44,14 +44,19 @@ const LocationFilters = ({ state, updateState }) => {
 
 	const hasCities = citiesList.length > 0;
 
+	const { filters: { uf } } = newState;
+	console.log(uf);
+
 	return (
 		<>
 			<State>
 				<Autosuggest
+					key={uf}
 					placeholder="Digite o estado"
 					handleChange={handleChange}
 					data={ufs}
 					type="uf"
+					initial={uf}
 					enabled
 				/>
 			</State>

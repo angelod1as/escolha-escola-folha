@@ -77,8 +77,20 @@ const renderSuggestion = suggestion => (
 export default class Autosuggest extends Component {
 	constructor(props) {
 		super(props);
+
+		let value = '';
+		if (props.initial) {
+			const { data } = props;
+			// const res = data.filter(out => out.filter(ins => ins.toLowerCase() === props.initial));
+			const res = [].concat(...data.filter((out) => {
+				const inside = out.filter(ins => typeof ins === 'string' && ins.toLowerCase() === props.initial);
+				return inside.length > 0;
+			}));
+			value = res[0] || '';
+		}
+
 		this.state = {
-			value: '',
+			value,
 			suggestions: [],
 		};
 
@@ -166,8 +178,10 @@ Autosuggest.propTypes = {
 	type: PropTypes.string.isRequired,
 	placeholder: PropTypes.string.isRequired,
 	enabled: PropTypes.bool,
+	initial: PropTypes.string,
 };
 
 Autosuggest.defaultProps = {
 	enabled: true,
+	initial: '',
 };
