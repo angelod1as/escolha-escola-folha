@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import uuid from 'uuid/v1';
+// import uuid from 'uuid/v1';
 import types from '../../../../utils/types';
-import { Select } from '../../../../components/styles';
+// import { Select } from '../../../../components/styles';
 
 import Autosuggest from '../../../../components/autosuggest';
 import ufs from '../../../../utils/ufs';
-import zones from '../../../../utils/zones';
+// import zones from '../../../../utils/zones';
 
 const State = styled.div`
 	grid-area: f-state;
@@ -16,18 +16,12 @@ const City = styled.div`
 	grid-area: f-city;
 	grid-column-end: 4;
 `;
-const Zone = styled.div`
-	grid-area: f-zone;
-`;
+// const Zone = styled.div`
+// 	grid-area: f-zone;
+// `;
 
 const LocationFilters = ({ state, updateState }) => {
-	const {
-		config: { output },
-		data: {
-			cities,
-		},
-		hasZone,
-	} = state;
+	const { hasZone, data: { cities } } = state;
 	const newState = JSON.parse(JSON.stringify(state));
 
 	const handleChange = (suggestion, type) => {
@@ -61,7 +55,7 @@ const LocationFilters = ({ state, updateState }) => {
 					enabled
 				/>
 			</State>
-			<City
+			{/* <City
 				hasZone={hasZone}
 				className={hasCities ? '' : 'disabled'}
 			>
@@ -72,8 +66,8 @@ const LocationFilters = ({ state, updateState }) => {
 					type="city"
 					enabled={hasCities}
 				/>
-			</City>
-			<Zone>
+			</City> */}
+			{/* <Zone>
 				<Select
 					className="f-forms__select"
 					name="zones"
@@ -87,7 +81,7 @@ const LocationFilters = ({ state, updateState }) => {
 						<option key={uuid()} value={each}>{each}</option>
 					))}
 				</Select>
-			</Zone>
+			</Zone> */}
 		</>
 	);
 };
