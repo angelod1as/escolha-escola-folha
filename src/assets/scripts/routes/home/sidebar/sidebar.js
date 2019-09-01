@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Toggle from 'react-toggle';
 import uuid from 'uuid/v1';
 
 const Wrapper = styled.div`
@@ -50,100 +49,51 @@ const Checkbox = styled.label`
 	}
 `;
 
-const ToggleHolder = styled.div`
-	label {
-		display: grid;
-		grid-template-columns: 30px 1fr;
-		grid-gap: 10px;
-		grid-template-areas:
-		"f-s-toggle f-s-filters";
+const Toggle = styled.label`
+	input {
+		display: none;
 	}
-	.react-toggle {
-	grid-area: f-s-toggle;
-  touch-action: pan-x;
-
-  display: block;
-  position: relative;
-  cursor: pointer;
-  background-color: transparent;
-  border: 0;
-  padding: 0;
-	margin-top: 5px;
-
-  user-select: none;
-
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.react-toggle-screenreader-only {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.react-toggle--disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.react-toggle-track {
-  width: 24px;
-  height: 14px;
-  padding: 0;
-  border-radius: 30px;
-  background-color: ${p => p.theme.color.gray};
-}
-
-.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: ${p => p.theme.color.black};
-}
-
-.react-toggle--checked .react-toggle-track {
-  background-color: ${p => p.theme.color.color};
-}
-
-.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: ${p => p.theme.color.lighter};
-}
-
-.react-toggle-thumb {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 14px;
-  height: 14px;
-  border: 1px solid #4D4D4D;
-  border-radius: 50%;
-  background-color: #FAFAFA;
-
-  box-sizing: border-box;
-
-}
-
-.react-toggle--checked .react-toggle-thumb {
-  left: 10px;
-  border-color: #19AB27;
-}
-
-.react-toggle--focus .react-toggle-thumb {
-  box-shadow: 0px 0px 1px 1px #0099E0;
-}
-
-.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
-  box-shadow: 0px 0px 2px 2px #0099E0;
-}
-`;
-
-const Span = styled.span`
-	grid-area: f-s-filters;
-	font-size: .9em;
-	color: ${p => p.theme.color.gray};
+	span {
+		user-select: none;
+		display: block;
+		color: ${p => p.theme.color.gray};
+		padding-left: 40px;
+		position: relative;
+		&:before{
+			content: '';
+			position: absolute;
+			bottom: 6px;
+			left: 0;
+			border: 1px solid transparent;
+			border-radius: 50px;
+			width: 25px;
+			height: 13px;
+			background-color: ${p => p.theme.color.gray2}
+		}
+		&:after{
+			content: '';
+			position: absolute;
+			bottom: 5px;
+			left: 0;
+			border: 1px solid ${p => p.theme.color.gray2};
+			border-radius: 50%;
+			width: 15px;
+			height: 15px;
+			background-color: white;
+		}
+		&:hover {
+			opacity: .8;
+		}
+	}
+	input:checked + span {
+		&:before {
+			background-color: ${p => p.theme.color.color};
+		}
+		&:after {
+			left: 10px;
+			border-color: ${p => p.theme.color.color};
+		}
+	}
 `;
 
 const Sidebar = () => {
@@ -179,17 +129,10 @@ const Sidebar = () => {
 			{toggles.map(group => (
 				<Section key={uuid()}>
 					{group.map(item => (
-						<ToggleHolder key={uuid()}>
-							<label htmlFor={item[1]}>
-								<Toggle
-									id={item[1]}
-									defaultChecked={item[2]}
-									icons={false}
-									onChange={() => console.log('oi')}
-								/>
-								<Span>{item[0]}</Span>
-							</label>
-						</ToggleHolder>
+						<Toggle htmlFor={item[1]} key={uuid()}>
+							<input type="checkbox" id={item[1]} name={item[1]} value={item[2]} />
+							<span>{item[0]}</span>
+						</Toggle>
 					))}
 				</Section>
 			))}
