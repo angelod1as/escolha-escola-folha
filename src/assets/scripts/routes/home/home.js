@@ -38,79 +38,78 @@ class Home extends Component {
 			needFetch: false,
 		};
 
-		this.updateState = this.updateState.bind(this);
-		this.getFiles = this.getFiles.bind(this);
-		this.pushHistory = this.pushHistory.bind(this);
-		this.checkFetch = this.checkFetch.bind(this);
+		// this.updateState = this.updateState.bind(this);
+		// this.getFiles = this.getFiles.bind(this);
+		// this.pushHistory = this.pushHistory.bind(this);
+		// this.checkFetch = this.checkFetch.bind(this);
 	}
 
-	componentDidMount() {
-		// Set URL if empty
-		const { location: { search }, history } = this.props;
-		const { filters } = this.state;
-		if (search === '') {
-			const newHistory = encodeURIComponent(JSON.stringify(filters));
-			history.push(`?filters=${newHistory}`);
-		} else {
-			const query = search.split('?filters=')[1];
-			const newFilters = JSON.parse(decodeURIComponent(query));
-			const newState = this.state;
-			newState.filters = newFilters;
-			this.updateState(newState, true);
-		}
-	}
+	// componentDidMount() {
+	// 	// Set URL if empty
+	// 	const { location: { search }, history } = this.props;
+	// 	const { filters } = this.state;
+	// 	if (search === '') {
+	// 		const newHistory = encodeURIComponent(JSON.stringify(filters));
+	// 		history.push(`?filters=${newHistory}`);
+	// 	} else {
+	// 		const query = search.split('?filters=')[1];
+	// 		const newFilters = JSON.parse(decodeURIComponent(query));
+	// 		const newState = this.state;
+	// 		newState.filters = newFilters;
+	// 		this.updateState(newState, true);
+	// 	}
+	// }
 
-	getFiles(type, newState, cb) {
-		const newerState = newState;
-		const { state } = this;
-		console.log('get');
-	}
+	// getFiles(type, newState, cb) {
+	// 	const newerState = newState;
+	// 	const { state } = this;
 
-	checkFetch(received, force) {
-		const { filters } = this.state;
-		return Object.keys(received).filter((filter) => {
-			if (typeof received[filter] === 'string') {
-				if (received[filter] !== filters[filter]) {
-					return force || true;
-				}
-			} else {
-				// console.log(received);
-				// const inside = received[filter].map(each => console.log(each));
-				// return inside.length > 0;
-			}
-			return force || false;
-		});
-	}
+	// }
 
-	pushHistory(receivedFilters) {
-		const { history } = this.props;
-		const newHistory = encodeURIComponent(JSON.stringify(receivedFilters));
-		history.push(`?filters=${newHistory}`);
-	}
+	// checkFetch(received, force) {
+	// 	const { filters } = this.state;
+	// 	return Object.keys(received).filter((filter) => {
+	// 		if (typeof received[filter] === 'string') {
+	// 			if (received[filter] !== filters[filter]) {
+	// 				return force || true;
+	// 			}
+	// 		} else {
+	// 			// console.log(received);
+	// 			// const inside = received[filter].map(each => console.log(each));
+	// 			// return inside.length > 0;
+	// 		}
+	// 		return force || false;
+	// 	});
+	// }
 
-	updateState(receivedState, force) {
-		const { filters: receivedFilters } = receivedState;
-		this.pushHistory(receivedFilters);
-		const needFetch = this.checkFetch(receivedFilters, force);
+	// pushHistory(receivedFilters) {
+	// 	const { history } = this.props;
+	// 	const newHistory = encodeURIComponent(JSON.stringify(receivedFilters));
+	// 	history.push(`?filters=${newHistory}`);
+	// }
 
-		if (needFetch.length > 0) {
-			needFetch.forEach((each) => {
-				this.getFiles(each, receivedState, (newState) => {
-					this.setState(newState);
-				});
-			});
-		} else {
-			this.setState(receivedState);
-		}
-	}
+	// updateState(receivedState, force) {
+	// 	const { filters: receivedFilters } = receivedState;
+	// 	this.pushHistory(receivedFilters);
+	// 	const needFetch = this.checkFetch(receivedFilters, force);
+
+	// 	if (needFetch.length > 0) {
+	// 		needFetch.forEach((each) => {
+	// 			this.getFiles(each, receivedState, (newState) => {
+	// 				this.setState(newState);
+	// 			});
+	// 		});
+	// 	} else {
+	// 		this.setState(receivedState);
+	// 	}
+	// }
 
 	render() {
 		// TODO Passar zona para o filtro
-		console.log('rendered', this.state);
 		return (
 			<>
 				<div>oi</div>
-				<Top state={this.state} updateState={this.updateState} />
+				{/* <Top state={this.state} updateState={this.updateState} /> */}
 				{/* <Sidebar /> */}
 				{/* <Content state={this.state} /> */}
 			</>

@@ -45,7 +45,6 @@ const LocationFilters = ({ state, updateState }) => {
 	const hasCities = citiesList.length > 0;
 
 	const { filters: { uf } } = newState;
-	console.log(uf);
 
 	return (
 		<>
@@ -60,7 +59,7 @@ const LocationFilters = ({ state, updateState }) => {
 					enabled
 				/>
 			</State>
-			{/* <City
+			<City
 				hasZone={hasZone}
 				className={hasCities ? '' : 'disabled'}
 			>
@@ -71,7 +70,7 @@ const LocationFilters = ({ state, updateState }) => {
 					type="city"
 					enabled={hasCities}
 				/>
-			</City> */}
+			</City>
 			{/* <Zone>
 				<Select
 					className="f-forms__select"
