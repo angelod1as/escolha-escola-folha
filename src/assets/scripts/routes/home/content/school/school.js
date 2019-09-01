@@ -38,7 +38,9 @@ const Li = styled.li`
 	}
 `;
 
-const Bars = styled.div``;
+const Bars = styled.div`
+	margin: 40px 0;
+`;
 const TitleHolder = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -104,6 +106,31 @@ const Marker = styled.div`
 `;
 const Total = styled.div`
 	justify-self: end;
+`;
+
+const Contact = styled.div`
+	margin: 40px 0;
+	p {
+		font-size: .9em;
+		color: ${p => p.theme.color.gray}
+	}
+`;
+
+const Back = styled.button`
+		user-select: none;
+		font-family: ${p => p.theme.font.display};
+		font-size: .9em;
+		font-weight: 500;
+		text-align: left;
+		background-color: ${p => p.theme.color.color};
+		color: ${p => p.theme.color.white};
+		min-width: 250px;
+		padding: 8px;
+		margin: 5px 0;
+		border-radius: 5px;
+		&:hover {
+			opacity: .8;
+		}
 `;
 
 const School = () => {
@@ -179,6 +206,15 @@ const School = () => {
 					</Total>
 				</BarHolder>
 			</Bars>
+
+			<Contact>
+				<H3>Contato</H3>
+				<p>Avenida Feiz Zarzur Comendador, SN, CEP 2942000</p>
+				<p>Jardim Cidade Pirituba São Paulo, SP, zona norte</p>
+				<p>emefleopoldina@prefeitura.sp.gov.br • 11 39720076 • 11 39793610</p>
+			</Contact>
+
+			<Back>Voltar</Back>
 		</>
 	);
 };
