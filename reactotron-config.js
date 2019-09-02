@@ -1,9 +1,15 @@
+
+
 import Reactotron from 'reactotron-react-js';
 import { reactotronRedux } from 'reactotron-redux';
 
-const reactotron = Reactotron
+const tron = Reactotron
 	.configure({ name: 'Escolha a Escola' })
 	.use(reactotronRedux())
 	.connect();
 
-export default reactotron;
+tron.clear();
+
+console.tron = tron;
+
+export default tron;

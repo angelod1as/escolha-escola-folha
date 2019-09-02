@@ -36,15 +36,19 @@ export const receiveSchoolsList = payload => ({ type: RECEIVE_SCHOOLS_LIST, payl
 export const SHOW_SCHOOL = 'SHOW_SCHOOL';
 export const showSchool = id => ({ type: SHOW_SCHOOL, id });
 
-
 // THUNKS
-export const fetchCityList = payload => (dispatch) => {
-	console.log('FETCH');
+export const fetchCityList = payload => (dispatch, getState) => {
 	dispatch(setUf(payload));
-	dispatch(requestCityList(payload));
+	const { setUf: { url } } = getState();
 
-	return axios.get(payload)
+	dispatch(requestCityList(url));
+
+	return axios.get(url)
 		.then(({ data }) => {
 			dispatch(receiveCityList(data));
 		});
+};
+
+export const fetchSchoolList = payload => (dispatch, getState) => {
+	dispatch(setCity(payload));
 };

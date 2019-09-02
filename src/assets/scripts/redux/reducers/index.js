@@ -5,63 +5,63 @@ import {
 	REQUEST_CITY_LIST,
 	RECEIVE_CITY_LIST,
 	SET_CITY,
-	REQUEST_ZONE_LIST,
-	RECEIVE_ZONE_LIST,
-	SET_ZONE,
-	REQUEST_SCHOOLS_LIST,
-	RECEIVE_SCHOOLS_LIST,
-	SHOW_SCHOOL,
+	// REQUEST_ZONE_LIST,
+	// RECEIVE_ZONE_LIST,
+	// SET_ZONE,
+	// REQUEST_SCHOOLS_LIST,
+	// RECEIVE_SCHOOLS_LIST,
+	// SHOW_SCHOOL,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
 
-const initialState = {
-	config: {
-		output: '../../../output/',
-		spCode: '3550308',
-	},
-	locationFilters: {
-		uf: {
-			ufList,
-			chosenUf: '',
-		},
-		cities: {
-			fetching: true,
-			chosen: false,
-			cityList: [],
-			chosenCities: [],
-		},
-		zones: {
-			fetching: true,
-			chosen: false,
-			zoneList: [],
-			chosenZones: [],
-		},
-	},
-	schoolList: {
-		fetching: true,
-		list: [],
-		filters: {
-			name: '',
-			fundamental: false,
-			medio: false,
-			particular: false,
-			publica: false,
-			urbana: false,
-			rural: false,
-			especiais: false,
-			biblioteca: false,
-			ciencia: false,
-			informatica: false,
-			quadra: false,
-			espanhol: false,
-			frances: false,
-			ingles: false,
-		},
-	},
-	school: {
-		id: '',
-	},
-};
+// const initialState = {
+// 	config: {
+// 		output: '../../../output/',
+// 		spCode: '3550308',
+// 	},
+// 	locationFilters: {
+// 		uf: {
+// 			ufList,
+// 			chosenUf: '',
+// 		},
+// 		cities: {
+// 			fetching: true,
+// 			chosen: false,
+// 			cityList: [],
+// 			chosenCities: [],
+// 		},
+// 		zones: {
+// 			fetching: true,
+// 			chosen: false,
+// 			zoneList: [],
+// 			chosenZones: [],
+// 		},
+// 	},
+// 	schoolList: {
+// 		fetching: true,
+// 		list: [],
+// 		filters: {
+// 			name: '',
+// 			fundamental: false,
+// 			medio: false,
+// 			particular: false,
+// 			publica: false,
+// 			urbana: false,
+// 			rural: false,
+// 			especiais: false,
+// 			biblioteca: false,
+// 			ciencia: false,
+// 			informatica: false,
+// 			quadra: false,
+// 			espanhol: false,
+// 			frances: false,
+// 			ingles: false,
+// 		},
+// 	},
+// 	school: {
+// 		id: '',
+// 	},
+// };
 
 const output = '../../../output/';
 const spCode = '3550308';
@@ -116,14 +116,16 @@ const setCity = (state = {
 };
 
 const chooseCity = (state = {
+	hasZone: false,
 	chosen: false,
 	chosenCities: [],
 }, action) => {
 	switch (action.type) {
 	case SET_CITY:
 		return Object.assign({}, state, {
+			hasZone: action.chosen === spCode,
 			chosen: true,
-			chosenCities: [...action.chosen],
+			chosenCities: [...state.chosenCities, action.chosen],
 		});
 	default:
 		return state;
