@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Auto from 'react-autosuggest';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import slugfy from '../../components/slugfy';
+import slugfy from '../../utils/slugfy';
 
 const AutoWrapper = styled.div`
 	.react-autosuggest__container,
@@ -21,11 +21,29 @@ const AutoWrapper = styled.div`
 	.react-autosuggest__section-title {
 		display: block;
 		* {
-			font-family: ${p => p.theme.font.display}
+			font-family: ${p => p.theme.font.display};
+			font-weight: 300;
+			text-align: center;
+			text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+			pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
+			font-style: italic;
 		}
 	}
 
+	.react-autosuggest__input {
+		&::placeholder {
+			color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
+			text-transform: ${p => (p.disabled ? 'initial' : 'uppercase')};
+		}
+		width: 100%;
+		border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
+		border-radius: 3px;
+		padding: 5px 10px;
+		font-size: .9em;
+	}
+
 	.react-autosuggest__suggestions-list {
+		font-size: .9em;
 	}
 
 	.react-autosuggest__suggestion {
@@ -47,20 +65,32 @@ const AutoWrapper = styled.div`
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion[0];
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
 	<div>
-		{suggestion.name}
+		{suggestion[0]}
 	</div>
 );
 
-export default class autosuggest extends Component {
+export default class Autosuggest extends Component {
 	constructor(props) {
 		super(props);
+
+		let value = '';
+		if (props.initial) {
+			const { data } = props;
+			// const res = data.filter(out => out.filter(ins => ins.toLowerCase() === props.initial));
+			const res = [].concat(...data.filter((out) => {
+				const inside = out.filter(ins => typeof ins === 'string' && ins.toLowerCase() === props.initial);
+				return inside.length > 0;
+			}));
+			value = res[0] || '';
+		}
+
 		this.state = {
-			value: '',
+			value,
 			suggestions: [],
 		};
 
@@ -89,38 +119,45 @@ export default class autosuggest extends Component {
 	}
 
 	onSuggestionSelected(e, { suggestion }) {
-		const { changeChosen } = this.props;
-		changeChosen(suggestion.code);
-		this.setState({ value: '' });
+		const { handleChange, type } = this.props;
+		handleChange(suggestion[1], type);
+		if (type === 'uf') {
+			this.setState({ value: suggestion[0] });
+		} else {
+			this.setState({ value: '' });
+		}
 	}
 
 	// Teach Autosuggest how to calculate suggestions for any given input value.
 	getSuggestions(value) {
-		const { list } = this.props;
-		const searchList = Object.keys(list).map(each => list[each]);
+		const { data } = this.props;
+		// Array of Arrays => two indexes:
+		// 0 = Name
+		// 1 = Code (or similar)
+		const searchList = data;
 		const inputValue = value.trim().toLowerCase();
 		const inputLength = inputValue.length;
 
 		if (inputLength === 0) {
 			return [];
 		}
-		return searchList.filter(item => slugfy(item
-			.name
+		return searchList.filter(item => slugfy(item[0]
 			.toLowerCase()
 			.slice(0, inputLength)) === slugfy(inputValue));
 	}
 
 	render() {
 		const { value, suggestions } = this.state;
+		const { placeholder, enabled } = this.props;
 
 		// Autosuggest will pass through all these props to the input.
 		const inputProps = {
-			placeholder: 'Digite a cidade',
+			placeholder,
 			value,
 			onChange: this.onChange,
 		};
 		return (
-			<AutoWrapper>
+			<AutoWrapper disabled={!enabled}>
 				<Auto
 					suggestions={suggestions}
 					onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -135,7 +172,16 @@ export default class autosuggest extends Component {
 	}
 }
 
-autosuggest.propTypes = {
-	changeChosen: PropTypes.func.isRequired,
-	list: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+Autosuggest.propTypes = {
+	handleChange: PropTypes.func.isRequired,
+	data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+	type: PropTypes.string.isRequired,
+	placeholder: PropTypes.string.isRequired,
+	enabled: PropTypes.bool,
+	initial: PropTypes.string,
+};
+
+Autosuggest.defaultProps = {
+	enabled: true,
+	initial: '',
 };

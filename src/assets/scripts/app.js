@@ -1,25 +1,23 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import {
-	HashRouter as Router, Route, Switch, Redirect,
-} from 'react-router-dom';
+import { Provider } from 'react-redux';
+// import {
+// 	HashRouter as Router, Route, Switch, Redirect,
+// } from 'react-router-dom';
 
-import Layout from './components/layout';
+// Redux
+import store from './redux/store';
+
+// import Layout from './routes/components/layout';
 import Home from './routes/home/home';
-
-const output = '../../../output/';
+import Layout from './routes/components/layout';
 
 const App = () => (
-	<Layout>
-		<Router>
-			<Switch>
-				{/* home */}
-				<Route exact path="/" render={() => <Home output={output} />} />
-				{/* 404? redirect */}
-				<Route render={() => <Redirect to="/" />} />
-			</Switch>
-		</Router>
-	</Layout>
+	<Provider store={store}>
+		<Layout>
+			<Home />
+		</Layout>
+	</Provider>
 );
 
 export default App;

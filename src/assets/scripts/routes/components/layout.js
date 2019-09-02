@@ -26,7 +26,7 @@ const Layout = styled.div`
 		"f-state f-city f-city f-zone"
 		". f-cities f-cities f-zones"
 		". f-name f-name f-name"
-		"f-sidebar content content content"
+		"f-sidebar content content content";
 `;
 
 const LayoutWrapper = ({ children }) => (

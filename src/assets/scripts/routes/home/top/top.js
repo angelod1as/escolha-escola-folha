@@ -1,21 +1,13 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import types from '../../../utils/types';
 
+// import { Container } from './styles';
 import LocationFilter from './filters/location-filter';
-import ChosenFilter from './filters/chosen-filter';
-// import NameFilter from './filters/name-filter';
 
-const Top = props => (
+const Top = () => (
 	<>
-		<LocationFilter {...props} />
-		<ChosenFilter {...props} />
-		{/* <NameFilter /> */}
+		<LocationFilter />
+		{/* <ChosenFilter /> */}
 	</>
 );
-
-// Top.propTypes = {
-// 	state: PropTypes.shape(types).isRequired,
-// };
 
 export default Top;

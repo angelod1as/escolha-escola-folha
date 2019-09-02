@@ -1,64 +1,29 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+// import PropTypes from 'prop-types';
+// import { withRouter } from 'react-router-dom';
 
-// import uuid from 'uuid/v1';
-// import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
-// import Fade from 'react-reveal/Fade';
-// import { upperAll } from '../../utils/upper';
-
-// const spCode = '3550308';
-// const rjCode = '3304557';
+// REDUX
+import { setUf, fetchCityList } from '../../redux/actions';
 
 import Top from './top/top';
-// import Sidebar from './sidebar/sidebar';
-// import Content from './content/content';
 
-class Home extends Component {
-	constructor(props) {
-		super(props);
-		const { output } = this.props;
-		this.state = {
-			config: {
-				output,
-				spCode: '3550308',
-			},
-			filters: {
-				uf: '',
-				city: [],
-				zone: [],
-			},
-			data: {
-				cities: {},
-				schools: [],
-			},
-			hasZone: false,
-			needFetch: false,
-		};
-	}
+const Home = () => (
+	<>
+		<Top />
+	</>
+);
 
-	render() {
-		// TODO Passar zona para o filtro
-		return (
-			<>
-				<div>oi</div>
-				{/* <Top state={this.state} updateState={this.updateState} /> */}
-				{/* <Sidebar /> */}
-				{/* <Content state={this.state} /> */}
-			</>
-		);
-	}
-}
+export default Home;
 
 
-Home.propTypes = {
-	output: PropTypes.string.isRequired,
-	history: PropTypes.shape().isRequired,
-	location: PropTypes.shape({
-		search: PropTypes.string,
-	}).isRequired,
-};
+// console.log(store.getState());
 
-export default withRouter(Home);
+// const unsubscribe = store.subscribe(() => console.log(store.getState()));
+
+// store.dispatch(setUf('SP'));
+// const state = store.getState();
+// store.dispatch(fetchCityList(state.setUf.url));
+
+// unsubscribe();
+
+// import { Container } from './styles';
