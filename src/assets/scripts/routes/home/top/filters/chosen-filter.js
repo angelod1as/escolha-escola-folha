@@ -40,10 +40,10 @@ const ChosenFilter = ({
 		const { id } = e.target.dataset;
 		switch (type) {
 		case 'city':
-			rCity(id);
+			rCity({ value: id });
 			break;
 		case 'zone':
-			rZone(id);
+			rZone({ value: id });
 			break;
 		default:
 			break;

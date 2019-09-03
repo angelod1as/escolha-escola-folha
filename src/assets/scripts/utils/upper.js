@@ -13,7 +13,7 @@ export const upper = (string) => {
 
 
 export const upperAll = (string) => {
-	const exceptions = ['do', 'de', 'da', 'dos', 'des', 'das'];
+	const exceptions = ['do', 'de', 'da', 'dos', 'des', 'das', 'e'];
 	const newString = string.trim().split(' ');
 	const ret = newString.map((str) => {
 		if (exceptions.includes(str.toLowerCase())) {

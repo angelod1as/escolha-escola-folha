@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import ref from '../../utils/refs';
+
 import {
 	CLEAN_ALL,
 	GET_UF,
@@ -11,6 +13,7 @@ import {
 	REMOVE_ZONE,
 	REQUEST_SCHOOLS_LIST,
 	RECEIVE_SCHOOLS_LIST,
+	REMOVE_SCHOOLS,
 	SHOW_SCHOOL,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
@@ -133,6 +136,7 @@ const chooseCity = (state = {
 }, action) => {
 	switch (action.type) {
 	case SET_CITY: {
+		// TODO not add duplicate city
 		const newChosen = [...state.chosenCities, action.chosen];
 		return Object.assign({}, state, {
 			hasZone: newChosen.includes(spCode),
@@ -141,6 +145,7 @@ const chooseCity = (state = {
 		});
 	}
 	case REMOVE_CITY: {
+		console.tron.log('removed city');
 		const newChosen = [...state.chosenCities
 			.filter(each => each !== action.deleted)];
 		return Object.assign({}, state, {
@@ -166,6 +171,7 @@ const chooseZone = (state = {
 }, action) => {
 	switch (action.type) {
 	case SET_ZONE: {
+		// TODO not add duplicate zone
 		const newChosen = [...state.chosenZones, action.chosen];
 		return Object.assign({}, state, {
 			hasChosenZone: newChosen.length > 0,
@@ -180,7 +186,11 @@ const chooseZone = (state = {
 			chosenZones: newChosen,
 		});
 	}
+	case REMOVE_CITY:
+		if (+action.deleted !== +spCode) return state;
+		// falls through
 	case CLEAN_ALL:
+		// TODO clean zones from chosen-filter when deleting SP
 		return Object.assign({}, state, {
 			hasChosenZone: false,
 			chosenZones: [],
@@ -205,6 +215,51 @@ const listSchools = (state = {
 			fetching: false,
 			schoolList: Object.assign({}, state.schoolList, action.payload),
 		});
+	case REMOVE_SCHOOLS: {
+		const newSchoolList = {};
+		let map = [];
+		const list = state.schoolList;
+		if (action.zone) {
+			map = Object.keys(list)
+				.filter((each) => {
+					const isSp = state
+						.schoolList[each]
+						.address
+						.city_code === +spCode;
+
+					const stateZone = state
+						.schoolList[each]
+						.address
+						.zone;
+
+					const refZone = ref
+						.address
+						.zone[1]
+						.map(zone => zone.toLowerCase())
+						.indexOf(action.deleted) + 1;
+
+					console.tron.log({ refZone, stateZone, equal: refZone === stateZone });
+
+					if (!isSp) return true;
+					return stateZone !== (refZone);
+				});
+			console.tron.log({ map });
+		} else {
+			map = Object.keys(list)
+				.filter(each => state
+					.schoolList[each]
+					.address
+					.city_code !== +action.deleted);
+		}
+
+		map.forEach((each) => {
+			newSchoolList[each] = list[each];
+			return null;
+		});
+		return Object.assign({}, state, {
+			schoolList: Object.assign({}, newSchoolList),
+		});
+	}
 	default:
 		return state;
 	}

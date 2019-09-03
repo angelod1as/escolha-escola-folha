@@ -6,24 +6,15 @@ import React from 'react';
 import { chooseUf, fetchCityList } from '../../redux/actions';
 
 import Top from './top/top';
+import Sidebar from './sidebar/sidebar';
+import Content from './content/content';
 
 const Home = () => (
 	<>
 		<Top />
+		<Sidebar />
+		<Content />
 	</>
 );
 
 export default Home;
-
-
-// console.log(store.getState());
-
-// const unsubscribe = store.subscribe(() => console.log(store.getState()));
-
-// store.dispatch(chooseUf('SP'));
-// const state = store.getState();
-// store.dispatch(fetchCityList(state.chooseUf.url));
-
-// unsubscribe();
-
-// import { Container } from './styles';

@@ -18,14 +18,8 @@ export const receiveCityList = payload => ({ type: RECEIVE_CITY_LIST, payload })
 export const SET_CITY = 'SET_CITY';
 export const listCities = chosen => ({ type: SET_CITY, chosen });
 
-export const REMOVE_CITY = 'REMOVE_CITY';
-export const removeCity = deleted => ({ type: REMOVE_CITY, deleted });
-
 export const SET_ZONE = 'SET_ZONE';
 export const setZone = chosen => ({ type: SET_ZONE, chosen });
-
-export const REMOVE_ZONE = 'REMOVE_ZONE';
-export const removeZone = deleted => ({ type: REMOVE_ZONE, deleted });
 
 export const REQUEST_SCHOOLS_LIST = 'REQUEST_SCHOOLS_LIST';
 export const requestSchoolsList = payload => ({ type: REQUEST_SCHOOLS_LIST, payload });
@@ -36,10 +30,10 @@ export const receiveSchoolsList = payload => ({ type: RECEIVE_SCHOOLS_LIST, payl
 export const SHOW_SCHOOL = 'SHOW_SCHOOL';
 export const showSchool = id => ({ type: SHOW_SCHOOL, id });
 
-// THUNKS
 export const CLEAN_ALL = 'CLEAN_ALL';
 export const cleanAll = () => ({ type: CLEAN_ALL });
 
+// THUNKS
 export const fetchCityList = ({ value }) => (dispatch, getState) => {
 	dispatch(cleanAll());
 	dispatch(chooseUf(value));
@@ -75,4 +69,23 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 			});
 	}
 	return {};
+};
+
+export const REMOVE_CITY = 'REMOVE_CITY';
+export const removeCityFromList = deleted => ({ type: REMOVE_CITY, deleted });
+
+export const REMOVE_ZONE = 'REMOVE_ZONE';
+export const removeZoneFromList = deleted => ({ type: REMOVE_ZONE, deleted });
+
+export const REMOVE_SCHOOLS = 'REMOVE_SCHOOLS';
+export const removeSchools = (deleted, zone) => ({ type: REMOVE_SCHOOLS, deleted, zone });
+
+export const removeCity = ({ value }) => (dispatch) => {
+	dispatch(removeCityFromList(value));
+	dispatch(removeSchools(value));
+};
+
+export const removeZone = ({ value }) => (dispatch) => {
+	dispatch(removeZoneFromList(value));
+	dispatch(removeSchools(value, true));
 };

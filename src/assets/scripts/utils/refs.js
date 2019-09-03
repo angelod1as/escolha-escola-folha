@@ -1,4 +1,4 @@
-export const ref = {
+const ref = {
 	// code: ['Código da entidade'],
 	name: ['Nome da escola', 'text'],
 	public_private: ['Pública ou privada', ['Todas', 'Privada', 'Pública']],
@@ -105,3 +105,5 @@ export const avgRefs = {
 	fundamental: 'Fundamental',
 	medio: 'Médio',
 };
+
+export default ref;
