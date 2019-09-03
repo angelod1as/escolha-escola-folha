@@ -3,8 +3,6 @@ import React from 'react';
 // import { withRouter } from 'react-router-dom';
 
 // REDUX
-import { chooseUf, fetchCityList } from '../../redux/actions';
-
 import Top from './top/top';
 import Sidebar from './sidebar/sidebar';
 import Content from './content/content';

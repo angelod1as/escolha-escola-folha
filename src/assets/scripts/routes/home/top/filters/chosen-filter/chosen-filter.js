@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
-import { upperAll } from '../../../../utils/upper';
-
-import { removeCity, removeZone } from '../../../../redux/actions/index';
+import { upperAll } from '../../../../../utils/upper';
 
 const Uf = styled.div`
 	grid-area: f-cities;
@@ -83,22 +81,12 @@ const ChosenFilter = ({
 	);
 };
 
-const mapDispatchToProps = {
-	removeCity,
-	removeZone,
+ChosenFilter.propTypes = {
+	chosenCities: PropTypes.arrayOf(PropTypes.string).isRequired,
+	chosenZones: PropTypes.arrayOf(PropTypes.string).isRequired,
+	cityList: PropTypes.shape().isRequired,
+	removeCity: PropTypes.func.isRequired,
+	removeZone: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-	chooseCity: { chosenCities },
-	listCities: { cityList },
-	chooseZone: { chosenZones },
-}) => ({
-	chosenCities,
-	cityList,
-	chosenZones,
-});
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(ChosenFilter);
+export default ChosenFilter;

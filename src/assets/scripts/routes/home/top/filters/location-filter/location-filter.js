@@ -1,13 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
-import { Select } from '../../../components/styles';
+import { Select } from '../../../../components/styles';
 
-// Redux
-import { fetchCityList, fetchSchoolList } from '../../../../redux/actions/index';
-
-import Autosuggest from '../../../components/autosuggest';
+import Autosuggest from '../../../../components/autosuggest';
 
 const Uf = styled.div`
 	grid-area: f-state;
@@ -22,16 +19,13 @@ const Zone = styled.div`
 
 const LocationFilters = ({
 	ufList,
-	chosenUf,
 	cityList,
-	hasChosenCity,
 	hasZone,
 	zoneList,
 	fetchCityList: fCityList,
 	fetchSchoolList: fSchoolList,
 }) => {
 	const handleChange = (value, type) => {
-		console.log(value, type);
 		switch (type) {
 		case 'uf':
 			fCityList({ value });
@@ -96,26 +90,13 @@ const LocationFilters = ({
 	);
 };
 
-const mapDispatchToProps = {
-	fetchCityList,
-	fetchSchoolList,
+LocationFilters.propTypes = {
+	cityList: PropTypes.shape().isRequired,
+	fetchCityList: PropTypes.func.isRequired,
+	fetchSchoolList: PropTypes.func.isRequired,
+	hasZone: PropTypes.bool.isRequired,
+	ufList: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+	zoneList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = ({
-	config: { ufList, zoneList },
-	chooseUf: { chosenUf },
-	listCities: { cityList },
-	chooseCity: { hasChosenCity, hasZone },
-}) => ({
-	ufList,
-	zoneList,
-	chosenUf,
-	cityList,
-	hasChosenCity,
-	hasZone,
-});
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(LocationFilters);
+export default LocationFilters;

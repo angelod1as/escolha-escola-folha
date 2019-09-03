@@ -136,8 +136,11 @@ const chooseCity = (state = {
 }, action) => {
 	switch (action.type) {
 	case SET_CITY: {
-		// TODO not add duplicate city
-		const newChosen = [...state.chosenCities, action.chosen];
+		const newChosen = state
+			.chosenCities
+			.includes(action.chosen)
+			? state.chosenCities
+			: [...state.chosenCities, action.chosen];
 		return Object.assign({}, state, {
 			hasZone: newChosen.includes(spCode),
 			hasChosenCity: newChosen.length > 0,
@@ -145,7 +148,6 @@ const chooseCity = (state = {
 		});
 	}
 	case REMOVE_CITY: {
-		console.tron.log('removed city');
 		const newChosen = [...state.chosenCities
 			.filter(each => each !== action.deleted)];
 		return Object.assign({}, state, {
@@ -172,7 +174,11 @@ const chooseZone = (state = {
 	switch (action.type) {
 	case SET_ZONE: {
 		// TODO not add duplicate zone
-		const newChosen = [...state.chosenZones, action.chosen];
+		const newChosen = state
+			.chosenZones
+			.includes(action.chosen)
+			? state.chosenZones
+			: [...state.chosenZones, action.chosen];
 		return Object.assign({}, state, {
 			hasChosenZone: newChosen.length > 0,
 			chosenZones: newChosen,
@@ -190,7 +196,6 @@ const chooseZone = (state = {
 		if (+action.deleted !== +spCode) return state;
 		// falls through
 	case CLEAN_ALL:
-		// TODO clean zones from chosen-filter when deleting SP
 		return Object.assign({}, state, {
 			hasChosenZone: false,
 			chosenZones: [],
@@ -238,12 +243,9 @@ const listSchools = (state = {
 						.map(zone => zone.toLowerCase())
 						.indexOf(action.deleted) + 1;
 
-					console.tron.log({ refZone, stateZone, equal: refZone === stateZone });
-
 					if (!isSp) return true;
 					return stateZone !== (refZone);
 				});
-			console.tron.log({ map });
 		} else {
 			map = Object.keys(list)
 				.filter(each => state
