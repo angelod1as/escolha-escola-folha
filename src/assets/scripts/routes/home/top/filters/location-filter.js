@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-// import Reactotron from 'reactotron-react-js';
+import uuid from 'uuid/v1';
+import { Select } from '../../../components/styles';
 
 // Redux
-import { connect } from 'react-redux';
 import { fetchCityList, fetchSchoolList } from '../../../../redux/actions/index';
 
 import Autosuggest from '../../../components/autosuggest';
@@ -15,22 +16,31 @@ const City = styled.div`
 	grid-area: f-city;
 	grid-column-end: 4;
 `;
-// const Zone = styled.div`
-// 	grid-area: f-zone;
-// `;
+const Zone = styled.div`
+	grid-area: f-zone;
+`;
 
-const LocationFilters = (props) => {
-	const { ufList, chosenUf, cityList } = props;
+const LocationFilters = ({
+	ufList,
+	chosenUf,
+	cityList,
+	hasChosenCity,
+	hasZone,
+	zoneList,
+	fetchCityList: fCityList,
+	fetchSchoolList: fSchoolList,
+}) => {
 	const handleChange = (value, type) => {
 		console.log(value, type);
 		switch (type) {
 		case 'uf':
-			props.fetchCityList(value);
+			fCityList({ value });
 			break;
 		case 'city':
-			props.fetchSchoolList(value);
+			fSchoolList({ value });
 			break;
 		case 'zone':
+			fSchoolList({ value, zone: true });
 			break;
 		default:
 			break;
@@ -67,6 +77,21 @@ const LocationFilters = (props) => {
 					enabled={city.has}
 				/>
 			</City>
+			<Zone>
+				<Select
+					className="f-forms__select"
+					name="zones"
+					id="zones"
+					onChange={e => handleChange(e.target.value, 'zone')}
+					value=""
+					disabled={!hasZone}
+				>
+					<option value="" disabled hidden>Escolha a zona de SP</option>
+					{zoneList.map(each => (
+						<option key={uuid()} value={each}>{each}</option>
+					))}
+				</Select>
+			</Zone>
 		</>
 	);
 };
@@ -77,13 +102,17 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = ({
-	config: { ufList },
-	setUf: { chosenUf },
-	setCity: { cityList },
+	config: { ufList, zoneList },
+	chooseUf: { chosenUf },
+	listCities: { cityList },
+	chooseCity: { hasChosenCity, hasZone },
 }) => ({
 	ufList,
+	zoneList,
 	chosenUf,
 	cityList,
+	hasChosenCity,
+	hasZone,
 });
 
 export default connect(

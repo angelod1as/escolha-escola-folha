@@ -7,7 +7,7 @@ export const GET_UF = 'GET_UF';
 export const getUf = action => ({ type: GET_UF, action });
 
 export const SET_UF = 'SET_UF';
-export const setUf = chosen => ({ type: SET_UF, chosen });
+export const chooseUf = chosen => ({ type: SET_UF, chosen });
 
 export const REQUEST_CITY_LIST = 'REQUEST_CITY_LIST';
 export const requestCityList = payload => ({ type: REQUEST_CITY_LIST, payload });
@@ -16,16 +16,16 @@ export const RECEIVE_CITY_LIST = 'RECEIVE_CITY_LIST';
 export const receiveCityList = payload => ({ type: RECEIVE_CITY_LIST, payload });
 
 export const SET_CITY = 'SET_CITY';
-export const setCity = chosen => ({ type: SET_CITY, chosen });
+export const listCities = chosen => ({ type: SET_CITY, chosen });
 
-export const REQUEST_ZONE_LIST = 'REQUEST_ZONE_LIST';
-export const requestZoneList = payload => ({ type: REQUEST_ZONE_LIST, payload });
-
-export const RECEIVE_ZONE_LIST = 'RECEIVE_ZONE_LIST';
-export const receiveZoneList = payload => ({ type: RECEIVE_ZONE_LIST, payload });
+export const REMOVE_CITY = 'REMOVE_CITY';
+export const removeCity = deleted => ({ type: REMOVE_CITY, deleted });
 
 export const SET_ZONE = 'SET_ZONE';
 export const setZone = chosen => ({ type: SET_ZONE, chosen });
+
+export const REMOVE_ZONE = 'REMOVE_ZONE';
+export const removeZone = deleted => ({ type: REMOVE_ZONE, deleted });
 
 export const REQUEST_SCHOOLS_LIST = 'REQUEST_SCHOOLS_LIST';
 export const requestSchoolsList = payload => ({ type: REQUEST_SCHOOLS_LIST, payload });
@@ -37,9 +37,16 @@ export const SHOW_SCHOOL = 'SHOW_SCHOOL';
 export const showSchool = id => ({ type: SHOW_SCHOOL, id });
 
 // THUNKS
-export const fetchCityList = payload => (dispatch, getState) => {
-	dispatch(setUf(payload));
-	const { setUf: { url } } = getState();
+export const CLEAN_ALL = 'CLEAN_ALL';
+export const cleanAll = () => ({ type: CLEAN_ALL });
+
+export const fetchCityList = ({ value }) => (dispatch, getState) => {
+	dispatch(cleanAll());
+	dispatch(chooseUf(value));
+
+	const { config: { urlUf }, chooseUf: { chosenUf } } = getState();
+
+	const	url = `${urlUf}${chosenUf.toLowerCase()}.json`;
 
 	dispatch(requestCityList(url));
 
@@ -49,6 +56,23 @@ export const fetchCityList = payload => (dispatch, getState) => {
 		});
 };
 
-export const fetchSchoolList = payload => (dispatch, getState) => {
-	dispatch(setCity(payload));
+export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
+	let url = '';
+	const { config: { urlCity, spCode } } = getState();
+	if (!zone) {
+		dispatch(listCities(value));
+		url = `${urlCity}${value}.json`;
+	} else {
+		dispatch(setZone(value));
+		url = `${urlCity}${spCode}-${value}.json`;
+	}
+
+	if (value !== spCode) {
+		dispatch(requestSchoolsList(url));
+		return axios.get(url)
+			.then(({ data }) => {
+				dispatch(receiveSchoolsList(data));
+			});
+	}
+	return {};
 };

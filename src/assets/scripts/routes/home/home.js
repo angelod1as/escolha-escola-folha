@@ -3,7 +3,7 @@ import React from 'react';
 // import { withRouter } from 'react-router-dom';
 
 // REDUX
-import { setUf, fetchCityList } from '../../redux/actions';
+import { chooseUf, fetchCityList } from '../../redux/actions';
 
 import Top from './top/top';
 
@@ -20,9 +20,9 @@ export default Home;
 
 // const unsubscribe = store.subscribe(() => console.log(store.getState()));
 
-// store.dispatch(setUf('SP'));
+// store.dispatch(chooseUf('SP'));
 // const state = store.getState();
-// store.dispatch(fetchCityList(state.setUf.url));
+// store.dispatch(fetchCityList(state.chooseUf.url));
 
 // unsubscribe();
 
