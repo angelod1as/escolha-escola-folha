@@ -14,6 +14,7 @@ import {
 	REQUEST_SCHOOLS_LIST,
 	RECEIVE_SCHOOLS_LIST,
 	REMOVE_SCHOOLS,
+	CHANGE_FILTER,
 	SHOW_SCHOOL,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
@@ -267,10 +268,44 @@ const listSchools = (state = {
 	}
 };
 
-// TODO applyFilters
-// const applyFilters = (state, action) => {
-
-// }
+const filterList = (state = {
+	toggle: [
+		{
+			fundamental: ['Ensino Fundamental', false],
+			medio: ['Ensino Médio', false],
+		},
+		{
+			particular: ['Particular', false],
+			publica: ['Pública', false],
+		},
+		{
+			urbana: ['Escola urbana', false],
+			rural: ['Escola rural', false],
+		},
+	],
+	infraestrutura: {
+		necessidades: ['Necessidades especiais', false],
+		biblioteca: ['Biblioteca', false],
+		laboratorio: ['Laboratório de ciência', false],
+		informatica: ['Laboratório de informática', false],
+		quadra: ['Quadra poliesportiva', false],
+	},
+	idiomas: {
+		espanhol: ['Espanhol', false],
+		francês: ['Francês', false],
+		inglês: ['Inglês', false],
+	},
+}, action) => {
+	const { filter, value } = action;
+	switch (action.type) {
+	case CHANGE_FILTER:
+		return Object.assign({}, state, {
+			[filter]: value,
+		});
+	default:
+		return state;
+	}
+};
 
 const showSchool = (state = '', action) => {
 	switch (action.type) {
@@ -288,6 +323,7 @@ const rootReducer = combineReducers({
 	chooseCity,
 	chooseZone,
 	listSchools,
+	filterList,
 	// showSchool,
 });
 

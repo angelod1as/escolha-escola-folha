@@ -5,10 +5,6 @@ import uuid from 'uuid/v1';
 const Wrapper = styled.div`
 	margin-top: 20px;
 	grid-area: f-sidebar;
-	/* display: grid; */
-	/* grid-template-columns: 30px 1fr;
-	grid-template-areas:
-		"f-s-toggle f-s-filters"; */
 `;
 
 const Section = styled.div`
@@ -96,57 +92,61 @@ const Toggle = styled.label`
 	}
 `;
 
-const Sidebar = () => {
-	const toggles = [
-		[
-			['Ensino Fundamental', 'fundamental', false],
-			['Ensino Médio', 'medio', false],
-		],
-		[
-			['Particular', 'particular', false],
-			['Pública', 'publica', false],
-		],
-		[
-			['Escola urbana', 'urbana', false],
-			['Escola rural', 'rural', false],
-		],
-	];
+const Sidebar = ({ changeFilter, filterList }) => {
+	const handleChange = (e) => {
+		console.log(e);
+	};
 
-	const buttons = [
-		'Infraestrutura',
-		['Necessidades especiais', 'necessidades', false],
-		['Biblioteca', 'biblioteca', false],
-		['Laboratório de ciência', 'laboratorio', false],
-		['Laboratório de informática', 'informatica', false],
-		['Quadra poliesportiva', 'quadra', false],
-		'Ensino de idiomas',
-		['Espanhol', 'espanhol', false],
-		['Francês', 'francês', false],
-		['Inglês', 'inglês', false],
-	];
+	const keys = Object
+		.keys(filterList);
+
+	const getElement = (element, data) => {
+		if (element === 'toggle') {
+			return data
+				.map(section => (
+					<Section key={uuid()}>
+						{Object
+							.keys(section)
+							.map((item) => {
+								const [name, value] = section[item];
+								return (
+									<Toggle htmlFor={item} key={uuid()}>
+										<input type="checkbox" id={item} name={item} value={value} onChange={handleChange} />
+										<span>{name}</span>
+									</Toggle>
+								);
+							})}
+					</Section>
+				));
+		}
+		return (
+			<Buttons>
+				<H3>{element === 'infraestrutura' ? 'Infraestrutura' : 'Ensino de idiomas'}</H3>
+				{Object.keys(data)
+					.map((item) => {
+						const [name, value] = data[item];
+						return (
+							<Checkbox htmlFor={item} key={uuid()}>
+								<input type="checkbox" id={item} name={item} value={value} onChange={handleChange} />
+								<span>{name}</span>
+							</Checkbox>
+						);
+					})
+				}
+			</Buttons>
+		);
+	};
+
+
+	const types = keys.map(element => (
+		<div key={uuid()}>
+			{getElement(element, filterList[element])}
+		</div>
+	));
+
 	return (
 		<Wrapper>
-			{toggles.map(group => (
-				<Section key={uuid()}>
-					{group.map(item => (
-						<Toggle htmlFor={item[1]} key={uuid()}>
-							<input type="checkbox" id={item[1]} name={item[1]} value={item[2]} />
-							<span>{item[0]}</span>
-						</Toggle>
-					))}
-				</Section>
-			))}
-
-			<Buttons>
-				{buttons.map(each => (typeof each === 'string'
-					? <H3 key={uuid()}>{each}</H3>
-					: (
-						<Checkbox htmlFor={each[1]} key={uuid()}>
-							<input type="checkbox" id={each[1]} name={each[1]} value={each[2]} />
-							<span>{each[0]}</span>
-						</Checkbox>
-					)))}
-			</Buttons>
+			{types}
 		</Wrapper>
 	);
 };
