@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import List from './list/list';
+import List from './list/index';
 import School from './school/school';
 
 const Wrapper = styled.div`

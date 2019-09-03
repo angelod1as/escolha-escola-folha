@@ -19,3 +19,5 @@ Layout:
 		☐ Idiomas 1 col
 		☐ Gráficos separados por EF e EM (vai ter que mexer no XLS)
 		☐ Botão voltar no pé
+	After:
+		☐ Redo prop-types

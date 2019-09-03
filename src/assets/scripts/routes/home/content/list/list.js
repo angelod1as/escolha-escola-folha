@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 
 import { upper, upperAll } from '../../../../utils/upper';
@@ -64,14 +64,8 @@ const List = ({ schoolList }) => {
 	);
 };
 
-const mapDispatchToProps = {};
-const mapStateToProps = ({
-	listSchools: { schoolList },
-}) => ({
-	schoolList,
-});
+List.propTypes = {
+	schoolList: PropTypes.shape().isRequired,
+};
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(List);
+export default List;
