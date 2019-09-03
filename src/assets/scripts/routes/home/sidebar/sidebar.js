@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 
 const Wrapper = styled.div`
@@ -94,7 +95,8 @@ const Toggle = styled.label`
 
 const Sidebar = ({ changeFilter, filterList }) => {
 	const handleChange = (e) => {
-		console.log(e);
+		const [categ, name, id] = e.target.dataset.path.split('-');
+		changeFilter({ categ, name, id });
 	};
 
 	const keys = Object
@@ -103,7 +105,7 @@ const Sidebar = ({ changeFilter, filterList }) => {
 	const getElement = (element, data) => {
 		if (element === 'toggle') {
 			return data
-				.map(section => (
+				.map((section, i) => (
 					<Section key={uuid()}>
 						{Object
 							.keys(section)
@@ -111,7 +113,14 @@ const Sidebar = ({ changeFilter, filterList }) => {
 								const [name, value] = section[item];
 								return (
 									<Toggle htmlFor={item} key={uuid()}>
-										<input type="checkbox" id={item} name={item} value={value} onChange={handleChange} />
+										<input
+											type="checkbox"
+											id={item}
+											name={item}
+											checked={value}
+											onChange={handleChange}
+											data-path={`${element}-${item}-${i}`}
+										/>
 										<span>{name}</span>
 									</Toggle>
 								);
@@ -127,7 +136,14 @@ const Sidebar = ({ changeFilter, filterList }) => {
 						const [name, value] = data[item];
 						return (
 							<Checkbox htmlFor={item} key={uuid()}>
-								<input type="checkbox" id={item} name={item} value={value} onChange={handleChange} />
+								<input
+									type="checkbox"
+									id={item}
+									name={item}
+									checked={value}
+									onChange={handleChange}
+									data-path={`${element}-${item}`}
+								/>
 								<span>{name}</span>
 							</Checkbox>
 						);
@@ -149,6 +165,11 @@ const Sidebar = ({ changeFilter, filterList }) => {
 			{types}
 		</Wrapper>
 	);
+};
+
+Sidebar.propTypes = {
+	changeFilter: PropTypes.func.isRequired,
+	filterList: PropTypes.shape().isRequired,
 };
 
 export default Sidebar;

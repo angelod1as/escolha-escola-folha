@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 
 const Content = () => (
 	<Wrapper>
+		{/* TODO name filter!! */}
 		<List />
 		{/* <School /> */}
 	</Wrapper>

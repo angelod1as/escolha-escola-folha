@@ -10,6 +10,6 @@ const tron = Reactotron
 
 tron.clear();
 
-console.tron = tron;
+console.tron = tron; // eslint-disable-line
 
 export default tron;

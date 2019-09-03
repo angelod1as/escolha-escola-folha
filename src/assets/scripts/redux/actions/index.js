@@ -56,10 +56,9 @@ export const cleanAll = () => ({
 });
 
 export const CHANGE_FILTER = 'CHANGE_FILTER';
-export const changeFilter = (filter, value) => ({
+export const changeFilter = change => ({
 	type: CHANGE_FILTER,
-	filter,
-	value,
+	change,
 });
 
 // THUNKS

@@ -296,12 +296,40 @@ const filterList = (state = {
 		inglês: ['Inglês', false],
 	},
 }, action) => {
-	const { filter, value } = action;
 	switch (action.type) {
-	case CHANGE_FILTER:
-		return Object.assign({}, state, {
-			[filter]: value,
-		});
+	case CHANGE_FILTER: {
+		const { categ, name, id } = action.change;
+		if (categ === 'toggle') {
+			const newArr = state[categ].map((each, i) => {
+				if (i === +id) {
+					return {
+						...each,
+						[name]: [
+							each[name][0],
+							!each[name][1],
+						],
+					};
+				}
+				return each;
+			});
+			return {
+				...state,
+				[categ]: [
+					...newArr,
+				],
+			};
+		}
+		return {
+			...state,
+			[categ]: {
+				...state[categ],
+				[name]: [
+					state[categ][name][0],
+					!state[categ][name][1],
+				],
+			},
+		};
+	}
 	default:
 		return state;
 	}
