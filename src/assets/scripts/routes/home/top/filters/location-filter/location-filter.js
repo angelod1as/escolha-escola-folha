@@ -56,6 +56,7 @@ const LocationFilters = ({
 					handleChange={handleChange}
 					data={ufList}
 					type="uf"
+					id="uf"
 					// initial={uf}
 					enabled
 				/>
@@ -68,6 +69,7 @@ const LocationFilters = ({
 					handleChange={handleChange}
 					data={city.auto}
 					type="city"
+					id="city"
 					enabled={city.has}
 				/>
 			</City>

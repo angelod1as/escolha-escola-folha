@@ -30,6 +30,24 @@ const AutoWrapper = styled.div`
 		}
 	}
 
+	.react-autosuggest__container,
+	.react-autosuggest__container--open,
+	.react-autosuggest__input,
+	.react-autosuggest__input--open,
+	.react-autosuggest__input--focused {
+		position: relative;
+	}
+
+	.react-autosuggest__suggestions-container,
+	.react-autosuggest__suggestions-container--open {
+		width: 100%;
+		position: absolute;
+		top: 30px;
+		left: 0;
+		background-color: white;
+		z-index: 15;
+	}
+
 	.react-autosuggest__input {
 		&::placeholder {
 			color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};

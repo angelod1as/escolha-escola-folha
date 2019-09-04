@@ -23,6 +23,7 @@ const Layout = styled.div`
 	display: grid;
 	grid-gap: 5px;
 	grid-template-columns: 255px auto auto auto;
+	grid-template-rows: auto minmax(35px,auto) auto auto;
 	grid-template-areas:
 		"f-state f-city f-city f-zone"
 		". f-cities f-cities f-zones"

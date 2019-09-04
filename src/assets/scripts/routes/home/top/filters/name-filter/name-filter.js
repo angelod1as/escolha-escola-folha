@@ -36,8 +36,8 @@ const NameFilter = ({ filterName, nameFilter, schoolList }) => {
 		<Name disabled={disabled}>
 			<input
 				type="text"
-				name="name"
-				id="name"
+				name="school-name"
+				id="school-name"
 				placeholder="nome da escola"
 				onChange={handleChange}
 				value={nameFilter}
