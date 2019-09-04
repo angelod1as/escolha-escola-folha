@@ -71,15 +71,15 @@ const ref = {
 		},
 	},
 	languages: { // Yes No
-		english: ['Disciplina de inglês', 'yn'],
-		spanish: ['Disciplina de espanhol', 'yn'],
-		french: ['Disciplina de francês', 'yn'],
+		english: ['Inglês', 'yn'],
+		spanish: ['Espanhol', 'yn'],
+		french: ['Francês', 'yn'],
 	},
 };
 
 export const categs = {
 	address: 'Endereço',
-	utilities: 'Dependências',
+	utilities: 'Infraestrutura',
 	school_type: 'Ensino',
 	avg: 'Médias',
 	languages: 'Idiomas',

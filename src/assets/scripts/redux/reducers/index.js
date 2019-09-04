@@ -354,10 +354,7 @@ const cityAvg = (state = {
 		return {
 			...state,
 			fetching: false,
-			data: {
-				...state.data,
-				[action.code]: action.payload,
-			},
+			data: action.payload,
 		};
 	case CLEAN_ALL:
 		// fall through

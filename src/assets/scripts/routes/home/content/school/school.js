@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
+import uuid from 'uuid/v1';
+import { upperAll } from '../../../../utils/upper';
+import ref from '../../../../utils/refs';
+
 
 const StyledReactTooltip = styled(ReactTooltip)`
 	max-width: 400px;
@@ -54,76 +59,6 @@ const Li = styled.li`
 	}
 `;
 
-const Bars = styled.div`
-	margin: 40px 0;
-`;
-const TitleHolder = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
-
-const Indicator = styled.div`
-	color: ${p => p.theme.color.gray};
-	font-size: .9em;
-	position: relative;
-	& > div {
-		height: 14px;
-		left: -10px;
-		top: 5px;
-		bottom: initial;
-	}
-`;
-
-const BarHolder = styled.div`
-	display: grid;
-	grid-template-columns: 200px 50px auto 40px;
-	grid-gap: 5px;
-	font-size: .9em;
-	margin: 5px 0;
-`;
-const Item = styled.p`
-	position: relative;
-	${p => (p['data-tip']
-		?	`&:after {
-		content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij48ZGVmcz48c3R5bGU+LmF7ZmlsbDojMDA3OGE0O308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iYSIgZD0iTTkuNjY3LDE1LjVoMS42NjdWMTMuODMzSDkuNjY3VjE1LjVtLjgzMy0xMEEzLjMzMywzLjMzMywwLDAsMCw3LjE2Nyw4LjgzM0g4LjgzM2ExLjY2NywxLjY2NywwLDEsMSwzLjMzMywwYzAsMS42NjctMi41LDEuNDU4LTIuNSw0LjE2N2gxLjY2N2MwLTEuODc1LDIuNS0yLjA4MywyLjUtNC4xNjdBMy4zMzMsMy4zMzMsMCwwLDAsMTAuNSw1LjVNNC42NjcsM0gxNi4zMzNBMS42NjcsMS42NjcsMCwwLDEsMTgsNC42NjdWMTYuMzMzQTEuNjY3LDEuNjY3LDAsMCwxLDE2LjMzMywxOEg0LjY2N0ExLjY2NywxLjY2NywwLDAsMSwzLDE2LjMzM1Y0LjY2N0ExLjY2NywxLjY2NywwLDAsMSw0LjY2NywzWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTMgLTMpIi8+PC9zdmc+");
-		margin-left: 5px;
-	}`
-		: '')
-}
-`;
-const Number = styled.div`
-	color: ${p => p.theme.color.color};
-	font-weight: bold;
-	justify-self: end;
-`;
-const Bar = styled.div`
-	margin-top: 2px;
-	height: 15px;
-	width: 100%;
-	border-bottom: 1px solid ${p => p.theme.color.gray2};
-	position: relative;
-`;
-const Grade = styled.div`
-	position: absolute;
-	top: 3px;
-	left: 0;
-	width: ${p => p.num}%;
-	height: 10px;
-	background-color: ${p => p.theme.color.color};
-`;
-const Marker = styled.div`
-	position: absolute;
-	left: ${p => p.num}%;
-	bottom: 0;
-	height: 100%;
-	width: 4px;
-	background-color: ${p => p.theme.color.black};
-	border: 1px solid white;
-`;
-const Total = styled.div`
-	justify-self: end;
-`;
-
 const Contact = styled.div`
 	margin: 40px 0;
 	p {
@@ -149,90 +84,175 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool, data }) => (
-	<>
-		<Overlay>
-			<StyledReactTooltip
-				type="light"
-				place="right"
-				// effect="solid"
-				border
-				clickable
-				className="tooltip"
-			/>
-			<Name>CANDIDO GONÇALVES GOMIDE PROFESSOR</Name>
-			<Infos>Escola municipal urbana • ensino fundamental</Infos>
+const School = ({ cleanSchool, data }) => {
+	const {
+		name,
+		public_private: publicPrivate,
+		type,
+		school_type: schoolType,
+		address,
+		utilities,
+		languages,
+	} = data;
 
-			<Holder>
-				<div>
-					<H3>Infraestrutura</H3>
-					<List>
-						<Li>Necessidades especiais</Li>
-						<Li disabled>Biblioteca</Li>
-						<Li disabled>Internet</Li>
-						<Li disabled>Laboratório de ciências</Li>
-						<Li>Laboratório de informática</Li>
-						<Li disabled>Quadra poliesportiva</Li>
-					</List>
-				</div>
-				<div>
-					<H3>Idiomas</H3>
-					<List>
-						<Li>Espanhol</Li>
-						<Li disabled>Francês</Li>
-						<Li disabled>Inglês</Li>
-					</List>
-				</div>
-			</Holder>
+	const infosArr = [[], []];
 
-			<Bars>
+	if (publicPrivate) {
+		if (publicPrivate === 1) {
+			infosArr[0].push('Escola privada');
+		} else if (type) infosArr[0].push(`Escola ${ref.type[1][type].toLowerCase()}`);
+	}
+	if (address.location) infosArr[0].push(ref.address.location[1][address.location].toLowerCase());
+	if (schoolType.fundamental || +schoolType.fundamental === 2) infosArr[1].push('fundamental');
+	if (schoolType.medio || +schoolType.medio === 2) infosArr[1].push('médio');
+	if (infosArr[1].length > 0) infosArr[1] = ['Ensino', infosArr[1].join(' e ')];
 
-				<TitleHolder>
-					<H3>Ensino Médio</H3>
-					<Indicator>
-						<Marker />
-						Média municipal
-					</Indicator>
-				</TitleHolder>
+	// Address array
+	const addressArr = [[], [], []];
 
-				<BarHolder>
-					<Item>Média de alunos por turma</Item>
-					<Number>80%</Number>
-					<Bar>
-						<Grade num={80} />
-						<Marker num={50} />
-					</Bar>
-					<Total>
-						100%
-					</Total>
-				</BarHolder>
+	// First address line
+	if (address.address) {
+		addressArr[0]
+			.push(`${address.address.includes(address.address_type)
+				? address.address
+				: `${address.address_type} ${address.address}`}`);
+	}
+	if (address.compl) addressArr[0].push(address.compl);
+	if (address.cep) addressArr[0].push(`CEP ${address.cep}`);
 
-				<BarHolder>
-					<Item data-tip="A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.">
-						Média de alunos por turma
-					</Item>
-					<Number>80%</Number>
-					<Bar>
-						<Grade num={80} />
-						<Marker num={50} />
-					</Bar>
-					<Total>
-						100%
-					</Total>
-				</BarHolder>
-			</Bars>
+	// Second address line
+	if (address.district) addressArr[1].push(address.district);
+	if (address.city) addressArr[1].push(address.city);
+	if (address.uf) addressArr[1].push(address.uf);
+	if (address.zone && +address.zone !== 1) addressArr[1].push(address.zone);
 
-			<Contact>
-				<H3>Contato</H3>
-				<p>Avenida Feiz Zarzur Comendador, SN, CEP 2942000</p>
-				<p>Jardim Cidade Pirituba São Paulo, SP, zona norte</p>
-				<p>emefleopoldina@prefeitura.sp.gov.br • 11 39720076 • 11 39793610</p>
-			</Contact>
+	// Third address line
+	if (address.email) addressArr[2].push(address.email);
+	if (address.phone) {
+		const DDD = address.phone.DDD || '';
+		const { phones } = address.phone;
+		if (phones[0]) addressArr[2].push(`${DDD} ${phones[0]}`);
+		if (phones[1]) addressArr[2].push(`${DDD} ${phones[1]}`);
+	}
 
-			<Back onClick={() => cleanSchool()}>Voltar</Back>
-		</Overlay>
-		<Underlay onClick={() => null} />
-	</>
-);
+	const infraList = Object
+		.keys(utilities)
+		.map(each => [each, utilities[each]]);
+
+	const languageList = Object
+		.keys(languages)
+		.map(each => [each, languages[each]]);
+
+	return (
+		<>
+			<Overlay>
+				<StyledReactTooltip
+					type="light"
+					place="right"
+					// effect="solid"
+					border
+					clickable
+					className="tooltip"
+				/>
+				<Name>{upperAll(name)}</Name>
+				<Infos>{[infosArr[0].join(' '), infosArr[1].join(' ')].join(' • ')}</Infos>
+
+				<Holder>
+					<div>
+						<H3>Infraestrutura</H3>
+						<List>
+							{infraList.map(each => (
+								<Li
+									key={uuid()}
+									disabled={+each[1] === 1}
+								>
+									{ref.utilities[each[0]][0]}
+								</Li>
+							))}
+						</List>
+					</div>
+					<div>
+						<H3>Idiomas</H3>
+						<List>
+							{languageList.map(each => (
+								<Li
+									key={uuid()}
+									disabled={+each[1] === 1}
+								>
+									{ref.languages[each[0]][0]}
+
+								</Li>
+							))}
+						</List>
+					</div>
+				</Holder>
+
+				{/* BARS AQUI  */}
+
+				<Contact>
+					<H3>Contato</H3>
+					{addressArr[0].length > 0 || addressArr[1].length > 0 || addressArr[2].length > 0
+						? (
+							<>
+								{addressArr[0].length > 0 ? <p>{upperAll(addressArr[0].join(', '))}</p> : ''}
+								{addressArr[1].length > 0 ? <p>{upperAll(addressArr[1].join(', '))}</p> : ''}
+								{addressArr[2].length > 0 ? <p>{addressArr[2].join(' • ')}</p> : ''}
+							</>
+						)
+						: 'Sem informações de contato.'
+					}
+				</Contact>
+
+				<Back onClick={() => cleanSchool()}>Voltar</Back>
+			</Overlay>
+			<Underlay onClick={() => null} />
+		</>
+	);
+};
+
+School.propTypes = {
+	cleanSchool: PropTypes.func.isRequired,
+	data: PropTypes.shape({
+		code: PropTypes.number,
+		name: PropTypes.string,
+		public_private: PropTypes.number,
+		type: PropTypes.number,
+		address: PropTypes.shape({
+			uf_code: PropTypes.number,
+			uf: PropTypes.string,
+			city_code: PropTypes.number,
+			city: PropTypes.string,
+			location: PropTypes.number,
+			district: PropTypes.string,
+			cep: PropTypes.number,
+			address_type: PropTypes.string,
+			address: PropTypes.string,
+			compl: PropTypes.number,
+			email: PropTypes.string,
+			zone: PropTypes.number,
+			phone: PropTypes.shape({
+				DDD: PropTypes.number,
+				phones: PropTypes.arrayOf(PropTypes.number),
+			}),
+		}),
+		utilities: PropTypes.shape({
+			computer_lab: PropTypes.number,
+			science_lab: PropTypes.number,
+			sports_court: PropTypes.number,
+			library: PropTypes.number,
+			pne_dep: PropTypes.number,
+			internet: PropTypes.number,
+		}),
+		school_type: PropTypes.shape({
+			fundamental: PropTypes.number,
+			medio: PropTypes.number,
+		}),
+		languages: PropTypes.shape({
+			english: PropTypes.number,
+			spanish: PropTypes.number,
+			french: PropTypes.number,
+		}),
+	}).isRequired,
+};
 
 export default School;

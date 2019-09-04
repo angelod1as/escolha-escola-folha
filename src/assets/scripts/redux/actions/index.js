@@ -93,8 +93,8 @@ export const requestAvg = payload => ({
 });
 
 export const RECEIVE_AVG = 'RECEIVE_AVG';
-export const receiveAvg = (payload, code) => ({
-	type: RECEIVE_AVG, payload, code,
+export const receiveAvg = payload => ({
+	type: RECEIVE_AVG, payload,
 });
 
 export const CLEAN_AVG = 'CLEAN_AVG';
@@ -121,34 +121,13 @@ export const fetchCityList = ({ value }) => (dispatch, getState) => {
 
 export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	let url = '';
-	let avgUrl = '';
-	const { config: { urlCity, urlAvg, spCode }, cityAvg } = getState();
+	const { config: { urlCity, spCode } } = getState();
 	if (!zone) {
 		dispatch(listCities(value));
 		url = `${urlCity}${value}.json`;
-		avgUrl = `${urlAvg}${value}.json`;
 	} else {
 		dispatch(setZone(value));
 		url = `${urlCity}${spCode}-${value}.json`;
-		avgUrl = `${urlAvg}${spCode}.json`;
-	}
-
-	const fetchedAvgs = Object.keys(cityAvg.data);
-
-	if (value === spCode) {
-		if (!fetchedAvgs.includes(spCode)) {
-			dispatch(requestAvg(url));
-			axios.get(avgUrl)
-				.then(({ data }) => {
-					dispatch(receiveAvg(data, spCode));
-				});
-		}
-	} else if (!fetchedAvgs.includes(value)) {
-		dispatch(requestAvg(url));
-		axios.get(avgUrl)
-			.then(({ data }) => {
-				dispatch(receiveAvg(data, value));
-			});
 	}
 
 	if (value !== spCode) {
@@ -161,15 +140,24 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	return {};
 };
 
-export const fetchSchool = value => (dispatch, getState) => {
+export const fetchSchool = (value, city) => (dispatch, getState) => {
+	const { config: { urlAvg } } = getState();
+	// first, school
 	dispatch(requestSchoolData(value));
+	// then, city avg
+	dispatch(requestAvg(city));
 	const { config: { urlSchool } } = getState();
 
+	const avgUrl = `${urlAvg}${city}.json`;
 	const url = `${urlSchool}${value}.json`;
 
 	return axios.get(url)
 		.then(({ data }) => {
-			dispatch(receiveSchoolData(data));
+			axios.get(avgUrl)
+				.then(({ data: avgData }) => {
+					dispatch(receiveSchoolData(data));
+					dispatch(receiveAvg(avgData));
+				});
 		});
 };
 

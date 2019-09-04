@@ -46,7 +46,7 @@ const Info = styled.p`
 
 const List = ({ schools, fetchSchool }) => {
 	const handleClick = (e) => {
-		fetchSchool(e.target.dataset.code);
+		fetchSchool(e.target.dataset.code, e.target.dataset.city);
 	};
 	return (
 		<>
@@ -63,7 +63,7 @@ const List = ({ schools, fetchSchool }) => {
 						const loc = `Escola ${ref.address.location[1][school.address.location]}`;
 						const pub = ref.public_private[1][school.public_private];
 						return (
-							<School data-code={code} key={uuid()} onClick={handleClick}>
+							<School data-code={code} data-city={school.address.city_code} key={uuid()} onClick={handleClick}>
 								<Name>{upper(school.name)}</Name>
 								<City>{upperAll(school.address.city)}</City>
 								<Info>{upperAll(`${loc} • ${pub} • ${type}`)}</Info>
