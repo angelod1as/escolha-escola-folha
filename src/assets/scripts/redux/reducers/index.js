@@ -232,6 +232,7 @@ const listSchools = (state = {
 
 const schoolData = (state = {
 	fetching: false,
+	chosen: '',
 	data: {},
 }, action) => {
 	switch (action.type) {
@@ -239,6 +240,7 @@ const schoolData = (state = {
 		return {
 			...state,
 			fetching: true,
+			chosen: action.payload,
 		};
 	case RECEIVE_SCHOOL_DATA:
 		return {
@@ -253,6 +255,7 @@ const schoolData = (state = {
 			...state,
 			fetching: false,
 			data: {},
+			chosen: '',
 		};
 	default:
 		return state;

@@ -161,7 +161,7 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	return {};
 };
 
-export const fetchSchool = ({ value }) => (dispatch, getState) => {
+export const fetchSchool = value => (dispatch, getState) => {
 	dispatch(requestSchoolData(value));
 	const { config: { urlSchool } } = getState();
 
