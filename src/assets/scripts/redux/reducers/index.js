@@ -16,6 +16,7 @@ import {
 	REMOVE_SCHOOLS,
 	CHANGE_FILTER,
 	SHOW_SCHOOL,
+	CLEAN_SCHOOL,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
 import zoneList from '../../utils/zones';
@@ -339,6 +340,8 @@ const showSchool = (state = '', action) => {
 	switch (action.type) {
 	case SHOW_SCHOOL:
 		return action.chosen;
+	case CLEAN_SCHOOL:
+		return '';
 	default:
 		return state;
 	}
@@ -352,7 +355,7 @@ const rootReducer = combineReducers({
 	chooseZone,
 	listSchools,
 	filterList,
-	// showSchool,
+	showSchool,
 });
 
 export default rootReducer;

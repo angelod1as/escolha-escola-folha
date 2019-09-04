@@ -5,7 +5,7 @@ import React from 'react';
 // REDUX
 import Top from './top/top';
 import Sidebar from './sidebar/index';
-import Content from './content/content';
+import Content from './content/index';
 
 const Home = () => (
 	<>

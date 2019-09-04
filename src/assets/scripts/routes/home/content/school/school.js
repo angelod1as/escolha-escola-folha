@@ -133,7 +133,7 @@ const Back = styled.button`
 		}
 `;
 
-const School = () => {
+const School = ({ cleanSchool }) => {
 	console.log('school');
 	return (
 		<>
@@ -214,7 +214,7 @@ const School = () => {
 				<p>emefleopoldina@prefeitura.sp.gov.br • 11 39720076 • 11 39793610</p>
 			</Contact>
 
-			<Back>Voltar</Back>
+			<Back onClick={() => cleanSchool()}>Voltar</Back>
 		</>
 	);
 };

@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import List from './list';
+import { showSchool } from '../../../../redux/actions';
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	showSchool,
+};
 const mapStateToProps = ({
 	listSchools: { schoolList },
 	filterList,

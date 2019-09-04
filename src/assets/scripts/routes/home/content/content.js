@@ -1,27 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import List from './list/index';
-import School from './school/school';
+import School from './school/index';
 
 const Wrapper = styled.div`
 	grid-area: content;
 	margin-top: 20px;
 `;
 
-const Content = () => (
+const Content = ({ showSchool }) => (
 	<Wrapper>
 		{/* TODO name filter!! */}
-		<List />
-		{/* <School /> */}
+		{showSchool === ''
+			? <List />
+			: <School />
+		}
 	</Wrapper>
 );
 
-const mapStateToProps = ({
-	listSchools: { schoolList },
-}) => ({
-	schoolList,
-});
+Content.propTypes = {
+	showSchool: PropTypes.string.isRequired,
+};
 
-export default connect(mapStateToProps)(Content);
+export default Content;

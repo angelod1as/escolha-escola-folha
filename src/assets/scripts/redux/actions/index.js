@@ -46,8 +46,13 @@ export const receiveSchoolsList = payload => ({
 });
 
 export const SHOW_SCHOOL = 'SHOW_SCHOOL';
-export const showSchool = id => ({
-	type: SHOW_SCHOOL, id,
+export const showSchool = chosen => ({
+	type: SHOW_SCHOOL, chosen,
+});
+
+export const CLEAN_SCHOOL = 'CLEAN_SCHOOL';
+export const cleanSchool = () => ({
+	type: CLEAN_SCHOOL,
 });
 
 export const CLEAN_ALL = 'CLEAN_ALL';
@@ -59,6 +64,21 @@ export const CHANGE_FILTER = 'CHANGE_FILTER';
 export const changeFilter = change => ({
 	type: CHANGE_FILTER,
 	change,
+});
+
+export const REMOVE_CITY = 'REMOVE_CITY';
+export const removeCityFromList = deleted => ({
+	type: REMOVE_CITY, deleted,
+});
+
+export const REMOVE_ZONE = 'REMOVE_ZONE';
+export const removeZoneFromList = deleted => ({
+	type: REMOVE_ZONE, deleted,
+});
+
+export const REMOVE_SCHOOLS = 'REMOVE_SCHOOLS';
+export const removeSchools = (deleted, zone) => ({
+	type: REMOVE_SCHOOLS, deleted, zone,
 });
 
 // THUNKS
@@ -99,20 +119,9 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	return {};
 };
 
-export const REMOVE_CITY = 'REMOVE_CITY';
-export const removeCityFromList = deleted => ({
-	type: REMOVE_CITY, deleted,
-});
-
-export const REMOVE_ZONE = 'REMOVE_ZONE';
-export const removeZoneFromList = deleted => ({
-	type: REMOVE_ZONE, deleted,
-});
-
-export const REMOVE_SCHOOLS = 'REMOVE_SCHOOLS';
-export const removeSchools = (deleted, zone) => ({
-	type: REMOVE_SCHOOLS, deleted, zone,
-});
+export const fetchSchool = ({ value }) => (dispatch) => {
+	console.log(value);
+};
 
 export const removeCity = ({ value }) => (dispatch) => {
 	dispatch(removeCityFromList(value));
