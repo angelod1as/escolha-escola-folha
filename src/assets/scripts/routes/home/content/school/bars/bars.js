@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ref from '../../../../../utils/refs';
 
 const H3 = styled.h3`
 	font-weight: 600;
@@ -78,43 +79,61 @@ const Total = styled.div`
 
 // import { Container } from './styles';
 
-const Bars = () => (
-	<AllBars>
+const Bars = ({ avg, cityAvg, type }) => {
+	const pub = type === 1 ? 'private' : 'public';
+	const tips = {};
 
-		<TitleHolder>
-			<H3>Ensino Médio</H3>
-			<Indicator>
-				<Marker />
+	// const {
+	// saeb, enem, fundamental, medio,
+	// } = avg;
+
+	const fundamental = Object.keys(avg.fundamental)
+		.filter(each => avg.fundamental[each] !== '')
+		.map(each => [ref.avg[each][0], avg.fundamental[each]]);
+
+	const medio = Object.keys(avg.medio)
+		.filter(each => avg.medio[each] !== '')
+		.map(each => [ref.avg[each][0], avg.medio[each]]);
+
+
+	return (
+		<AllBars>
+
+			<TitleHolder>
+				<H3>Ensino Médio</H3>
+				<Indicator>
+					<Marker />
 					Média municipal
-			</Indicator>
-		</TitleHolder>
+				</Indicator>
+			</TitleHolder>
 
-		<BarHolder>
-			<Item>Média de alunos por turma</Item>
-			<Number>80%</Number>
-			<Bar>
-				<Grade num={80} />
-				<Marker num={50} />
-			</Bar>
-			<Total>
+			<BarHolder>
+				<Item>Média de alunos por turma</Item>
+				<Number>80%</Number>
+				<Bar>
+					<Grade num={80} />
+					<Marker num={50} />
+				</Bar>
+				<Total>
 						100%
-			</Total>
-		</BarHolder>
+				</Total>
+			</BarHolder>
 
-		<BarHolder>
-			<Item data-tip="A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.">
+			<BarHolder>
+				<Item data-tip="A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.">
 						Média de alunos por turma
-			</Item>
-			<Number>80%</Number>
-			<Bar>
-				<Grade num={80} />
-				<Marker num={50} />
-			</Bar>
-			<Total>
+				</Item>
+				<Number>80%</Number>
+				<Bar>
+					<Grade num={80} />
+					<Marker num={50} />
+				</Bar>
+				<Total>
 						100%
-			</Total>
-		</BarHolder>
-	</AllBars>
-);
+				</Total>
+			</BarHolder>
+		</AllBars>
+	);
+};
 
 export default Bars;

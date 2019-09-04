@@ -6,6 +6,7 @@ import uuid from 'uuid/v1';
 import { upperAll } from '../../../../utils/upper';
 import ref from '../../../../utils/refs';
 
+import Bars from './bars/index';
 
 const StyledReactTooltip = styled(ReactTooltip)`
 	max-width: 400px;
@@ -187,7 +188,7 @@ const School = ({ cleanSchool, data }) => {
 					</div>
 				</Holder>
 
-				{/* BARS AQUI  */}
+				<Bars />
 
 				<Contact>
 					<H3>Contato</H3>

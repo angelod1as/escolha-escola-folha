@@ -13,8 +13,6 @@ const mapStateToProps = ({
 	|| schoolData.fetching
 	|| cityAvg.fetching;
 
-	console.tron.log(isLoading);
-
 	return ({ isLoading });
 };
 

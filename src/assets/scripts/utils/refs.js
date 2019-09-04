@@ -27,34 +27,13 @@ const ref = {
 			quiz: ['ENEM 2018 provas objetivas', 'avg'],
 			essay: ['ENEM 2018 redação', 'avg'],
 		},
-		students: {
-			fundamental: ['Média de alunos por turma', 'avg'],
-			medio: ['Média de alunos por turma', 'avg'],
-		},
-		hour_class: {
-			fundamental: ['Média horas/aula diária', 'avg'],
-			medio: ['Média horas/aula diária', 'avg'],
-		},
-		age_distortion_rate: {
-			fundamental: ['%Taxa distorção idade-série', 'avg'],
-			medio: ['%Taxa distorção idade-série', 'avg'],
-		},
-		teacher_percent: {
-			fundamental: ['%Docentes com curso superior', 'avg'],
-			medio: ['%Docentes com curso superior', 'avg'],
-		},
-		approval_rate: {
-			fundamental: ['%Taxa de aprovação', 'avg'],
-			medio: ['%Taxa de aprovação', 'avg'],
-		},
-		reproval_rate: {
-			fundamental: ['%Taxa de reprovação', 'avg'],
-			medio: ['%Taxa de reprovação', 'avg'],
-		},
-		abandon_rate: {
-			fundamental: ['%Taxa de abandono', 'avg'],
-			medio: ['%Taxa de abandono (ensino médio)', 'avg'],
-		},
+		students: ['Média de alunos por turma', 'avg'],
+		hour_class: ['Média horas/aula diária', 'avg'],
+		age_distortion_rate: ['%Taxa distorção idade-série', 'avg'],
+		teacher_percent: ['%Docentes com curso superior', 'avg'],
+		approval_rate: ['%Taxa de aprovação', 'avg'],
+		reproval_rate: ['%Taxa de reprovação', 'avg'],
+		abandon_rate: ['%Taxa de abandono', 'avg'],
 		saeb: {
 			ef5: {
 				lp: ['Português', 'avg'],
