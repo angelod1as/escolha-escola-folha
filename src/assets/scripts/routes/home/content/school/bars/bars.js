@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import ref from '../../../../../utils/refs';
+import uuid from 'uuid/v1';
+import ref, { avgRefs } from '../../../../../utils/refs';
 
 const H3 = styled.h3`
+	font-weight: 600;
+`;
+
+const H4 = styled.h4`
 	font-weight: 600;
 `;
 
@@ -12,6 +17,7 @@ const AllBars = styled.div`
 const TitleHolder = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin: 30px 0 10px 0;
 `;
 
 const Indicator = styled.div`
@@ -83,10 +89,6 @@ const Bars = ({ avg, cityAvg, type }) => {
 	const pub = type === 1 ? 'private' : 'public';
 	const tips = {};
 
-	// const {
-	// saeb, enem, fundamental, medio,
-	// } = avg;
-
 	const fundamental = Object.keys(avg.fundamental)
 		.filter(each => avg.fundamental[each] !== '')
 		.map(each => [ref.avg[each][0], avg.fundamental[each]]);
@@ -95,45 +97,152 @@ const Bars = ({ avg, cityAvg, type }) => {
 		.filter(each => avg.medio[each] !== '')
 		.map(each => [ref.avg[each][0], avg.medio[each]]);
 
+	const enem = Object.keys(avg.enem)
+		.filter(each => avg.enem[each] !== '')
+		.map(each => [ref.avg.enem[each][0], avg.enem[each]]);
+
+	const saeb = [];
+	Object.keys(avg.saeb)
+		.filter((each) => {
+			const res = Object.keys(avg.saeb[each])
+				.filter(saebEach => avg.saeb[each][saebEach] !== '')
+				.map(saebEach => avg.saeb[each][saebEach]);
+			if (res.length > 0) {
+				saeb.push([each, res]);
+			}
+			return null;
+		});
+	const all = [];
+	if (medio.length > 0) all.push(['Ensino médio', medio]);
+	if (fundamental.length > 0) all.push(['Ensino fundamental', fundamental]);
+	if (enem.length > 0) all.push(['Enem', enem]);
+	if (saeb.length > 0) all.push(['Saeb', saeb]);
+
+	console.log(all);
 
 	return (
 		<AllBars>
 
-			<TitleHolder>
-				<H3>Ensino Médio</H3>
-				<Indicator>
-					<Marker />
-					Média municipal
-				</Indicator>
-			</TitleHolder>
+			{all.map((each) => {
+				if (each[0] === 'Saeb') {
+					return (
+						<>
+							<TitleHolder key={uuid()}>
+								<H3>{each[0]}</H3>
+								<Indicator>
+									<Marker />
+									Média municipal
+								</Indicator>
+							</TitleHolder>
 
-			<BarHolder>
-				<Item>Média de alunos por turma</Item>
-				<Number>80%</Number>
-				<Bar>
-					<Grade num={80} />
-					<Marker num={50} />
-				</Bar>
-				<Total>
-						100%
-				</Total>
-			</BarHolder>
+							{each[1].map(eachSaeb => (
+								<>
+									<H4>{avgRefs[eachSaeb[0]]}</H4>
+									{eachSaeb[1].map((saebNum, i) => (
+										<BarHolder>
+											<Item>{i === 0 ? 'Português' : 'Matemática'}</Item>
+											<Number>{saebNum}</Number>
+											<Bar>
+												<Grade num={saebNum} />
+												<Marker num={50} />
+											</Bar>
+											<Total>
+												100%
+											</Total>
+										</BarHolder>
+									))}
+								</>
+							))}
+						</>
+					);
+				}
+				return (
+					<>
+						<TitleHolder key={uuid()}>
+							<H3>{each[0]}</H3>
+							<Indicator>
+								<Marker />
+									Média municipal
+							</Indicator>
+						</TitleHolder>
 
-			<BarHolder>
-				<Item data-tip="A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.">
-						Média de alunos por turma
-				</Item>
-				<Number>80%</Number>
-				<Bar>
-					<Grade num={80} />
-					<Marker num={50} />
-				</Bar>
-				<Total>
-						100%
-				</Total>
-			</BarHolder>
+						{each[1].map(bar => (
+							<BarHolder>
+								<Item>{bar[0]}</Item>
+								<Number>{bar[1]}</Number>
+								<Bar>
+									<Grade num={bar[1]} />
+									<Marker num={50} />
+								</Bar>
+								<Total>
+									100%
+								</Total>
+							</BarHolder>
+						))}
+					</>
+				);
+			})}
+
+			{/* {all.map(each => {
+				if (each[0] !== 'saeb') {
+				return (
+					<TitleHolder>
+						<H3>{each[0]}</H3>
+						<Indicator>
+							<Marker />
+									Média municipal
+						</Indicator>
+					</TitleHolder>
+
+					// {each[1].map(bar => (
+					// 	<BarHolder>
+					// 		<Item>{bar[0]}</Item>
+					// 		<Number>{bar[1]}</Number>
+					// 		<Bar>
+					// 			<Grade num={bar[1]} />
+					// 			<Marker num={50} />
+					// 		</Bar>
+					// 		<Total>
+					// 	100%
+					// 		</Total>
+					// 	</BarHolder>
+				)}}} */}
 		</AllBars>
 	);
+
+	// <TitleHolder>
+	// 	<H3>Ensino Médio</H3>
+	// 	<Indicator>
+	// 		<Marker />
+	// 		Média municipal
+	// 	</Indicator>
+	// </TitleHolder>
+
+	// <BarHolder>
+	// 	<Item>Média de alunos por turma</Item>
+	// 	<Number>80%</Number>
+	// 	<Bar>
+	// 		<Grade num={80} />
+	// 		<Marker num={50} />
+	// 	</Bar>
+	// 	<Total>
+	// 			100%
+	// 	</Total>
+	// </BarHolder>
+
+	// <BarHolder>
+	// 	<Item data-tip="A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.">
+	// 			Média de alunos por turma
+	// 	</Item>
+	// 	<Number>80%</Number>
+	// 	<Bar>
+	// 		<Grade num={80} />
+	// 		<Marker num={50} />
+	// 	</Bar>
+	// 	<Total>
+	// 			100%
+	// 	</Total>
+	// </BarHolder>
 };
 
 export default Bars;
