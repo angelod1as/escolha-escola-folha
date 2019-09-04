@@ -10,10 +10,10 @@ const Wrapper = styled.div`
 	margin-top: 20px;
 `;
 
-const Content = ({ showSchool }) => (
+const Content = ({ schoolData }) => (
 	<Wrapper>
 		{/* TODO name filter!! */}
-		{showSchool === ''
+		{Object.keys(schoolData.data).length <= 0
 			? <List />
 			: <School />
 		}
@@ -21,7 +21,7 @@ const Content = ({ showSchool }) => (
 );
 
 Content.propTypes = {
-	showSchool: PropTypes.string.isRequired,
+	schoolData: PropTypes.shape().isRequired,
 };
 
 export default Content;

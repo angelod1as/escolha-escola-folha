@@ -45,9 +45,14 @@ export const receiveSchoolsList = payload => ({
 	type: RECEIVE_SCHOOLS_LIST, payload,
 });
 
-export const SHOW_SCHOOL = 'SHOW_SCHOOL';
-export const showSchool = chosen => ({
-	type: SHOW_SCHOOL, chosen,
+export const REQUEST_SCHOOL_DATA = 'REQUEST_SCHOOL_DATA';
+export const requestSchoolData = payload => ({
+	type: REQUEST_SCHOOL_DATA, payload,
+});
+
+export const RECEIVE_SCHOOL_DATA = 'RECEIVE_SCHOOL_DATA';
+export const receiveSchoolData = payload => ({
+	type: RECEIVE_SCHOOL_DATA, payload,
 });
 
 export const CLEAN_SCHOOL = 'CLEAN_SCHOOL';
@@ -119,8 +124,16 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	return {};
 };
 
-export const fetchSchool = ({ value }) => (dispatch) => {
-	console.log(value);
+export const fetchSchool = ({ value }) => (dispatch, getState) => {
+	dispatch(requestSchoolData(value));
+	const { config: { urlSchool, urlAvgs } } = getState();
+
+	const url = `${urlSchool}${value}.json`;
+
+	return axios.get(url)
+		.then(({ data }) => {
+			dispatch(receiveSchoolData(data));
+		});
 };
 
 export const removeCity = ({ value }) => (dispatch) => {

@@ -15,60 +15,12 @@ import {
 	RECEIVE_SCHOOLS_LIST,
 	REMOVE_SCHOOLS,
 	CHANGE_FILTER,
-	SHOW_SCHOOL,
 	CLEAN_SCHOOL,
+	REQUEST_SCHOOL_DATA,
+	RECEIVE_SCHOOL_DATA,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
 import zoneList from '../../utils/zones';
-
-// const initialState = {
-// 	config: {
-// 		output: '../../../output/',
-// 		spCode: '3550308',
-// 	},
-// 	locationFilters: {
-// 		uf: {
-// 			ufList,
-// 			chosenUf: '',
-// 		},
-// 		cities: {
-// 			fetching: true,
-// 			chosen: false,
-// 			cityList: [],
-// 			chosenCities: [],
-// 		},
-// 		zones: {
-// 			fetching: true,
-// 			chosen: false,
-// 			zoneList: [],
-// 			chosenZones: [],
-// 		},
-// 	},
-// 	schoolList: {
-// 		fetching: true,
-// 		list: [],
-// 		filters: {
-// 			name: '',
-// 			fundamental: false,
-// 			medio: false,
-// 			particular: false,
-// 			publica: false,
-// 			urbana: false,
-// 			rural: false,
-// 			especiais: false,
-// 			biblioteca: false,
-// 			ciencia: false,
-// 			informatica: false,
-// 			quadra: false,
-// 			espanhol: false,
-// 			frances: false,
-// 			ingles: false,
-// 		},
-// 	},
-// 	school: {
-// 		id: '',
-// 	},
-// };
 
 const output = '../../../output/';
 const spCode = '3550308';
@@ -80,6 +32,8 @@ const config = (state = {
 	zoneList,
 	urlUf: `${output}ufs/uf-`,
 	urlCity: `${output}city/city-`,
+	urlSchool: `${output}school/school-`,
+	urlAvgs: `${output}avgs/`,
 }, action) => {
 	switch (action.type) {
 	case GET_UF:
@@ -269,6 +223,33 @@ const listSchools = (state = {
 	}
 };
 
+const schoolData = (state = {
+	fetching: false,
+	data: {},
+}, action) => {
+	switch (action.type) {
+	case REQUEST_SCHOOL_DATA:
+		return {
+			...state,
+			fetching: true,
+		};
+	case RECEIVE_SCHOOL_DATA:
+		return {
+			...state,
+			fetching: false,
+			data: action.payload,
+		};
+	case CLEAN_SCHOOL:
+		return {
+			...state,
+			fetching: false,
+			data: {},
+		};
+	default:
+		return state;
+	}
+};
+
 const filterList = (state = {
 	toggle: [
 		{
@@ -336,17 +317,6 @@ const filterList = (state = {
 	}
 };
 
-const showSchool = (state = '', action) => {
-	switch (action.type) {
-	case SHOW_SCHOOL:
-		return action.chosen;
-	case CLEAN_SCHOOL:
-		return '';
-	default:
-		return state;
-	}
-};
-
 const rootReducer = combineReducers({
 	config,
 	chooseUf,
@@ -355,7 +325,7 @@ const rootReducer = combineReducers({
 	chooseZone,
 	listSchools,
 	filterList,
-	showSchool,
+	schoolData,
 });
 
 export default rootReducer;

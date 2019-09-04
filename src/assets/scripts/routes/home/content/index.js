@@ -3,10 +3,10 @@ import Content from './content';
 
 const mapStateToProps = ({
 	listSchools: { schoolList },
-	showSchool,
+	schoolData,
 }) => ({
 	schoolList,
-	showSchool,
+	schoolData,
 });
 
 export default connect(mapStateToProps)(Content);

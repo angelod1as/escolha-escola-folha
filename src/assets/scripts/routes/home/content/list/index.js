@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import List from './list';
-import { showSchool } from '../../../../redux/actions';
+import { fetchSchool } from '../../../../redux/actions';
 
 const mapDispatchToProps = {
-	showSchool,
+	fetchSchool,
 };
 const mapStateToProps = ({
 	listSchools: { schoolList },

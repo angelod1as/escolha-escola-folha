@@ -44,9 +44,9 @@ const Info = styled.p`
 	color: ${p => p.theme.color.gray};
 `;
 
-const List = ({ schools, showSchool }) => {
+const List = ({ schools, fetchSchool }) => {
 	const handleClick = (e) => {
-		showSchool(e.target.dataset.code);
+		fetchSchool(e.target.dataset.code);
 	};
 	return (
 		<>
@@ -77,7 +77,7 @@ const List = ({ schools, showSchool }) => {
 
 List.propTypes = {
 	schools: PropTypes.array.isRequired,
-	showSchool: PropTypes.func.isRequired,
+	fetchSchool: PropTypes.func.isRequired,
 };
 
 export default List;

@@ -133,7 +133,7 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool }) => {
+const School = ({ cleanSchool, fetchSchool, code }) => {
 	console.log('school');
 	return (
 		<>
