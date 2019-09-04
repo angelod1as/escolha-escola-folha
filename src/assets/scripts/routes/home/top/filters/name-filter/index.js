@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
-import Sidebar from './sidebar';
-import { changeFilter } from '../../../redux/actions/index';
+import { filterName } from '../../../../../redux/actions/index';
+
+import NameFilter from './name-filter';
 
 const mapDispatchToProps = {
-	changeFilter,
+	filterName,
 };
 
 const mapStateToProps = ({
-	filterList,
+	nameFilter,
 	listSchools: { schoolList },
-}) => ({
-	filterList,
-	schoolList,
-});
+}) => ({ nameFilter, schoolList });
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(Sidebar);
+)(NameFilter);

@@ -6,6 +6,22 @@ const StyledReactTooltip = styled(ReactTooltip)`
 	max-width: 400px;
 `;
 
+const Underlay = styled.div`
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	opacity: 0.7;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 19;
+`;
+
+const Overlay = styled.div`
+	position: relative;
+	z-index: 20;
+`;
+
 const Name = styled.h2`
 	font-size: 1.5em;
 	font-weight: 700;
@@ -133,10 +149,9 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool, data }) => {
-	console.log(data);
-	return (
-		<>
+const School = ({ cleanSchool, data }) => (
+	<>
+		<Overlay>
 			<StyledReactTooltip
 				type="light"
 				place="right"
@@ -215,8 +230,9 @@ const School = ({ cleanSchool, data }) => {
 			</Contact>
 
 			<Back onClick={() => cleanSchool()}>Voltar</Back>
-		</>
-	);
-};
+		</Overlay>
+		<Underlay onClick={() => null} />
+	</>
+);
 
 export default School;

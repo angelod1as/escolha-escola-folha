@@ -14,6 +14,7 @@ import {
 	RECEIVE_SCHOOLS_LIST,
 	REMOVE_SCHOOLS,
 	CHANGE_FILTER,
+	FILTER_NAME,
 	CLEAN_SCHOOL,
 	REQUEST_SCHOOL_DATA,
 	RECEIVE_SCHOOL_DATA,
@@ -258,6 +259,17 @@ const schoolData = (state = {
 	}
 };
 
+const nameFilter = (state = '', action) => {
+	switch (action.type) {
+	case FILTER_NAME:
+		return action.name;
+	case CLEAN_ALL:
+		return '';
+	default:
+		return state;
+	}
+};
+
 const filterList = (state = {
 	toggle: [
 		{
@@ -365,6 +377,7 @@ const rootReducer = combineReducers({
 	chooseZone,
 	listSchools,
 	filterList,
+	nameFilter,
 	schoolData,
 	cityAvg,
 });

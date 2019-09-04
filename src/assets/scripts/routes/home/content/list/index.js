@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import List from './list';
 import { fetchSchool } from '../../../../redux/actions';
+import slugfy from '../../../../utils/slugfy';
 
 const mapDispatchToProps = {
 	fetchSchool,
@@ -8,6 +9,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({
 	listSchools: { schoolList },
 	filterList,
+	nameFilter,
 }) => {
 	const filters = [];
 
@@ -34,6 +36,10 @@ const mapStateToProps = ({
 				});
 		});
 
+	if (nameFilter !== '') {
+		filters.push('name');
+	}
+
 	const schools = Object
 		.keys(schoolList)
 		.filter((each) => {
@@ -43,6 +49,8 @@ const mapStateToProps = ({
 			const fin = include => filters.includes(include);
 			const school = schoolList[each];
 			const res = [];
+			// Name
+			if (fin('name')) res.push(slugfy(school.name).includes(slugfy(nameFilter)));
 			// section 1
 			if (fin('fundamental')) res.push(school.school_type.fundamental === 2);
 			if (fin('medio')) res.push(school.school_type.medio === 2);

@@ -66,6 +66,12 @@ export const changeFilter = change => ({
 	change,
 });
 
+export const FILTER_NAME = 'FILTER_NAME';
+export const filterName = name => ({
+	type: FILTER_NAME,
+	name,
+});
+
 export const REMOVE_CITY = 'REMOVE_CITY';
 export const removeCityFromList = deleted => ({
 	type: REMOVE_CITY, deleted,

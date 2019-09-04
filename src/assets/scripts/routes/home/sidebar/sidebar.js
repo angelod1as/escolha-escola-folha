@@ -21,6 +21,7 @@ const H3 = styled.h3`
 	font-weight: 500;
 	font-size: .9em;
 	margin-top: 40px;
+	color: ${p => (p.disabled ? p.theme.color.gray3 : 'initial')};
 `;
 
 const Checkbox = styled.label`
@@ -30,7 +31,8 @@ const Checkbox = styled.label`
 	span {
 		user-select: none;
 		display: block;
-		background-color: ${p => p.theme.color.gray2};
+		background-color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.gray2)};
+		pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
 		color: ${p => p.theme.color.white};
 		font-weight: 500;
 		width: 90%;
@@ -38,7 +40,7 @@ const Checkbox = styled.label`
 		margin: 5px 0;
 		border-radius: 5px;
 		&:hover {
-			opacity: .8;
+			opacity: ${p => (p.disabled ? 1 : 0.8)};
 		}
 	}
 	input:checked + span {
@@ -53,7 +55,7 @@ const Toggle = styled.label`
 	span {
 		user-select: none;
 		display: block;
-		color: ${p => p.theme.color.gray};
+		color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.gray)};
 		padding-left: 40px;
 		position: relative;
 		&:before{
@@ -93,7 +95,8 @@ const Toggle = styled.label`
 	}
 `;
 
-const Sidebar = ({ changeFilter, filterList }) => {
+const Sidebar = ({ changeFilter, filterList, schoolList }) => {
+	const disabled = Object.keys(schoolList).length <= 0;
 	const handleChange = (e) => {
 		const [categ, name, id] = e.target.dataset.path.split('-');
 		changeFilter({ categ, name, id });
@@ -106,19 +109,26 @@ const Sidebar = ({ changeFilter, filterList }) => {
 		if (element === 'toggle') {
 			return data
 				.map((section, i) => (
-					<Section key={uuid()}>
+					<Section
+						key={uuid()}
+						disabled={disabled}
+					>
 						{Object
 							.keys(section)
 							.map((item) => {
 								const [name, value] = section[item];
 								return (
-									<Toggle htmlFor={item} key={uuid()}>
+									<Toggle
+										htmlFor={item}
+										key={uuid()}
+										disabled={disabled}
+									>
 										<input
 											type="checkbox"
 											id={item}
 											name={item}
 											checked={value}
-											onChange={handleChange}
+											onChange={disabled ? () => null : handleChange}
 											data-path={`${element}-${item}-${i}`}
 										/>
 										<span>{name}</span>
@@ -129,19 +139,23 @@ const Sidebar = ({ changeFilter, filterList }) => {
 				));
 		}
 		return (
-			<Buttons>
-				<H3>{element === 'infraestrutura' ? 'Infraestrutura' : 'Ensino de idiomas'}</H3>
+			<Buttons disabled={disabled}>
+				<H3 disabled={disabled}>{element === 'infraestrutura' ? 'Infraestrutura' : 'Ensino de idiomas'}</H3>
 				{Object.keys(data)
 					.map((item) => {
 						const [name, value] = data[item];
 						return (
-							<Checkbox htmlFor={item} key={uuid()}>
+							<Checkbox
+								htmlFor={item}
+								key={uuid()}
+								disabled={disabled}
+							>
 								<input
 									type="checkbox"
 									id={item}
 									name={item}
 									checked={value}
-									onChange={handleChange}
+									onChange={disabled ? () => null : handleChange}
 									data-path={`${element}-${item}`}
 								/>
 								<span>{name}</span>

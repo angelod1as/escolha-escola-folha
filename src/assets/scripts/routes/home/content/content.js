@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 
 const Content = ({ schoolData }) => (
 	<Wrapper>
-		{/* TODO name filter!! */}
 		{Object.keys(schoolData.data).length <= 0
 			? <List />
 			: <School />
