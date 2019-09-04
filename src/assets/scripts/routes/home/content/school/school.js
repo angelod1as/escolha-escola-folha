@@ -133,8 +133,8 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool, fetchSchool, code }) => {
-	console.log('school');
+const School = ({ cleanSchool, data }) => {
+	console.log(data);
 	return (
 		<>
 			<StyledReactTooltip

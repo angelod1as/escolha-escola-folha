@@ -5,11 +5,6 @@ export const config = action => ({
 	type: CONFIG, action,
 });
 
-export const GET_UF = 'GET_UF';
-export const getUf = action => ({
-	type: GET_UF, action,
-});
-
 export const SET_UF = 'SET_UF';
 export const chooseUf = chosen => ({
 	type: SET_UF, chosen,
@@ -86,6 +81,21 @@ export const removeSchools = (deleted, zone) => ({
 	type: REMOVE_SCHOOLS, deleted, zone,
 });
 
+export const REQUEST_AVG = 'REQUEST_AVG';
+export const requestAvg = payload => ({
+	type: REQUEST_AVG, payload,
+});
+
+export const RECEIVE_AVG = 'RECEIVE_AVG';
+export const receiveAvg = (payload, code) => ({
+	type: RECEIVE_AVG, payload, code,
+});
+
+export const CLEAN_AVG = 'CLEAN_AVG';
+export const cleanAvg = payload => ({
+	type: CLEAN_AVG, payload,
+});
+
 // THUNKS
 export const fetchCityList = ({ value }) => (dispatch, getState) => {
 	dispatch(cleanAll());
@@ -105,13 +115,34 @@ export const fetchCityList = ({ value }) => (dispatch, getState) => {
 
 export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 	let url = '';
-	const { config: { urlCity, spCode } } = getState();
+	let avgUrl = '';
+	const { config: { urlCity, urlAvg, spCode }, cityAvg } = getState();
 	if (!zone) {
 		dispatch(listCities(value));
 		url = `${urlCity}${value}.json`;
+		avgUrl = `${urlAvg}${value}.json`;
 	} else {
 		dispatch(setZone(value));
 		url = `${urlCity}${spCode}-${value}.json`;
+		avgUrl = `${urlAvg}${spCode}.json`;
+	}
+
+	const fetchedAvgs = Object.keys(cityAvg.data);
+
+	if (value === spCode) {
+		if (!fetchedAvgs.includes(spCode)) {
+			dispatch(requestAvg(url));
+			axios.get(avgUrl)
+				.then(({ data }) => {
+					dispatch(receiveAvg(data, spCode));
+				});
+		}
+	} else if (!fetchedAvgs.includes(value)) {
+		dispatch(requestAvg(url));
+		axios.get(avgUrl)
+			.then(({ data }) => {
+				dispatch(receiveAvg(data, value));
+			});
 	}
 
 	if (value !== spCode) {
@@ -126,7 +157,7 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 
 export const fetchSchool = ({ value }) => (dispatch, getState) => {
 	dispatch(requestSchoolData(value));
-	const { config: { urlSchool, urlAvgs } } = getState();
+	const { config: { urlSchool } } = getState();
 
 	const url = `${urlSchool}${value}.json`;
 

@@ -3,7 +3,6 @@ import ref from '../../utils/refs';
 
 import {
 	CLEAN_ALL,
-	GET_UF,
 	SET_UF,
 	REQUEST_CITY_LIST,
 	RECEIVE_CITY_LIST,
@@ -18,6 +17,9 @@ import {
 	CLEAN_SCHOOL,
 	REQUEST_SCHOOL_DATA,
 	RECEIVE_SCHOOL_DATA,
+	REQUEST_AVG,
+	RECEIVE_AVG,
+	CLEAN_AVG,
 } from '../actions/index';
 import ufList from '../../utils/uf-list';
 import zoneList from '../../utils/zones';
@@ -33,11 +35,9 @@ const config = (state = {
 	urlUf: `${output}ufs/uf-`,
 	urlCity: `${output}city/city-`,
 	urlSchool: `${output}school/school-`,
-	urlAvgs: `${output}avgs/`,
+	urlAvg: `${output}avgs/`,
 }, action) => {
 	switch (action.type) {
-	case GET_UF:
-		return state;
 	default:
 		return state;
 	}
@@ -218,6 +218,12 @@ const listSchools = (state = {
 			schoolList: Object.assign({}, newSchoolList),
 		});
 	}
+	case CLEAN_ALL:
+		return {
+			...state,
+			fetching: false,
+			schoolList: {},
+		};
 	default:
 		return state;
 	}
@@ -239,6 +245,8 @@ const schoolData = (state = {
 			fetching: false,
 			data: action.payload,
 		};
+	case CLEAN_ALL:
+		// fall through
 	case CLEAN_SCHOOL:
 		return {
 			...state,
@@ -317,6 +325,38 @@ const filterList = (state = {
 	}
 };
 
+const cityAvg = (state = {
+	fetching: false,
+	data: {},
+}, action) => {
+	switch (action.type) {
+	case REQUEST_AVG:
+		return {
+			...state,
+			fetching: true,
+		};
+	case RECEIVE_AVG:
+		return {
+			...state,
+			fetching: false,
+			data: {
+				...state.data,
+				[action.code]: action.payload,
+			},
+		};
+	case CLEAN_ALL:
+		// fall through
+	case CLEAN_AVG:
+		return {
+			...state,
+			fetching: false,
+			data: {},
+		};
+	default:
+		return state;
+	}
+};
+
 const rootReducer = combineReducers({
 	config,
 	chooseUf,
@@ -326,6 +366,7 @@ const rootReducer = combineReducers({
 	listSchools,
 	filterList,
 	schoolData,
+	cityAvg,
 });
 
 export default rootReducer;
