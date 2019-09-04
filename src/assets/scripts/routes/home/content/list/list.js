@@ -36,14 +36,13 @@ const Info = styled.p`
 	color: ${p => p.theme.color.gray};
 `;
 
-const List = ({ schoolList }) => {
-	const sArray = Object.keys(schoolList);
-	return (
-		<>
-			<Number>{`${sArray.length} resultados`}</Number>
-			<div>
-				{sArray.map((code) => {
-					const school = schoolList[code];
+const List = ({ schools }) => (
+	<>
+		<Number>{`${schools.length} resultados`}</Number>
+		<div>
+			{schools
+				.map((arr) => {
+					const [code, school] = arr;
 					const type = Object
 						.keys(school.school_type)
 						.filter(each => school.school_type[each] === 2)
@@ -52,20 +51,19 @@ const List = ({ schoolList }) => {
 					const loc = `Escola ${ref.address.location[1][school.address.location]}`;
 					const pub = ref.public_private[1][school.public_private];
 					return (
-						<School key={uuid()}>
+						<School data-code={code} key={uuid()}>
 							<Name>{upper(school.name)}</Name>
 							<City>{upperAll(school.address.city)}</City>
 							<Info>{upperAll(`${loc} • ${pub} • ${type}`)}</Info>
 						</School>
 					);
 				})}
-			</div>
-		</>
-	);
-};
+		</div>
+	</>
+);
 
 List.propTypes = {
-	schoolList: PropTypes.shape().isRequired,
+	schools: PropTypes.shape().isRequired,
 };
 
 export default List;

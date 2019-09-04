@@ -275,25 +275,25 @@ const filterList = (state = {
 			medio: ['Ensino Médio', false],
 		},
 		{
-			particular: ['Particular', false],
-			publica: ['Pública', false],
+			public: ['Particular', false],
+			private: ['Pública', false],
 		},
 		{
-			urbana: ['Escola urbana', false],
+			urban: ['Escola urbana', false],
 			rural: ['Escola rural', false],
 		},
 	],
 	infraestrutura: {
-		necessidades: ['Necessidades especiais', false],
-		biblioteca: ['Biblioteca', false],
-		laboratorio: ['Laboratório de ciência', false],
-		informatica: ['Laboratório de informática', false],
-		quadra: ['Quadra poliesportiva', false],
+		pne_dep: ['Necessidades especiais', false],
+		library: ['Biblioteca', false],
+		science_lab: ['Laboratório de ciência', false],
+		computer_lab: ['Laboratório de informática', false],
+		sports_court: ['Quadra poliesportiva', false],
 	},
 	idiomas: {
-		espanhol: ['Espanhol', false],
-		francês: ['Francês', false],
-		inglês: ['Inglês', false],
+		spanish: ['Espanhol', false],
+		french: ['Francês', false],
+		english: ['Inglês', false],
 	},
 }, action) => {
 	switch (action.type) {
