@@ -57,11 +57,17 @@ const AutoWrapper = styled.div`
 		border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
 		border-radius: 3px;
 		padding: 5px 10px;
-		font-size: .9em;
+		font-size: 16px;
+	}
+
+	.react-autosuggest__input--focused {
+		&::placeholder {
+			color:transparent;
+		}
 	}
 
 	.react-autosuggest__suggestions-list {
-		font-size: .9em;
+		font-size: 16px;
 	}
 
 	.react-autosuggest__suggestion {

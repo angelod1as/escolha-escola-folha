@@ -101,7 +101,9 @@ const School = ({ cleanSchool, data }) => {
 	if (publicPrivate) {
 		if (publicPrivate === 1) {
 			infosArr[0].push('Escola privada');
-		} else if (type) infosArr[0].push(`Escola ${ref.type[1][type].toLowerCase()}`);
+		} else if (type) {
+			infosArr[0].push(`Escola ${ref.type[1][type].toLowerCase()}`);
+		}
 	}
 	if (address.location) infosArr[0].push(ref.address.location[1][address.location].toLowerCase());
 	if (schoolType.fundamental || +schoolType.fundamental === 2) infosArr[1].push('fundamental');
@@ -125,7 +127,7 @@ const School = ({ cleanSchool, data }) => {
 	if (address.district) addressArr[1].push(address.district);
 	if (address.city) addressArr[1].push(address.city);
 	if (address.uf) addressArr[1].push(address.uf);
-	if (address.zone && +address.zone !== 1) addressArr[1].push(address.zone);
+	if (address.zone && +address.zone !== 1) addressArr[1].push(ref.address.zone[1][address.zone]);
 
 	// Third address line
 	if (address.email) addressArr[2].push(address.email);
@@ -136,13 +138,22 @@ const School = ({ cleanSchool, data }) => {
 		if (phones[1]) addressArr[2].push(`${DDD} ${phones[1]}`);
 	}
 
+	const sortList = (a, b) => {
+		if (a[2] < b[2]) return -1;
+		if (a[2] > b[2]) return 1;
+		return 0;
+	};
+
+
 	const infraList = Object
 		.keys(utilities)
-		.map(each => [each, utilities[each]]);
+		.map(each => [each, utilities[each], ref.utilities[each][0]])
+		.sort(sortList);
 
 	const languageList = Object
 		.keys(languages)
-		.map(each => [each, languages[each]]);
+		.map(each => [each, languages[each], ref.languages[each][0]])
+		.sort(sortList);
 
 	return (
 		<>

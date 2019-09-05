@@ -25,6 +25,7 @@ const H3 = styled.h3`
 `;
 
 const Checkbox = styled.label`
+	cursor: pointer;
 	input {
 		display: none;
 	}
@@ -49,6 +50,7 @@ const Checkbox = styled.label`
 `;
 
 const Toggle = styled.label`
+	cursor: pointer;
 	input {
 		display: none;
 	}
@@ -138,31 +140,41 @@ const Sidebar = ({ changeFilter, filterList, schoolList }) => {
 					</Section>
 				));
 		}
+
+		const sortBtns = (a, b) => {
+			if (a[0] < b[0]) return -1;
+			if (a[0] > b[0]) return 1;
+			return 0;
+		};
+
+		const check = Object.keys(data)
+			.map((item) => {
+				const [name, value] = data[item];
+				return [name, (
+					<Checkbox
+						htmlFor={item}
+						key={uuid()}
+						disabled={disabled}
+					>
+						<input
+							type="checkbox"
+							id={item}
+							name={item}
+							checked={value}
+							onChange={disabled ? () => null : handleChange}
+							data-path={`${element}-${item}`}
+						/>
+						<span>{name}</span>
+					</Checkbox>
+				)];
+			})
+			.sort(sortBtns)
+			.map(each => each[1]);
+
 		return (
 			<Buttons disabled={disabled}>
 				<H3 disabled={disabled}>{element === 'infraestrutura' ? 'Infraestrutura' : 'Ensino de idiomas'}</H3>
-				{Object.keys(data)
-					.map((item) => {
-						const [name, value] = data[item];
-						return (
-							<Checkbox
-								htmlFor={item}
-								key={uuid()}
-								disabled={disabled}
-							>
-								<input
-									type="checkbox"
-									id={item}
-									name={item}
-									checked={value}
-									onChange={disabled ? () => null : handleChange}
-									data-path={`${element}-${item}`}
-								/>
-								<span>{name}</span>
-							</Checkbox>
-						);
-					})
-				}
+				{check}
 			</Buttons>
 		);
 	};

@@ -74,6 +74,14 @@ const mapStateToProps = ({
 		})
 		.map(each => [each, schoolList[each]]);
 
+	const alpha = (a, b) => {
+		if (a[1].name < b[1].name) return -1;
+		if (a[1].name > b[1].name) return 1;
+		return 0;
+	};
+
+	schools.sort(alpha);
+
 	return ({
 		schools,
 		filters,

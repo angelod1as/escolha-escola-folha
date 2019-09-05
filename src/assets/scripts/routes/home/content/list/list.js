@@ -22,6 +22,7 @@ const School = styled.button`
 	width: 100%;
 	margin: 30px 0;
 	border-radius: 5px;
+	cursor: pointer;
 	&:hover{
 		opacity: .7;
 	}
