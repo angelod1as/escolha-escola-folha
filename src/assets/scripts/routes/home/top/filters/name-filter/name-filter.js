@@ -6,6 +6,7 @@ const Name = styled.div`
 	grid-area: f-name;
 	position: relative;
 	margin-top: 10px;
+	background-color: white;
 	input {
 		width: 100%;
 		font-family: ${p => p.theme.font.display};
@@ -15,6 +16,7 @@ const Name = styled.div`
 		text-transform: none;
 		text-align: left;
 		font-style: italic;
+		background-color: white;
 		&::placeholder{
 			text-transform: none;
 			color: ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};

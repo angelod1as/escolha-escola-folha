@@ -20,7 +20,7 @@ const Layout = styled.div`
 	width: 100%;
 	max-width: 1920px;
 	max-width: ${p => p.theme.width.max};
-	margin: 30px auto;
+	margin: 30px 0;
 	display: grid;
 	grid-gap: 5px;
 	grid-template-columns: 255px auto auto auto;

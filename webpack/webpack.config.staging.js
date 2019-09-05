@@ -38,14 +38,14 @@ module.exports = {
 		filename: 'js/main.js',
 	},
 	plugins: [
-		new CleanWebpackPlugin(
-			[PATHS.staging],
-			{
-				root: path.resolve(__dirname, '..'),
-				allowExternal: true,
-				verbose: true,
-			},
-		),
+		// new CleanWebpackPlugin(
+		// 	[PATHS.staging],
+		// 	{
+		// 		root: path.resolve(__dirname, '..'),
+		// 		allowExternal: true,
+		// 		verbose: true,
+		// 	},
+		// ),
 		new webpack.NamedModulesPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new HtmlPlugin({
@@ -66,11 +66,11 @@ module.exports = {
 				to: 'images',
 				ignore: '.gitkeep',
 			},
-			{
-				from: path.join(PATHS.src, 'assets/json'),
-				to: 'json',
-				ignore: '.gitkeep',
-			},
+			// {
+			// 	from: path.join(PATHS.src, 'assets/json'),
+			// 	to: 'json',
+			// 	ignore: '.gitkeep',
+			// },
 			{
 				from: path.join(PATHS.src, '../others/**/*'),
 				to: '[path][name].[ext]',

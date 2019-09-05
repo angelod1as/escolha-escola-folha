@@ -34,8 +34,9 @@ const Select = styled.select`
 	max-width: 100%;
 	border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
 	border-radius: 3px;
-	padding: 5px 10px;
 	font-size: 16px;
+	background-color: white;
+	padding: 2px 0 3px 0;
 `;
 
 const LocationFilters = ({

@@ -40,6 +40,7 @@ const Checkbox = styled.label`
 		pointer-events: ${p => (p.disabled ? 'none' : 'initial')};
 		color: ${p => p.theme.color.white};
 		font-weight: 500;
+		font-size: 16px;
 		width: 90%;
 		@media ${bp.medium} {
 			width: 100%;
@@ -58,6 +59,7 @@ const Checkbox = styled.label`
 
 const Toggle = styled.label`
 	cursor: pointer;
+	font-size: 16px;
 	input {
 		display: none;
 	}

@@ -85,8 +85,8 @@
 		"uuid": "^3.3.2"
 	},
 	"config": {
-		"section": "Especiais",
-		"sectionSlug": "especiais",
+		"section": "educação",
+		"sectionSlug": "educacao",
 		"name": "Escolha a Escola",
 		"date": "01/09/2019",
 		"baseURL": "educacao/buscador-escolha-a-escola/"

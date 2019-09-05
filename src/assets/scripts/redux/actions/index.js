@@ -173,7 +173,7 @@ export const removeZone = ({ value }) => (dispatch) => {
 export const readFromUrl = () => (dispatch, getState) => {
 	const { search } = getState().router.location;
 	if (search === '') {
-		dispatch(push('/?'));
+		dispatch(push('?'));
 	} else {
 		const obj = {};
 		search
@@ -195,7 +195,7 @@ export const readFromUrl = () => (dispatch, getState) => {
 };
 
 export const updateUrl = payload => (dispatch) => {
-	const start = '/?';
+	const start = '?';
 	const array = Object
 		.keys(payload)
 		.map(each => `${each}=${payload[each]}`);
@@ -204,5 +204,5 @@ export const updateUrl = payload => (dispatch) => {
 };
 
 export const cleanUrl = () => (dispatch) => {
-	dispatch(push('/'));
+	dispatch(push('?'));
 };
