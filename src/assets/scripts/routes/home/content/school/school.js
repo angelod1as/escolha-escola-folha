@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 import { upperAll } from '../../../../utils/upper';
 import ref from '../../../../utils/refs';
+import bp from '../../../components/breakpoints';
 
 import Bars from './bars/index';
 
@@ -42,11 +43,18 @@ const Holder = styled.div`
 	margin: 40px 0;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	@media ${bp.medium} {
+		grid-template-columns: 100%;
+	}
 `;
 const H3 = styled.h3`
 	font-weight: 600;
 `;
-const List = styled.ul``;
+const List = styled.ul`
+	@media ${bp.medium} {
+		margin-bottom: 20px;
+	}
+`;
 const Li = styled.li`
 	line-height: 1.4em;
 	padding-left: 10px;

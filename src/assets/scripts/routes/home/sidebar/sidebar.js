@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
+import bp from '../../components/breakpoints';
 
 const Wrapper = styled.div`
 	margin-top: 20px;
@@ -14,6 +15,9 @@ const Section = styled.div`
 
 const Buttons = styled.div`
 	margin-left: 40px;
+	@media ${bp.medium} {
+		margin-left: 0;
+	}
 `;
 
 const H3 = styled.h3`
@@ -37,6 +41,9 @@ const Checkbox = styled.label`
 		color: ${p => p.theme.color.white};
 		font-weight: 500;
 		width: 90%;
+		@media ${bp.medium} {
+			width: 100%;
+		}
 		padding: 8px;
 		margin: 5px 0;
 		border-radius: 5px;

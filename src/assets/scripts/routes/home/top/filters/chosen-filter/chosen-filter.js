@@ -20,6 +20,9 @@ const Tag = styled.p`
 const CloseTag = styled.button`
 	cursor: pointer;
 	color: ${p => p.theme.color.gray};
+	background-color: white;
+	padding: 0;
+	margin: 0 5px 0 0;
 	appearance: none;
 	border: none;
 	&:hover {

@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import uuid from 'uuid/v1';
+import bp from '../../../../components/breakpoints';
 
 import Autosuggest from '../../../../components/autosuggest';
 
 const Uf = styled.div`
 	grid-area: f-state;
-	`;
+`;
 const City = styled.div`
 	grid-area: f-city;
 	grid-column-end: 4;
+	@media ${bp.small} {
+		grid-column-end: initial;
+	}
 `;
 const Zone = styled.div`
 	grid-area: f-zone;
@@ -27,6 +31,7 @@ const Select = styled.select`
 	font-style: italic;
 
 	width: 100%;
+	max-width: 100%;
 	border: 1px solid ${p => (p.disabled ? p.theme.color.gray3 : p.theme.color.black)};
 	border-radius: 3px;
 	padding: 5px 10px;

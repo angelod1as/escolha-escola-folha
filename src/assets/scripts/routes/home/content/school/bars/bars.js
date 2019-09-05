@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 import ref, { avgRefs } from '../../../../../utils/refs';
+import bp from '../../../../components/breakpoints';
 
 const H3 = styled.h3`
 	font-weight: 600;
@@ -25,22 +26,35 @@ const Indicator = styled.div`
 	color: ${p => p.theme.color.gray};
 	font-size: .9em;
 	position: relative;
+	text-align: right;
 	& > div {
 		height: 14px;
 		left: -10px;
 		top: 5px;
 		bottom: initial;
 	}
+	@media ${bp.medium} {
+		max-width: 110px;
+	}
 `;
 
 const BarHolder = styled.div`
 	display: grid;
 	grid-template-columns: 200px 50px auto 40px;
+	grid-template-areas:
+		"title number bar avg";
 	grid-gap: 5px;
 	font-size: .9em;
 	margin: 5px 0;
+	@media ${bp.medium} {
+	grid-template-columns: 40px auto 40px;
+	grid-template-areas:
+		"title title title"
+		"number bar avg";
+	}
 `;
 const Item = styled.p`
+	grid-area: title;
 	position: relative;
 	${p => (p['data-tip']
 		?	`&:after {
@@ -51,11 +65,16 @@ const Item = styled.p`
 }
 `;
 const Number = styled.div`
+	grid-area: number;
 	color: ${p => p.color};
 	font-weight: bold;
 	justify-self: end;
+	@media ${bp.medium} {
+		justify-self: start;
+	}
 `;
 const Bar = styled.div`
+	grid-area: bar;
 	margin-top: 2px;
 	height: 15px;
 	width: 100%;
@@ -79,7 +98,8 @@ const Marker = styled.div`
 	background-color: ${p => p.theme.color.black};
 	border: 1px solid white;
 `;
-const Total = styled.div`
+const Average = styled.div`
+	grid-area: avg;
 	justify-self: end;
 `;
 
@@ -187,9 +207,9 @@ const Bars = ({ avg, cityAvg, type }) => {
 													<Grade color={barColor(avgRefs[eachSaeb[0]])} num={schoolVal / 10} />
 													<Marker hidden={cityVal === undefined} num={cityVal / 10} />
 												</Bar>
-												<Total>
+												<Average>
 													{cityVal === undefined ? 'N/D' : cityVal}
-												</Total>
+												</Average>
 											</BarHolder>
 										);
 									})}
@@ -226,9 +246,9 @@ const Bars = ({ avg, cityAvg, type }) => {
 										<Grade color={barColor(each[0])} num={isEnem ? enemSchool : schoolVal} />
 										<Marker hidden={cityVal === undefined} num={isEnem ? enemCity : cityVal} />
 									</Bar>
-									<Total>
+									<Average>
 										{`${cityVal === undefined ? 'N/D' : `${cityVal}${percent ? '%' : ''}`}`}
-									</Total>
+									</Average>
 								</BarHolder>
 							);
 						})}
