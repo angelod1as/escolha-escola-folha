@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
@@ -51,7 +51,7 @@ const Item = styled.p`
 }
 `;
 const Number = styled.div`
-	color: ${p => p.theme.color.color};
+	color: ${p => p.color};
 	font-weight: bold;
 	justify-self: end;
 `;
@@ -68,7 +68,7 @@ const Grade = styled.div`
 	left: 0;
 	width: ${p => p.num}%;
 	height: 10px;
-	background-color: ${p => p.theme.color.color};
+	background-color: ${p => p.color};
 `;
 const Marker = styled.div`
 	position: absolute;
@@ -97,6 +97,14 @@ const Bars = ({ avg, cityAvg, type }) => {
 		approval_rate: '',
 		reproval_rate: '',
 		abandon_rate: '',
+	};
+
+	const barColor = (nameColor) => {
+		if (nameColor.includes('fundamental')) return '#D15D6C';
+		if (nameColor.includes('médio')) return '#4186C6';
+		if (nameColor.includes('EF')) return '#F57181';
+		if (nameColor.includes('EM')) return '#89A4D5';
+		return '#0078A4';
 	};
 
 	const fundamental = Object.keys(avg.fundamental)
@@ -141,9 +149,9 @@ const Bars = ({ avg, cityAvg, type }) => {
 	const all = [];
 
 
-	if (medio.length > 0) all.push(['Ensino médio', medio]);
-	if (fundamental.length > 0) all.push(['Ensino fundamental', fundamental]);
 	if (enem.length > 0) all.push(['Enem', enem]);
+	if (fundamental.length > 0) all.push(['Ensino fundamental', fundamental]);
+	if (medio.length > 0) all.push(['Ensino médio', medio]);
 	if (saeb.length > 0) all.push(['Saeb', saeb]);
 
 	return (
@@ -152,28 +160,32 @@ const Bars = ({ avg, cityAvg, type }) => {
 			{all.map((each) => {
 				if (each[0] === 'Saeb') {
 					return (
-						<>
+						<Fragment key={uuid()}>
 							<TitleHolder key={uuid()}>
 								<H3>{each[0]}</H3>
 								<Indicator>
 									<Marker />
-									Média municipal
+									{`Média municipal escola ${type === 1 ? 'privada' : 'pública'}`}
 								</Indicator>
 							</TitleHolder>
 
 							{each[1].map(eachSaeb => (
-								<>
-									<H4>{avgRefs[eachSaeb[0]]}</H4>
+								<Fragment key={uuid()}>
+									<H4 key={uuid()}>{avgRefs[eachSaeb[0]]}</H4>
 									{eachSaeb[1].map((saebNum, i) => {
-										const schoolVal = saebNum[0] === undefined ? saebNum[0] : +saebNum[0].toFixed(2);
-										const cityVal = saebNum[1] === undefined ? saebNum[1] : +saebNum[1].toFixed(2);
+										const schoolVal = saebNum[0] === undefined
+											? saebNum[0]
+											: +saebNum[0].toFixed(2);
+										const cityVal = saebNum[1] === undefined
+											? saebNum[1]
+											: +saebNum[1].toFixed(2);
 										return (
-											<BarHolder>
+											<BarHolder key={uuid()}>
 												<Item data-tip={saebNum[3] !== '' ? saebNum[3] : null}>{i === 0 ? 'Português' : 'Matemática'}</Item>
-												<Number>{schoolVal}</Number>
+												<Number color={barColor(avgRefs[eachSaeb[0]])}>{schoolVal}</Number>
 												<Bar>
-													<Grade num={schoolVal / 10} />
-													<Marker num={cityVal / 10} />
+													<Grade color={barColor(avgRefs[eachSaeb[0]])} num={schoolVal / 10} />
+													<Marker hidden={cityVal === undefined} num={cityVal / 10} />
 												</Bar>
 												<Total>
 													{cityVal === undefined ? 'N/D' : cityVal}
@@ -181,18 +193,18 @@ const Bars = ({ avg, cityAvg, type }) => {
 											</BarHolder>
 										);
 									})}
-								</>
+								</Fragment>
 							))}
-						</>
+						</Fragment>
 					);
 				}
 				return (
-					<>
+					<Fragment key={uuid()}>
 						<TitleHolder key={uuid()}>
 							<H3>{each[0]}</H3>
 							<Indicator>
 								<Marker />
-									Média municipal
+								{`Média municipal escola ${type === 1 ? 'privada' : 'pública'}`}
 							</Indicator>
 						</TitleHolder>
 
@@ -207,11 +219,11 @@ const Bars = ({ avg, cityAvg, type }) => {
 							const isEnem = each[0].toLowerCase().includes('enem');
 
 							return (
-								<BarHolder>
+								<BarHolder key={uuid()}>
 									<Item data-tip={bar[3] !== '' ? bar[3] : null}>{title}</Item>
-									<Number>{`${schoolVal}${percent ? '%' : ''}`}</Number>
+									<Number color={barColor(each[0])}>{`${schoolVal}${percent ? '%' : ''}`}</Number>
 									<Bar>
-										<Grade num={isEnem ? enemSchool : schoolVal} />
+										<Grade color={barColor(each[0])} num={isEnem ? enemSchool : schoolVal} />
 										<Marker hidden={cityVal === undefined} num={isEnem ? enemCity : cityVal} />
 									</Bar>
 									<Total>
@@ -220,7 +232,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 								</BarHolder>
 							);
 						})}
-					</>
+					</Fragment>
 				);
 			})}
 
@@ -231,7 +243,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 Bars.propTypes = {
 	avg: PropTypes.shape().isRequired,
 	cityAvg: PropTypes.shape().isRequired,
-	type: PropTypes.string.isRequired,
+	type: PropTypes.number.isRequired,
 };
 
 export default Bars;
