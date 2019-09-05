@@ -1,20 +1,21 @@
-import thunk from 'redux-thunk';
-// import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from '../reducers/index';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
+import thunk from 'redux-thunk';
+import createRootReducer from '../reducers/index';
 import Reactotron from '../../../../../reactotron-config';
 
-// const loggerMiddleware = createLogger();
+export const history = createBrowserHistory();
 
-const store = createStore(
-	rootReducer,
+const configureStore = () => createStore(
+	createRootReducer(history),
 	compose(
 		applyMiddleware(
 			thunk,
-		// loggerMiddleware,
+			routerMiddleware(history),
 		),
 		Reactotron.createEnhancer(),
 	),
 );
 
-export default store;
+export default configureStore;

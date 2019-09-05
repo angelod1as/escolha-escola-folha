@@ -93,7 +93,7 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool, data }) => {
+const School = ({ cleanSchool, cleanUrl, data }) => {
 	const {
 		name,
 		public_private: publicPrivate,
@@ -103,6 +103,11 @@ const School = ({ cleanSchool, data }) => {
 		utilities,
 		languages,
 	} = data;
+
+	const handleClick = () => {
+		cleanSchool();
+		cleanUrl();
+	};
 
 	const infosArr = [[], []];
 
@@ -174,7 +179,7 @@ const School = ({ cleanSchool, data }) => {
 					clickable
 					className="tooltip"
 				/>
-				<Back onClick={() => cleanSchool()}>Voltar</Back>
+				<Back onClick={handleClick}>Voltar</Back>
 
 				<Name>{upperAll(name)}</Name>
 				<Infos>{[infosArr[0].join(' '), infosArr[1].join(' ')].join(' • ')}</Infos>
@@ -233,6 +238,7 @@ const School = ({ cleanSchool, data }) => {
 
 School.propTypes = {
 	cleanSchool: PropTypes.func.isRequired,
+	cleanUrl: PropTypes.func.isRequired,
 	data: PropTypes.shape({
 		code: PropTypes.number,
 		name: PropTypes.string,

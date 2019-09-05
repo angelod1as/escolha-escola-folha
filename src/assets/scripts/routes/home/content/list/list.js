@@ -45,9 +45,10 @@ const Info = styled.p`
 	color: ${p => p.theme.color.gray};
 `;
 
-const List = ({ schools, fetchSchool }) => {
+const List = ({ schools, fetchSchool, updateUrl }) => {
 	const handleClick = (e) => {
 		fetchSchool(e.target.dataset.code, e.target.dataset.city);
+		updateUrl({ city: e.target.dataset.city, school: e.target.dataset.code });
 	};
 	return (
 		<>
@@ -64,7 +65,12 @@ const List = ({ schools, fetchSchool }) => {
 						const loc = `Escola ${ref.address.location[1][school.address.location]}`;
 						const pub = ref.public_private[1][school.public_private];
 						return (
-							<School data-code={code} data-city={school.address.city_code} key={uuid()} onClick={handleClick}>
+							<School
+								data-code={code}
+								data-city={school.address.city_code}
+								key={uuid()}
+								onClick={handleClick}
+							>
 								<Name>{upper(school.name)}</Name>
 								<City>{upperAll(school.address.city)}</City>
 								<Info>{upperAll(`${loc} • ${pub} • ${type}`)}</Info>
@@ -79,6 +85,7 @@ const List = ({ schools, fetchSchool }) => {
 List.propTypes = {
 	schools: PropTypes.array.isRequired,
 	fetchSchool: PropTypes.func.isRequired,
+	updateUrl: PropTypes.func.isRequired,
 };
 
 export default List;

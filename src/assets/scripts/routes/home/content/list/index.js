@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import List from './list';
-import { fetchSchool } from '../../../../redux/actions';
+import { fetchSchool, updateUrl } from '../../../../redux/actions';
 import slugfy from '../../../../utils/slugfy';
 
 const mapDispatchToProps = {
 	fetchSchool,
+	updateUrl,
 };
 const mapStateToProps = ({
 	listSchools: { schoolList },

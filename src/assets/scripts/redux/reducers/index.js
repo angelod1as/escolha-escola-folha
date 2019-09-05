@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 import ref from '../../utils/refs';
 
 import {
@@ -369,7 +370,8 @@ const cityAvg = (state = {
 	}
 };
 
-const rootReducer = combineReducers({
+const createRootReducer = history => combineReducers({
+	router: connectRouter(history),
 	config,
 	chooseUf,
 	listCities,
@@ -382,4 +384,5 @@ const rootReducer = combineReducers({
 	cityAvg,
 });
 
-export default rootReducer;
+
+export default createRootReducer;

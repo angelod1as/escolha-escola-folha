@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 export const CONFIG = 'CONFIG';
 export const config = action => ({
@@ -167,4 +168,41 @@ export const removeCity = ({ value }) => (dispatch) => {
 export const removeZone = ({ value }) => (dispatch) => {
 	dispatch(removeZoneFromList(value));
 	dispatch(removeSchools(value, true));
+};
+
+export const readFromUrl = () => (dispatch, getState) => {
+	const { search } = getState().router.location;
+	if (search === '') {
+		dispatch(push('/?'));
+	} else {
+		const obj = {};
+		search
+			.substr(1)
+			.split('&')
+			.map((each) => {
+				const arr = each.split('=');
+				const key = arr[0];
+				const param = arr[1];
+				obj[key] = param;
+				return null;
+			});
+
+		if (obj.school && obj.city) {
+			dispatch(fetchSchool(obj.school, obj.city));
+		}
+	}
+	return true;
+};
+
+export const updateUrl = payload => (dispatch) => {
+	const start = '/?';
+	const array = Object
+		.keys(payload)
+		.map(each => `${each}=${payload[each]}`);
+	const string = array.join('&');
+	dispatch(push(`${start}${string}`));
+};
+
+export const cleanUrl = payload => (dispatch) => {
+	dispatch(push('/'));
 };
