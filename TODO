@@ -1,23 +1,6 @@
-Layout:
-	✔ 4 colunas - grid @done(19-08-29 17:20)
-		✔ 1 col de filtro @done(19-08-29 17:20)
-		✔ 3 col de conteúdo @done(19-08-29 17:20)
-	Filtros:
-		☐ Autocomplete Estado
-		☐ Autocomplete cidade + zonas
-		✔ Toggle filtros @done(19-09-01 10:47)
-		✔ Botões filtros @done(19-09-01 10:47)
-		☐ Nome da escola acima
-	Lista:
-		✔ Cards @done(19-09-01 10:47)
-		✔ Nomes + Bairro + infos @done(19-09-01 10:47)
-	Escola:
-		☐ 2 col interna
-		☐ Nome
-		☐ Infos gerais
-		☐ Infra 1 col todas + selecionadas
-		☐ Idiomas 1 col
-		☐ Gráficos separados por EF e EM (vai ter que mexer no XLS)
-		☐ Botão voltar no pé
-	After:
-		☐ Redo prop-types
+NewChanges:
+	☐ DIGITE A CIDADE sai quando o cursor entra
+	☐ Enter no autocomplete
+	☐ nos inputs ESTADO/CIDADE estão menores (mais baixos) do que o ESCOLHA A ZONA DE SP
+	☐ cursor pointer no botão das escolas, filtros e voltar
+	☐ listas em ordem alfabética

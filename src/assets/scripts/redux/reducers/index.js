@@ -280,7 +280,7 @@ const filterList = (state = {
 			medio: ['Ensino Médio', false],
 		},
 		{
-			public: ['Particular', false],
+			public: ['Privada', false],
 			private: ['Pública', false],
 		},
 		{

@@ -82,7 +82,7 @@ const LocationFilters = ({
 					value=""
 					disabled={!hasZone}
 				>
-					<option value="" disabled hidden>Escolha a zona de SP</option>
+					<option value="" disabled hidden>Escolha a região</option>
 					{zoneList.map(each => (
 						<option key={uuid()} value={each}>{each}</option>
 					))}

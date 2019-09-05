@@ -15,9 +15,9 @@ const theme = {
 		darkgray: '#A9A9A9',
 	},
 	font: {
-		title: 'FolhaII, Folha II, Georgia, serif',
-		display: 'Folha Grafico,Helvetica Neue,Helvetica,Arial,sans-serif',
-		text: 'Folha Texto,Georgia,Times New Roman,serif;',
+		title: 'FolhaII,Folha II,Georgia,serif',
+		display: 'Folha Grafico,FolhaGrafico,Helvetica Neue,Helvetica,Arial,sans-serif',
+		text: 'Folha Texto,FolhaTexto,Georgia,Times New Roman,serif;',
 	},
 	width: {
 		full: '100%',
