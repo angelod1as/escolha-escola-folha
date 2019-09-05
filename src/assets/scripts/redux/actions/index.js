@@ -142,10 +142,8 @@ export const fetchSchoolList = ({ value, zone }) => (dispatch, getState) => {
 
 export const fetchSchool = (value, city) => (dispatch, getState) => {
 	const { config: { urlAvg } } = getState();
-	// first, school
-	dispatch(requestSchoolData(value));
-	// then, city avg
 	dispatch(requestAvg(city));
+	dispatch(requestSchoolData(value));
 	const { config: { urlSchool } } = getState();
 
 	const avgUrl = `${urlAvg}${city}.json`;
@@ -155,8 +153,8 @@ export const fetchSchool = (value, city) => (dispatch, getState) => {
 		.then(({ data }) => {
 			axios.get(avgUrl)
 				.then(({ data: avgData }) => {
-					dispatch(receiveSchoolData(data));
 					dispatch(receiveAvg(avgData));
+					dispatch(receiveSchoolData(data));
 				});
 		});
 };

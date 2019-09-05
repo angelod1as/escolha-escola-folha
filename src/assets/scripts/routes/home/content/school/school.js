@@ -76,9 +76,9 @@ const Back = styled.button`
 		text-align: left;
 		background-color: ${p => p.theme.color.color};
 		color: ${p => p.theme.color.white};
-		min-width: 250px;
+		/* min-width: 150px; */
 		padding: 8px;
-		margin: 5px 0;
+		margin: 0 0 10px 0;
 		border-radius: 5px;
 		&:hover {
 			opacity: .8;
@@ -155,6 +155,8 @@ const School = ({ cleanSchool, data }) => {
 					clickable
 					className="tooltip"
 				/>
+				<Back onClick={() => cleanSchool()}>Voltar</Back>
+
 				<Name>{upperAll(name)}</Name>
 				<Infos>{[infosArr[0].join(' '), infosArr[1].join(' ')].join(' • ')}</Infos>
 
@@ -204,7 +206,6 @@ const School = ({ cleanSchool, data }) => {
 					}
 				</Contact>
 
-				<Back onClick={() => cleanSchool()}>Voltar</Back>
 			</Overlay>
 			<Underlay onClick={() => null} />
 		</>

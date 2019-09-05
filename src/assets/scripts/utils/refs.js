@@ -24,8 +24,8 @@ const ref = {
 	},
 	avg: {
 		enem: {
-			quiz: ['ENEM 2018 provas objetivas', 'avg'],
-			essay: ['ENEM 2018 redação', 'avg'],
+			quiz: ['Provas objetivas', 'avg'],
+			essay: ['Redação', 'avg'],
 		},
 		students: ['Média de alunos por turma', 'avg'],
 		hour_class: ['Média horas/aula diária', 'avg'],
