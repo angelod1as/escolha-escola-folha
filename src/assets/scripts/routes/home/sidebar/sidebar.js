@@ -203,6 +203,7 @@ const Sidebar = ({ changeFilter, filterList, schoolList }) => {
 Sidebar.propTypes = {
 	changeFilter: PropTypes.func.isRequired,
 	filterList: PropTypes.shape().isRequired,
+	schoolList: PropTypes.shape().isRequired,
 };
 
 export default Sidebar;

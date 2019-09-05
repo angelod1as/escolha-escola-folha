@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import configureStore, { history } from './redux/store/index';
 
-// import Layout from './routes/components/layout';
 import Home from './routes/home/index';
 import Layout from './routes/components/layout';
 

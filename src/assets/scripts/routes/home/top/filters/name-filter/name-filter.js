@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Name = styled.div`
 	grid-area: f-name;
@@ -46,5 +47,11 @@ const NameFilter = ({ filterName, nameFilter, schoolList }) => {
 			/>
 		</Name>
 	);
+};
+
+NameFilter.propTypes = {
+	filterName: PropTypes.func.isRequired,
+	nameFilter: PropTypes.string.isRequired,
+	schoolList: PropTypes.shape().isRequired,
 };
 export default NameFilter;

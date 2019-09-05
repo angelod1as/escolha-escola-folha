@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Bars from './bars';
-import { cleanSchool } from '../../../../../redux/actions/index';
+// import { cleanSchool } from '../../../../../redux/actions/index';
 
 const mapDispatchToProps = {
 };

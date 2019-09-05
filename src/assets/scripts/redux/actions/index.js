@@ -203,6 +203,6 @@ export const updateUrl = payload => (dispatch) => {
 	dispatch(push(`${start}${string}`));
 };
 
-export const cleanUrl = payload => (dispatch) => {
+export const cleanUrl = () => (dispatch) => {
 	dispatch(push('/'));
 };
