@@ -93,7 +93,9 @@ const Back = styled.button`
 		}
 `;
 
-const School = ({ cleanSchool, cleanUrl, data }) => {
+const School = ({
+	cleanSchool, cleanUrl, data,
+}) => {
 	const {
 		name,
 		public_private: publicPrivate,

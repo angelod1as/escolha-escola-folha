@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import configureStore, { history } from './redux/store/index';
@@ -12,7 +12,9 @@ const App = () => (
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
 			<Layout>
-				<Route path="/" render={() => <Home />} />
+				<Switch>
+					<Route path="/" render={() => <Home />} />
+				</Switch>
 			</Layout>
 		</ConnectedRouter>
 	</Provider>
