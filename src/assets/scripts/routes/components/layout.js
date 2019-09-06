@@ -23,16 +23,16 @@ const Layout = styled.div`
 	margin: 30px 0;
 	display: grid;
 	grid-gap: 5px;
-	grid-template-columns: 255px auto auto auto;
+	grid-template-columns: auto auto auto 255px;
 	grid-template-rows: auto minmax(35px,auto) auto auto;
 	grid-template-areas:
 		"f-state f-city f-city f-zone"
 		". f-cities f-cities f-zones"
-		". f-name f-name f-name"
-		"f-sidebar content content content";
+		"f-name f-name f-name ."
+		"content content content f-sidebar ";
 
 	@media ${bp.medium} {
-		grid-template-columns: 200px auto auto;
+		grid-template-columns: auto auto 200px;
 		grid-gap: 10px 5px;
 		grid-template-areas:
 		"f-state f-state f-state"
@@ -40,7 +40,7 @@ const Layout = styled.div`
 		"f-zone f-zone f-zone"
 		"f-cities f-cities f-zones"
 		"f-name f-name f-name"
-		"f-sidebar content content";
+		"content content f-sidebar";
 	}
 
 	@media ${bp.small} {
@@ -52,8 +52,8 @@ const Layout = styled.div`
 		"f-zone"
 		"f-zones"
 		"f-name"
-		"f-sidebar"
-		"content";
+		"content"
+		"f-sidebar";
 	}
 `;
 
