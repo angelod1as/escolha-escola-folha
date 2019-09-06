@@ -221,7 +221,6 @@ const School = ({
 
 				<Contact>
 					<H3>Contato</H3>
-					{console.log('addressArr', addressArr)}
 					{addressArr[0].length > 0 || addressArr[1].length > 0 || addressArr[2].length > 0
 						? (
 							<>
