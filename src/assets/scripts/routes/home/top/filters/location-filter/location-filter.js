@@ -6,18 +6,41 @@ import bp from '../../../../components/breakpoints';
 
 import Autosuggest from '../../../../components/autosuggest';
 
+
+const form = {
+	gridArea: 'f-form',
+	display: 'grid',
+	gridGap: '1em',
+	gridTemplateColumns: 'auto auto auto',
+	// gridTemplateAreas: 'f-state f-city f-city f-zone',
+};
+
 const Uf = styled.div`
 	grid-area: f-state;
+	grid-column-start: 1;
+	grid-column-end: 1;
+	@media ${bp.small} {
+		grid-column-start: auto;
+		grid-column-end: auto;
+	}
 `;
 const City = styled.div`
 	grid-area: f-city;
-	grid-column-end: 4;
+	grid-column-start: 2;
+	grid-column-end: 2;
 	@media ${bp.small} {
-		grid-column-end: initial;
+		grid-column-start: auto;
+		grid-column-end: auto;
 	}
 `;
 const Zone = styled.div`
 	grid-area: f-zone;
+	grid-column-start: 3;
+	grid-column-end: 3;
+	@media ${bp.small} {
+		grid-column-start: auto;
+		grid-column-end: auto;
+	}
 `;
 
 const Select = styled.select`
@@ -72,44 +95,48 @@ const LocationFilters = ({
 
 	return (
 		<>
-			<Uf>
-				<Autosuggest
-					placeholder="Digite o estado"
-					handleChange={handleChange}
-					data={ufList}
-					type="uf"
-					id="uf"
-					// initial={uf}
-					enabled
-				/>
-			</Uf>
-			<City
-				className={city.has ? 'disabled' : ''}
-			>
-				<Autosuggest
-					placeholder="Digite a cidade"
-					handleChange={handleChange}
-					data={city.auto}
-					type="city"
-					id="city"
-					enabled={city.has}
-				/>
-			</City>
-			<Zone>
-				<Select
-					className="f-forms__select"
-					name="zones"
-					id="zones"
-					onChange={e => handleChange(e.target.value, 'zone')}
-					value=""
-					disabled={!hasZone}
+			<form autoComplete="off" style={form}>
+				<Uf>
+					<Autosuggest
+						placeholder="Digite o estado"
+						handleChange={handleChange}
+						data={ufList}
+						type="uf"
+						id="uf"
+						autocomplete="new-password"
+						// initial={uf}
+						enabled
+					/>
+				</Uf>
+				<City
+					className={city.has ? 'disabled' : ''}
 				>
-					<option value="" disabled hidden>Escolha a região</option>
-					{zoneList.map(each => (
-						<option key={uuid()} value={each}>{each}</option>
-					))}
-				</Select>
-			</Zone>
+					<Autosuggest
+						placeholder="Digite a cidade"
+						handleChange={handleChange}
+						data={city.auto}
+						type="city"
+						id="city"
+						autocomplete="new-password"
+						enabled={city.has}
+					/>
+				</City>
+				<Zone>
+					<Select
+						className="f-forms__select"
+						name="zones"
+						id="zones"
+						onChange={e => handleChange(e.target.value, 'zone')}
+						value=""
+						disabled={!hasZone}
+					>
+						<option value="" disabled hidden>Escolha a região</option>
+						{zoneList.map(each => (
+							<option key={uuid()} value={each}>{each}</option>
+						))}
+					</Select>
+				</Zone>
+			</form>
 		</>
 	);
 };

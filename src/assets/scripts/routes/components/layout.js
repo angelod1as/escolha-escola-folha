@@ -26,8 +26,8 @@ const Layout = styled.div`
 	grid-template-columns: auto auto auto 255px;
 	grid-template-rows: auto minmax(35px,auto) auto auto;
 	grid-template-areas:
-		"f-state f-city f-city f-zone"
-		". f-cities f-cities f-zones"
+		"f-form f-form f-form f-form"
+		"f-cities f-cities f-zones ."
 		"f-name f-name f-name ."
 		"content content content f-sidebar ";
 
@@ -35,9 +35,7 @@ const Layout = styled.div`
 		grid-template-columns: auto auto 200px;
 		grid-gap: 10px 5px;
 		grid-template-areas:
-		"f-state f-state f-state"
-		"f-city f-city f-city"
-		"f-zone f-zone f-zone"
+		"f-form f-form f-form"
 		"f-cities f-cities f-zones"
 		"f-name f-name f-name"
 		"content content f-sidebar";
@@ -46,10 +44,8 @@ const Layout = styled.div`
 	@media ${bp.small} {
 		grid-template-columns: 100%;
 		grid-template-areas:
-		"f-state"
-		"f-city"
+		"f-form"
 		"f-cities"
-		"f-zone"
 		"f-zones"
 		"f-name"
 		"content"
