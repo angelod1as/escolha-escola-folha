@@ -142,7 +142,7 @@ const School = ({
 	if (address.district) addressArr[1].push(address.district);
 	if (address.city) addressArr[1].push(address.city);
 	if (address.uf) addressArr[1].push(address.uf);
-	if (address.zone && +address.zone !== 1) addressArr[1].push(ref.address.zone[1][address.zone - 1]);
+	// if (address.zone && +address.zone !== 1) addressArr[1].push(ref.address.zone[1][address.zone - 1]);
 
 	// Third address line
 	if (address.email) addressArr[2].push(address.email);
