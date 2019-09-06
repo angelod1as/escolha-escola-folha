@@ -277,8 +277,8 @@ const nameFilter = (state = '', action) => {
 const filterList = (state = {
 	toggle: [
 		{
-			fundamental: ['Ensino Fundamental', false],
-			medio: ['Ensino Médio', false],
+			fundamental: ['Ensino fundamental', false],
+			medio: ['Ensino médio', false],
 		},
 		{
 			public: ['Privada', false],

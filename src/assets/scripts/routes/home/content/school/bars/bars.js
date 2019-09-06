@@ -111,7 +111,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 		quiz: '',
 		essay: '',
 		students: '',
-		age_distortion_rate: 'A distorção idade-série é a proporção de alunos com mais de 2 anos de atraso escolar. No Brasil, a criança deve ingressar no 1º ano do ensino fundamental aos 6 anos de idade, permanecendo no Ensino Fundamental até o 9º ano, com a expectativa de que conclua os estudos nesta modalidade até os 14 anos de idade.',
+		age_distortion_rate: 'É a proporção de alunos com mais de dois anos de atraso escolar',
 		hour_class: '',
 		teacher_percent: '',
 		approval_rate: '',
@@ -170,7 +170,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 
 
 	if (enem.length > 0) all.push(['Enem', enem]);
-	if (fundamental.length > 0) all.push(['Ensino fundamental', fundamental]);
+	if (fundamental.length > 0) all.push(['Ensino fundamental*', fundamental]);
 	if (medio.length > 0) all.push(['Ensino médio', medio]);
 	if (saeb.length > 0) all.push(['Saeb', saeb]);
 
@@ -185,7 +185,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 								<H3>{each[0]}</H3>
 								<Indicator>
 									<Marker />
-									{`Média municipal escola ${type === 1 ? 'privada' : 'pública'}`}
+									{`Média das escolas ${type === 1 ? 'privadas' : 'públicas'} no município`}
 								</Indicator>
 							</TitleHolder>
 
@@ -224,7 +224,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 							<H3>{each[0]}</H3>
 							<Indicator>
 								<Marker />
-								{`Média municipal escola ${type === 1 ? 'privada' : 'pública'}`}
+								{`Média das escolas ${type === 1 ? 'privadas' : 'públicas'} no município`}
 							</Indicator>
 						</TitleHolder>
 

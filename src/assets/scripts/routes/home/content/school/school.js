@@ -82,6 +82,7 @@ const Back = styled.button`
 		font-size: .9em;
 		font-weight: 500;
 		text-align: left;
+		border: none;
 		background-color: ${p => p.theme.color.color};
 		color: ${p => p.theme.color.white};
 		/* min-width: 150px; */
@@ -233,6 +234,9 @@ const School = ({
 					}
 				</Contact>
 
+				<div>
+					<p style={{ fontSize: '.75em' }}>*Os indicadores se referem à média de todas as séries da unidade. Se a unidade tiver do 1º ao 9º ano, todas as séries serão consideradas no cálculo; se tiver apenas o fundamental 1 nessa unidade, serão considerados apenas do 1º ao 5º ano.</p>
+				</div>
 			</Overlay>
 			<Underlay onClick={() => null} />
 		</>
