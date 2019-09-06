@@ -140,7 +140,7 @@ const Bars = ({ avg, cityAvg, type }) => {
 		.filter(each => avg.medio[each] !== '')
 		.map(each => [ref.avg[each][0],
 			avg.medio[each],
-			cityAvg[pub].medio[each],
+			(cityAvg[pub].medio ? cityAvg[pub].medio[each] : cityAvg[pub]['médio'][each]),
 			tips[each],
 		]);
 
