@@ -26,7 +26,7 @@ import {
 import ufList from '../../utils/uf-list';
 import zoneList from '../../utils/zones';
 
-const output = '//staging.arte.folha.com.br/educacao/buscador-escolha-a-escola/json/';
+const output = '/educacao/buscador-escolha-a-escola/json/';
 const spCode = '3550308';
 
 const config = (state = {
