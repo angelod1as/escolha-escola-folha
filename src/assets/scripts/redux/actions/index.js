@@ -172,9 +172,9 @@ export const removeZone = ({ value }) => (dispatch) => {
 
 export const readFromUrl = () => (dispatch, getState) => {
 	const { search } = getState().router.location;
-	if (search === '') {
+	if (search[search.length - 1] === '?') {
 		dispatch(push('?'));
-	} else {
+	} else if (search !== '') {
 		const obj = {};
 		search
 			.substr(1)
