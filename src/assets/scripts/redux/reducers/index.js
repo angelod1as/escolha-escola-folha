@@ -131,7 +131,6 @@ const chooseZone = (state = {
 }, action) => {
 	switch (action.type) {
 	case SET_ZONE: {
-		// TODO not add duplicate zone
 		const newChosen = state
 			.chosenZones
 			.includes(action.chosen)

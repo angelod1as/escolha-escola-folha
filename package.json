@@ -1,5 +1,5 @@
 {
-	"name": "escolha-a-escola",
+	"name": "buscador-escolha-a-escola",
 	"version": "1.1.0",
 	"description": "Boilerplate com webpack e react para o interativo da Folha de S.Paulo",
 	"main": "install.js",
