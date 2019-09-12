@@ -202,13 +202,13 @@ const Bars = ({ avg, cityAvg, type }) => {
 										return (
 											<BarHolder key={uuid()}>
 												<Item data-tip={saebNum[3] !== '' ? saebNum[3] : null}>{i === 0 ? 'Português' : 'Matemática'}</Item>
-												<Number color={barColor(avgRefs[eachSaeb[0]])}>{schoolVal}</Number>
+												<Number color={barColor(avgRefs[eachSaeb[0]])}>{schoolVal.toLocaleString('pt-br')}</Number>
 												<Bar>
 													<Grade color={barColor(avgRefs[eachSaeb[0]])} num={schoolVal / 10} />
 													<Marker hidden={cityVal === undefined} num={cityVal / 10} />
 												</Bar>
 												<Average>
-													{cityVal === undefined ? 'N/D' : cityVal}
+													{cityVal === undefined ? 'N/D' : cityVal.toLocaleString('pt-br')}
 												</Average>
 											</BarHolder>
 										);
@@ -241,13 +241,13 @@ const Bars = ({ avg, cityAvg, type }) => {
 							return (
 								<BarHolder key={uuid()}>
 									<Item data-tip={bar[3] !== '' ? bar[3] : null}>{title}</Item>
-									<Number color={barColor(each[0])}>{`${schoolVal}${percent ? '%' : ''}`}</Number>
+									<Number color={barColor(each[0])}>{`${schoolVal.toLocaleString('pt-br')}${percent ? '%' : ''}`}</Number>
 									<Bar>
 										<Grade color={barColor(each[0])} num={isEnem ? enemSchool : schoolVal} />
 										<Marker hidden={cityVal === undefined} num={isEnem ? enemCity : cityVal} />
 									</Bar>
 									<Average>
-										{`${cityVal === undefined ? 'N/D' : `${cityVal}${percent ? '%' : ''}`}`}
+										{`${cityVal === undefined ? 'N/D' : `${cityVal.toLocaleString('pt-br')}${percent ? '%' : ''}`}`}
 									</Average>
 								</BarHolder>
 							);
