@@ -234,6 +234,7 @@ const School = ({
 				</Contact>
 
 				<div>
+					<p style={{ fontSize: '.75em', marginBottom: '1em' }}>As informações presentes no buscador têm como base fontes oficiais, mas alguns dados podem estar desatualizados. Em caso de dúvidas, sugerimos contato direto com a escola.</p>
 					<p style={{ fontSize: '.75em' }}>*Os indicadores se referem à média de todas as séries da unidade. Se a unidade tiver do 1º ao 9º ano, todas as séries serão consideradas no cálculo; se tiver apenas o fundamental 1 nessa unidade, serão considerados apenas do 1º ao 5º ano.</p>
 				</div>
 			</Overlay>
