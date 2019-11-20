@@ -6,6 +6,7 @@ import Loading from './loading/index';
 import Top from './top/top';
 import Sidebar from './sidebar/index';
 import Content from './content/index';
+import Retraction from './retraction/index';
 
 const Home = (props) => {
 	const { readFromUrl } = props;
@@ -16,6 +17,7 @@ const Home = (props) => {
 				<Top />
 				<Sidebar />
 				<Content />
+				<Retraction />
 			</>
 		);
 	}

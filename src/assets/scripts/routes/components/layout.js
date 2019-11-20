@@ -29,7 +29,8 @@ const Layout = styled.div`
 		"f-form f-form f-form f-form"
 		"f-cities f-cities f-zones ."
 		"f-name f-name f-name ."
-		"content content content f-sidebar ";
+		"content content content f-sidebar "
+		"retraction retraction retraction . ";
 
 	@media ${bp.medium} {
 		grid-template-columns: auto auto 200px;
@@ -38,7 +39,8 @@ const Layout = styled.div`
 		"f-form f-form f-form"
 		"f-cities f-cities f-zones"
 		"f-name f-name f-name"
-		"content content f-sidebar";
+		"content content f-sidebar"
+		"retraction retraction retraction .";
 	}
 
 	@media ${bp.small} {
@@ -49,7 +51,8 @@ const Layout = styled.div`
 		"f-zones"
 		"f-name"
 		"content"
-		"f-sidebar";
+		"f-sidebar"
+		"retraction";
 	}
 `;
 
